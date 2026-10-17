@@ -1,0 +1,211 @@
+date,item,category,amount
+2026-09-28,Fish,"Meat, fish & eggs",850
+2026-09-28,Vegetable,Produce & batter,220
+2026-09-28,Koroth,"Meat, fish & eggs",781
+2026-09-28,Milk (Katta),Milk,160
+2026-09-28,Banana,Produce & batter,130
+2026-09-28,Kada mutta,"Meat, fish & eggs",320
+2026-09-28,Dry fruits,Groceries,850
+2026-09-28,Milk,Milk,504
+2026-09-28,Salary (2 days),Staff,12600
+2026-09-29,Anadhi,Groceries,640
+2026-09-29,Disposable,Disposables,1150
+2026-09-29,Fruits,Produce & batter,550
+2026-09-29,Dry fruits,Groceries,550
+2026-09-29,Vegetable,Produce & batter,550
+2026-09-29,Newspaper,Utilities & misc,50
+2026-09-29,Water,Utilities & misc,1000
+2026-09-29,Rava,Groceries,210
+2026-09-29,Milk,Milk,567
+2026-09-29,Fish,"Meat, fish & eggs",200
+2026-09-29,Salary,Staff,5200
+2026-09-29,Misc,Utilities & misc,1540
+2026-09-30,Dosa maav,Produce & batter,200
+2026-09-30,Lemon,Groceries,200
+2026-09-30,Vegetable,Produce & batter,200
+2026-09-30,Fish,"Meat, fish & eggs",420
+2026-09-30,Chicken,"Meat, fish & eggs",450
+2026-09-30,Gas,Gas,5615
+2026-09-30,Anadhi,Groceries,875
+2026-09-30,Milk,Milk,630
+2026-09-30,Grocery,Groceries,595
+2026-09-30,Salary,Staff,6700
+2026-09-30,Food (restaurant),Utilities & misc,1750
+2026-10-01,Fish,"Meat, fish & eggs",950
+2026-10-01,Vegetable,Produce & batter,1115
+2026-10-01,Milk,Milk,504
+2026-10-01,Ice cream,Snacks & ice cream,1480
+2026-10-01,Beef,"Meat, fish & eggs",900
+2026-10-01,Snack,Snacks & ice cream,1530
+2026-10-01,Waste,Utilities & misc,100
+2026-10-01,Salary (6),Staff,5200
+2026-10-02,Anadhi,Groceries,2954
+2026-10-02,Fruits,Produce & batter,680
+2026-10-02,Milk,Milk,505
+2026-10-02,Beef,"Meat, fish & eggs",1050
+2026-10-02,Snack,Snacks & ice cream,1565
+2026-10-02,Chicken,"Meat, fish & eggs",1200
+2026-10-02,Waste,Utilities & misc,100
+2026-10-02,Water,Utilities & misc,330
+2026-10-02,Vegetable,Produce & batter,1100
+2026-10-02,Salary (6),Staff,5400
+2026-10-03,Milk,Milk,644
+2026-10-03,Anadhi,Groceries,3125
+2026-10-03,Dosa maav,Produce & batter,330
+2026-10-03,Disposable,Disposables,630
+2026-10-03,Fruits,Produce & batter,700
+2026-10-03,Tea powder & Banana,Groceries,325
+2026-10-03,Chicken,"Meat, fish & eggs",270
+2026-10-03,Beef,"Meat, fish & eggs",1050
+2026-10-03,Fish,"Meat, fish & eggs",350
+2026-10-03,Vegetable,Produce & batter,1100
+2026-10-03,Snack,Snacks & ice cream,2600
+2026-10-03,Salary (6),Staff,5400
+2026-10-04,Milk,Milk,1137
+2026-10-04,Dosa maav,Produce & batter,180
+2026-10-04,Anadhi,Groceries,2260
+2026-10-04,Chicken,"Meat, fish & eggs",270
+2026-10-04,Fruits,Produce & batter,420
+2026-10-04,Banana,Produce & batter,150
+2026-10-04,Vegetable,Produce & batter,2500
+2026-10-04,Disposable,Disposables,400
+2026-10-04,Waste,Utilities & misc,100
+2026-10-04,Juice decoration,Utilities & misc,160
+2026-10-04,Auto,Utilities & misc,140
+2026-10-04,Fish,"Meat, fish & eggs",910
+2026-10-04,Salary (6),Staff,5400
+2026-10-05,Milk,Milk,630
+2026-10-05,Dosa maav,Produce & batter,180
+2026-10-05,Dry fruits,Groceries,645
+2026-10-05,Anadhi,Groceries,1856
+2026-10-05,Beef & Chicken,"Meat, fish & eggs",1340
+2026-10-05,Milk (Katta),Milk,160
+2026-10-05,Fruits,Produce & batter,690
+2026-10-05,Waste,Utilities & misc,100
+2026-10-05,Petrol,Utilities & misc,700
+2026-10-05,Vegetable,Produce & batter,2500
+2026-10-05,Fish,"Meat, fish & eggs",600
+2026-10-05,Salary (7),Staff,6000
+2026-10-06,Milk,Milk,630
+2026-10-06,Beef,"Meat, fish & eggs",1050
+2026-10-06,Chicken,"Meat, fish & eggs",290
+2026-10-06,Disposable,Disposables,300
+2026-10-06,Anadhi,Groceries,380
+2026-10-06,Banana,Produce & batter,100
+2026-10-06,Vegetable,Produce & batter,2000
+2026-10-06,Ice cream,Snacks & ice cream,1620
+2026-10-06,Snack,Snacks & ice cream,2470
+2026-10-06,Petrol,Utilities & misc,120
+2026-10-06,Salary (7),Staff,6000
+2026-10-07,Dosa maav,Produce & batter,180
+2026-10-07,Anadhi,Groceries,2709
+2026-10-07,Fruits,Produce & batter,430
+2026-10-07,Fish,"Meat, fish & eggs",600
+2026-10-07,Chicken,"Meat, fish & eggs",290
+2026-10-07,Beef,"Meat, fish & eggs",1575
+2026-10-07,Milk,Milk,1080
+2026-10-07,Egg,"Meat, fish & eggs",183
+2026-10-07,Snack,Snacks & ice cream,1200
+2026-10-07,Vegetable,Produce & batter,1139
+2026-10-07,Salary (6),Staff,5000
+2026-10-07,Kalimakayi (snack),Snacks & ice cream,1000
+2026-10-08,Beef,"Meat, fish & eggs",1575
+2026-10-08,Chicken,"Meat, fish & eggs",290
+2026-10-08,Egg,"Meat, fish & eggs",183
+2026-10-08,Snack,Snacks & ice cream,1336
+2026-10-08,Salary (4),Staff,2800
+2026-10-09,Milk,Milk,2010
+2026-10-09,Dosa maav,Produce & batter,180
+2026-10-09,Fruits,Produce & batter,200
+2026-10-09,Banana,Produce & batter,130
+2026-10-09,Disposable,Disposables,1257
+2026-10-09,Anadhi,Groceries,1386
+2026-10-09,Tea powder,Groceries,360
+2026-10-09,Snack,Snacks & ice cream,975
+2026-10-09,Fish,"Meat, fish & eggs",460
+2026-10-09,Waste,Utilities & misc,100
+2026-10-09,Auto,Utilities & misc,120
+2026-10-09,Salary (7),Staff,6000
+2026-10-10,Fish,"Meat, fish & eggs",1060
+2026-10-10,Dosa maav,Produce & batter,180
+2026-10-10,Anadhi,Groceries,1142
+2026-10-10,Disposable,Disposables,240
+2026-10-10,Gas,Gas,5746
+2026-10-10,Fruits,Produce & batter,680
+2026-10-10,Chicken,"Meat, fish & eggs",290
+2026-10-10,Ice cream,Snacks & ice cream,1310
+2026-10-10,Milk,Milk,930
+2026-10-10,Beef,"Meat, fish & eggs",1050
+2026-10-10,Salary (7),Staff,6000
+2026-10-11,Dosa maav,Produce & batter,180
+2026-10-11,Anadhi,Groceries,2509
+2026-10-11,Banana,Produce & batter,100
+2026-10-11,Vegetable,Produce & batter,75
+2026-10-11,Egg,"Meat, fish & eggs",183
+2026-10-11,Milk,Milk,630
+2026-10-11,Beef,"Meat, fish & eggs",1050
+2026-10-11,Chicken,"Meat, fish & eggs",270
+2026-10-11,Snack,Snacks & ice cream,1230
+2026-10-11,Waste,Utilities & misc,100
+2026-10-11,Salary (6),Staff,4800
+2026-10-12,Fish,"Meat, fish & eggs",1150
+2026-10-12,Vegetable,Produce & batter,2000
+2026-10-12,Banana,Produce & batter,100
+2026-10-12,Fruits,Produce & batter,680
+2026-10-12,Dosa maav,Produce & batter,180
+2026-10-12,Egg,"Meat, fish & eggs",585
+2026-10-12,Anadhi,Groceries,1500
+2026-10-12,Dry fruits,Groceries,358
+2026-10-12,Chicken,"Meat, fish & eggs",290
+2026-10-12,Disposable,Disposables,670
+2026-10-12,Milk,Milk,1206
+2026-10-12,Beef,"Meat, fish & eggs",1050
+2026-10-12,Falafel roll,Snacks & ice cream,600
+2026-10-12,Snack,Snacks & ice cream,2365
+2026-10-12,Waste,Utilities & misc,100
+2026-10-12,Salary (7),Staff,6000
+2026-10-12,Ramzan Bhai (staff),Staff,1000
+2026-10-13,Banana,Produce & batter,100
+2026-10-13,Fruits,Produce & batter,330
+2026-10-13,Anadhi,Groceries,1434
+2026-10-13,Petrol,Utilities & misc,100
+2026-10-13,Falafel,Snacks & ice cream,450
+2026-10-13,Chicken,"Meat, fish & eggs",290
+2026-10-13,Milk,Milk,1025
+2026-10-13,Snack,Snacks & ice cream,1580
+2026-10-13,Waste,Utilities & misc,100
+2026-10-13,Salary (7),Staff,5900
+2026-10-14,Falafel,Snacks & ice cream,450
+2026-10-14,Dosa maav,Produce & batter,180
+2026-10-14,Fish,"Meat, fish & eggs",350
+2026-10-14,Petrol,Utilities & misc,100
+2026-10-14,Disposable & egg,"Meat, fish & eggs",790
+2026-10-14,Anadhi,Groceries,1453
+2026-10-14,Milk,Milk,756
+2026-10-14,Staff food,Staff,100
+2026-10-14,Waste,Utilities & misc,100
+2026-10-14,Salary (7),Staff,5900
+2026-10-15,Fruits,Produce & batter,400
+2026-10-15,Anadhi,Groceries,1608
+2026-10-15,Chicken,"Meat, fish & eggs",310
+2026-10-15,Beef,"Meat, fish & eggs",1575
+2026-10-15,Vegetable,Produce & batter,1419
+2026-10-15,Gas,Gas,5680
+2026-10-15,Milk,Milk,1080
+2026-10-15,Water,Utilities & misc,520
+2026-10-15,Waste,Utilities & misc,100
+2026-10-15,Staff food,Staff,100
+2026-10-15,Raja O/B salary,Staff,1000
+2026-10-15,Salary (4),Staff,4100
+2026-10-16,Milk,Milk,504
+2026-10-16,Fish,"Meat, fish & eggs",800
+2026-10-16,Banana,Produce & batter,100
+2026-10-16,Dosa maav,Produce & batter,120
+2026-10-16,Anadhi & Butter,Groceries,1607
+2026-10-16,Falafel,Snacks & ice cream,900
+2026-10-16,Snack,Snacks & ice cream,2310
+2026-10-16,Beef,"Meat, fish & eggs",525
+2026-10-16,Waste,Utilities & misc,100
+2026-10-16,Rent,Rent,800
+2026-10-16,Salary (3),Staff,2200
+2026-10-16,Rohith O/B (2 days),Staff,1200
