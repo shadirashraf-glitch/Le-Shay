@@ -6,27 +6,27 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Le Shay Cafe Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="logo.png">
+<meta name="theme-color" content="#0D0D0D">
 <script src="lib/d3.min.js"></script>
 <style>
 :root {
-  --bg: #faf6ef; --panel: #ffffff; --fg: #2a2118; --muted: #7a6c5d; --line: #ece3d6; --grid: #f1eadf;
-  --gold: #b8862a; --gold-soft: #e9d5ab; --sales: #b8862a; --spend: #6f5b4b; --ok: #2f7d4f; --bad: #c0442f; --muted-bar: #d9cbb8;
-  --serif: "Fraunces", Georgia, serif; --sans: "Inter", system-ui, -apple-system, sans-serif;
-}
-@media (prefers-color-scheme: dark) {
-  :root { --bg: #17120d; --panel: #211a13; --fg: #f3ebe0; --muted: #a8978a; --line: #3a2f24; --grid: #2b2219;
-    --gold: #e0b45a; --gold-soft: #4a3a1f; --sales: #e0b45a; --spend: #b7a48f; --ok: #6cc28c; --bad: #ef7a63; --muted-bar: #4a3d30; }
+  --bg: #0D0D0D; --panel: #17130F; --fg: #F5E9D7; --muted: #A8998A; --line: #2E261D; --grid: #231D16;
+  --gold: #D4AF37; --gold-soft: rgba(212,175,55,.16); --sales: #D4AF37; --spend: #A88B63; --ok: #7FC89A; --bad: #E8735C; --muted-bar: #3A3026;
+  --serif: "Playfair Display", Georgia, serif; --sans: "Montserrat", system-ui, -apple-system, sans-serif;
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--sans); font-size: 15px; line-height: 1.45; -webkit-text-size-adjust: 100%; }
 .wrap { max-width: 1080px; margin: 0 auto; padding: 20px 16px 48px; display: grid; gap: 18px; }
-header { display: grid; gap: 4px; padding: 6px 0 4px 14px; border-left: 3px solid var(--gold); }
-h1 { font-family: var(--serif); font-weight: 600; font-size: 30px; margin: 0; letter-spacing: -.01em; }
-h1 span { color: var(--gold); }
+header.brand { display: grid; justify-items: center; text-align: center; gap: 8px; padding: 22px 12px 18px; border-bottom: 1px solid var(--line); background: radial-gradient(ellipse at 50% 30%, rgba(212,175,55,.10), transparent 70%); }
+header.brand img { width: min(260px, 72vw); height: auto; display: block; }
+.tag { color: var(--gold); font-size: 9px; letter-spacing: .2em; text-transform: uppercase; white-space: nowrap; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.takebox { border: 1px solid var(--gold-soft); background: var(--panel); border-left: 3px solid var(--gold); border-radius: 12px; padding: 12px 14px; }
 .sub { color: var(--muted); font-size: 13px; }
 .take { margin: 6px 0 0; font-size: 15px; }
-h2 { font-size: 16px; font-weight: 600; margin: 0; }
+h2 { font-family: var(--serif); font-size: 19px; font-weight: 600; margin: 0; color: var(--fg); }
 .note { color: var(--muted); font-size: 13px; margin: 0; }
 .card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 10px; min-width: 0; }
 .tiles { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
@@ -34,14 +34,14 @@ h2 { font-size: 16px; font-weight: 600; margin: 0; }
 .tile { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: grid; gap: 2px; align-content: start; min-width: 0; }
 .card .tile { background: transparent; }
 .lbl { color: var(--muted); font-size: 12px; }
-.big { font-family: var(--serif); font-size: 24px; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.big { font-family: var(--serif); font-size: 24px; color: var(--fg); font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .sm { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
 .pos { color: var(--ok); } .neg { color: var(--bad); }
 .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: 18px; }
 .bar { height: 12px; background: var(--grid); border-radius: 6px; overflow: hidden; }
 .bar > div { height: 100%; background: var(--gold); border-radius: 6px; }
 .chart { position: relative; min-height: 220px; touch-action: pan-y; }
-.tip { position: absolute; top: 0; pointer-events: none; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 4px 14px rgba(0,0,0,.12); padding: 6px 9px; font-size: 12px; white-space: nowrap; display: none; z-index: 3; font-variant-numeric: tabular-nums; }
+.tip { position: absolute; top: 0; pointer-events: none; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 6px 18px rgba(0,0,0,.5); padding: 6px 9px; font-size: 12px; white-space: nowrap; display: none; z-index: 3; font-variant-numeric: tabular-nums; }
 .tip .d { color: var(--muted); }
 .legend { display: flex; gap: 14px; font-size: 12px; color: var(--muted); }
 .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
@@ -62,17 +62,19 @@ select { font: inherit; padding: 8px 10px; border-radius: 10px; border: 1px soli
 .items .row { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 8px; padding: 7px 0; border-bottom: 1px dashed var(--line); }
 .items small { color: var(--muted); margin-left: 6px; font-size: 11px; }
 .items .tot { font-weight: 600; border-bottom: 1px solid var(--line); }
-footer { color: var(--muted); font-size: 12px; text-align: center; }
+footer { color: var(--muted); font-size: 11px; text-align: center; letter-spacing: .08em; }
 .err { padding: 40px 0; text-align: center; color: var(--muted); }
 </style>
 </head>
 <body>
 <div class="wrap" id="app">
-  <header>
-    <h1>Le Shay <span>Cafe</span></h1>
+  <header class="brand">
+    <h1 class="sr">Le Shay Cafe Tracker</h1>
+    <img src="logo.png" alt="Le Shay Cafe">
+    <div class="tag">Good food · Good people · Great conversations</div>
     <div class="sub" id="range">Loading…</div>
-    <p class="take" id="takeaway"></p>
   </header>
+  <div class="takebox"><p class="take" id="takeaway" style="margin:0"></p></div>
 
   <section class="card">
     <h2>Latest day</h2>
@@ -200,7 +202,7 @@ function summary() {
   $('p-out').textContent = rate <= 0
     ? 'Payback has not started yet. Over the last 14 days the cafe averaged a ' + inr(-rate) + ' daily loss, so daily profit needs to turn positive first. Losses so far: ' + inr(Math.min(N, 0)) + '.'
     : 'At the last 14 days\' pace of ' + inr(rate) + ' profit a day, full payback takes about ' + Math.round((inv - N) / rate / 30) + ' months.';
-  $('foot').textContent = 'Le Shay Cafe · updated ' + d3.timeFormat('%-d %b %Y, %H:%M')(new Date(D.updated));
+  $('foot').textContent = 'Le Shay Cafe · Thalassery · updated ' + d3.timeFormat('%-d %b %Y, %H:%M')(new Date(D.updated));
 }
 
 function tip(box) { let t = box.querySelector('.tip'); if (!t) { t = document.createElement('div'); t.className = 'tip'; box.appendChild(t); } return t; }
@@ -288,7 +290,6 @@ fetch('data/ledger.json?v=' + Date.now(), { cache: 'no-store' }).then(r => r.jso
   D = model(j); picked = D.daily[D.daily.length - 1].date;
   summary(); tables(); dayView(); charts();
   let w = innerWidth; addEventListener('resize', () => { if (innerWidth !== w) { w = innerWidth; charts(); } });
-  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', charts);
 }).catch(() => { $('app').innerHTML = '<div class="err">Couldn\'t load the latest numbers. Please refresh in a moment.</div>'; });
 </script>
 </body>
