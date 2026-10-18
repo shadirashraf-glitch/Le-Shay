@@ -1,5 +1,5 @@
 {
-"updated": "2026-10-17T19:14+00:00",
+"updated": "2026-10-18T15:03+00:00",
 "investment": 1100000,
 "investment_note": "Estimated, to be confirmed",
 "sales": [
@@ -78,6 +78,10 @@
 {
 "date": "2026-10-16",
 "sales": 10910
+},
+{
+"date": "2026-10-17",
+"sales": 14237
 }
 ],
 "expenses": [
@@ -1340,6 +1344,72 @@
 "item": "Rohith O/B (2 days)",
 "category": "Staff",
 "amount": 1200
+},
+{
+"date": "2026-10-17",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 180
+},
+{
+"date": "2026-10-17",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1329
+},
+{
+"date": "2026-10-17",
+"item": "Egg & disposable",
+"category": "Meat, fish & eggs",
+"amount": 800
+},
+{
+"date": "2026-10-17",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 500
+},
+{
+"date": "2026-10-17",
+"item": "Falafel",
+"category": "Snacks & ice cream",
+"amount": 450
+},
+{
+"date": "2026-10-17",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 2050
+},
+{
+"date": "2026-10-17",
+"item": "Milk",
+"category": "Milk",
+"amount": 756
+},
+{
+"date": "2026-10-17",
+"item": "Chicken",
+"category": "Meat, fish & eggs",
+"amount": 585
+},
+{
+"date": "2026-10-17",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-17",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-10-17",
+"item": "Salary (4) + Faizal (2 days)",
+"category": "Staff",
+"amount": 5200
 }
 ]
 }
