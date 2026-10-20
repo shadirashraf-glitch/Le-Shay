@@ -98,7 +98,7 @@ footer { color: var(--muted); font-size: 11px; text-align: center; letter-spacin
 
   <section class="card" id="pre-card">
     <h2>Launch tasting</h2>
-    <p class="note">Free sample food served before opening. Counted in net since opening, not in daily figures.</p>
+    <p class="note">Free sample food served before opening. Listed in the daily log and counted in net since opening, but kept out of daily averages and charts.</p>
     <div class="items" id="pre-items"></div>
   </section>
 
@@ -274,20 +274,26 @@ function tables() {
     const tr = document.createElement('div'); tr.className = 'track'; const f = document.createElement('div'); f.style.width = r.a / mx * 100 + '%'; f.style.background = i === 0 ? 'var(--gold)' : 'var(--muted-bar)';
     tr.appendChild(f); el.append(a, b, tr); cb.appendChild(el); });
   const td = $('tb-day'); td.innerHTML = '';
-  D.daily.slice().reverse().forEach(r => { const tr = td.insertRow(); tr.dataset.key = r.date;
-    [d3.utcFormat('%a %-d %b')(P(r.date)), inr(r.sales), inr(r.spend), inr(r.net)].forEach((v, i) => { const c = tr.insertCell(); c.textContent = v; if (i === 3) c.className = r.net >= 0 ? 'pos' : 'neg'; });
+  logRows().slice().reverse().forEach(r => { const tr = td.insertRow(); tr.dataset.key = r.date;
+    [d3.utcFormat('%a %-d %b')(P(r.date)) + (r.pre ? ' · Launch tasting' : ''), inr(r.sales), inr(r.spend), inr(r.net)].forEach((v, i) => { const c = tr.insertCell(); c.textContent = v; if (i === 3) c.className = r.net >= 0 ? 'pos' : 'neg'; });
     tr.onclick = () => { picked = r.date; dayView(); $('day').scrollIntoView({ behavior: 'smooth' }); }; });
   const sel = $('day-pick'); sel.innerHTML = '';
-  D.daily.slice().reverse().forEach(r => { const o = document.createElement('option'); o.value = r.date; o.textContent = d3.utcFormat('%A, %-d %B')(P(r.date)); sel.appendChild(o); });
+  logRows().slice().reverse().forEach(r => { const o = document.createElement('option'); o.value = r.date; o.textContent = d3.utcFormat('%A, %-d %B')(P(r.date)) + (r.pre ? ' (launch tasting)' : ''); sel.appendChild(o); });
   sel.onchange = e => { picked = e.target.value; dayView(); };
+}
+
+function logRows() {
+  const pre = d3.rollups(D.preopening || [], v => d3.sum(v, x => x.amount), x => x.date).map(([date, a]) => ({ date, sales: 0, spend: a, net: -a, pre: true }));
+  return pre.concat(D.daily).sort((a, b) => a.date < b.date ? -1 : 1);
 }
 
 function dayView() {
   $('day-pick').value = picked;
   const box = $('day-items'); box.innerHTML = '';
-  const day = D.daily.find(d => d.date === picked);
+  const day = logRows().find(d => d.date === picked);
   const add = (l, s, v, cls) => { const r = document.createElement('div'); r.className = 'row ' + (cls || ''); const a = document.createElement('span'); a.textContent = l; if (s) { const m = document.createElement('small'); m.textContent = s; a.appendChild(m); } const b = document.createElement('span'); b.textContent = v; r.append(a, b); box.appendChild(r); };
-  add('Sales', '', inr(day.sales), 'tot');
+  add('Sales', day.pre ? 'Pre-opening, no sales' : '', inr(day.sales), 'tot');
+  if (day.pre) (D.preopening || []).filter(e => e.date === picked).forEach(e => add(e.item, 'Launch tasting', inr(e.amount)));
   D.expenses.filter(e => e.date === picked).forEach(e => add(e.item, e.category, inr(e.amount)));
   add('Total spend', '', inr(day.spend), 'tot');
   add(day.net >= 0 ? 'Profit' : 'Loss', '', inr(day.net), 'tot ' + (day.net >= 0 ? 'pos' : 'neg'));
