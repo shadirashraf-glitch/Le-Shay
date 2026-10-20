@@ -1,5 +1,5 @@
 {
-"updated": "2026-10-20T18:23+00:00",
+"updated": "2026-10-20T18:30+00:00",
 "investment": 1100000,
 "investment_note": "Estimated, to be confirmed",
 "sales": [
@@ -1586,6 +1586,68 @@
 "date": "2026-09-27",
 "item": "Sample food tasting",
 "amount": 6405
+}
+],
+"investment_items": [
+{
+"item": "Bed pillows",
+"amount": 1140
+},
+{
+"item": "Kooli",
+"amount": 1580
+},
+{
+"item": "Diamond crockery",
+"amount": 21500
+},
+{
+"item": "Auto & knife",
+"amount": 300
+},
+{
+"item": "Cook",
+"amount": 500
+},
+{
+"item": "Mixy",
+"amount": 7200
+},
+{
+"item": "Board out",
+"amount": 6500
+},
+{
+"item": "Gas",
+"amount": 8421
+},
+{
+"item": "Table kooli",
+"amount": 10000
+},
+{
+"item": "Chair",
+"amount": 2000
+},
+{
+"item": "Wood",
+"amount": 13500
+},
+{
+"item": "Sticker work",
+"amount": 7900
+},
+{
+"item": "Out board",
+"amount": 5000
+},
+{
+"item": "Mixy",
+"amount": 11000
+},
+{
+"item": "Electric work",
+"amount": 5500
 }
 ]
 }

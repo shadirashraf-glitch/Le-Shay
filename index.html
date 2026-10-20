@@ -111,6 +111,9 @@ footer { color: var(--muted); font-size: 11px; text-align: center; letter-spacin
       <div class="tile"><span class="lbl">Recovered</span><span class="big" id="p-pct">—</span><span class="sm" id="p-rem"></span></div>
     </div>
     <p class="take" id="p-out"></p>
+    <h2 style="font-size:16px;margin-top:6px">Investment breakdown</h2>
+    <p class="note" id="inv-note"></p>
+    <div class="items" id="inv-items"></div>
   </section>
 
   <div class="grid2">
@@ -209,6 +212,14 @@ function summary() {
   (D.preopening || []).forEach(x => { const r = document.createElement('div'); r.className = 'row'; const a = document.createElement('span'); a.textContent = d3.utcFormat('%a %-d %b')(P(x.date)); const m = document.createElement('small'); m.textContent = x.item; a.appendChild(m); const b = document.createElement('span'); b.textContent = inr(x.amount); r.append(a, b); pb.appendChild(r); });
   { const r = document.createElement('div'); r.className = 'row tot'; const a = document.createElement('span'); a.textContent = 'Total'; const b = document.createElement('span'); b.textContent = inr(PRE); r.append(a, b); pb.appendChild(r); }
   $('pre-card').style.display = PRE ? '' : 'none';
+  const ib = $('inv-items'); ib.innerHTML = '';
+  const items = (D.investment_items || []).slice().sort((a, b) => b.amount - a.amount), listed = d3.sum(items, x => x.amount);
+  const irow = (l, v, cls, sub) => { const r = document.createElement('div'); r.className = 'row ' + (cls || ''); const a = document.createElement('span'); a.textContent = l; if (sub) { const m = document.createElement('small'); m.textContent = sub; a.appendChild(m); } const b = document.createElement('span'); b.textContent = inr(v); r.append(a, b); ib.appendChild(r); };
+  items.forEach(x => irow(x.item, x.amount));
+  irow('Listed items', listed, 'tot');
+  irow('Others', inv - listed, '', 'not itemised yet');
+  irow('Total investment', inv, 'tot');
+  $('inv-note').textContent = items.length + ' itemised purchases add up to ' + inr(listed) + ', ' + Math.round(listed / inv * 100) + '% of the total. The rest is grouped as Others.';
   $('p-out').textContent = rate <= 0
     ? 'Payback has not started yet. Over the last 14 days the cafe averaged a ' + inr(-rate) + ' daily loss, so daily profit needs to turn positive first. Losses so far: ' + inr(Math.min(N, 0)) + '.'
     : 'At the last 14 days\' pace of ' + inr(rate) + ' profit a day, full payback takes about ' + Math.round((inv - N) / rate / 30) + ' months.';
