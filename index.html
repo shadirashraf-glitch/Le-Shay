@@ -96,6 +96,12 @@ footer { color: var(--muted); font-size: 11px; text-align: center; letter-spacin
     </div>
   </section>
 
+  <section class="card" id="pre-card">
+    <h2>Launch tasting</h2>
+    <p class="note">Free sample food served before opening. Counted in net since opening, not in daily figures.</p>
+    <div class="items" id="pre-items"></div>
+  </section>
+
   <section class="card">
     <h2>Investment payback</h2>
     <p class="note" id="pay-note"></p>
@@ -176,7 +182,7 @@ function model(j) {
 }
 
 function summary() {
-  const d = D.daily, n = d.length, S = d3.sum(d, x => x.sales), E = d3.sum(d, x => x.spend), N = S - E;
+  const d = D.daily, n = d.length, S = d3.sum(d, x => x.sales), E = d3.sum(d, x => x.spend), PRE = d3.sum(D.preopening || [], x => x.amount), N = S - E - PRE;
   $('range').textContent = fd(d[0].date) + ' to ' + fd(d[n - 1].date) + ' 2026 · all amounts in ₹';
   const l7 = d3.sum(d.slice(-7), x => x.net), p7 = d3.sum(d.slice(-14, -7), x => x.net);
   const staffPct = Math.round(d3.sum(d, x => x.staff) / S * 100);
@@ -191,7 +197,7 @@ function summary() {
   $('lt-staff').textContent = inr(L.staff); $('lt-staffpct').textContent = Math.round(L.staff / L.sales * 100) + '% of sales';
   $('t-sales').textContent = inr(S); $('t-avgs').textContent = inr(S / n) + ' a day on average';
   $('t-spend').textContent = inr(E); $('t-avge').textContent = inr(E / n) + ' a day on average';
-  $('t-net').textContent = inr(N); $('t-net').className = 'big ' + (N >= 0 ? 'pos' : 'neg'); $('t-days').textContent = n + ' trading days';
+  $('t-net').textContent = inr(N); $('t-net').className = 'big ' + (N >= 0 ? 'pos' : 'neg'); $('t-days').textContent = n + ' trading days' + (PRE ? ', incl. ' + inr(PRE) + ' launch tasting' : '');
   $('t-prof').textContent = d.filter(x => x.net > 0).length + ' of ' + n;
   const best = d.reduce((a, b) => b.sales > a.sales ? b : a);
   $('t-best').textContent = 'Best day: ' + fd(best.date) + ', ' + inr(best.sales);
@@ -199,6 +205,10 @@ function summary() {
   $('pay-note').textContent = 'How much of the opening investment has been earned back from profits.' + (D.investment_note ? ' Investment figure: ' + D.investment_note.toLowerCase() + '.' : '');
   $('p-inv').textContent = inr(inv); $('p-pct').textContent = (rec / inv * 100).toFixed(1) + '%'; $('p-rem').textContent = inr(inv - rec) + ' still to recover';
   $('pay-fill').style.width = Math.min(100, rec / inv * 100) + '%';
+  const pb = $('pre-items'); pb.innerHTML = '';
+  (D.preopening || []).forEach(x => { const r = document.createElement('div'); r.className = 'row'; const a = document.createElement('span'); a.textContent = d3.utcFormat('%a %-d %b')(P(x.date)); const m = document.createElement('small'); m.textContent = x.item; a.appendChild(m); const b = document.createElement('span'); b.textContent = inr(x.amount); r.append(a, b); pb.appendChild(r); });
+  { const r = document.createElement('div'); r.className = 'row tot'; const a = document.createElement('span'); a.textContent = 'Total'; const b = document.createElement('span'); b.textContent = inr(PRE); r.append(a, b); pb.appendChild(r); }
+  $('pre-card').style.display = PRE ? '' : 'none';
   $('p-out').textContent = rate <= 0
     ? 'Payback has not started yet. Over the last 14 days the cafe averaged a ' + inr(-rate) + ' daily loss, so daily profit needs to turn positive first. Losses so far: ' + inr(Math.min(N, 0)) + '.'
     : 'At the last 14 days\' pace of ' + inr(rate) + ' profit a day, full payback takes about ' + Math.round((inv - N) / rate / 30) + ' months.';

@@ -1,5 +1,5 @@
 {
-"updated": "2026-10-20T17:44+00:00",
+"updated": "2026-10-20T18:23+00:00",
 "investment": 1100000,
 "investment_note": "Estimated, to be confirmed",
 "sales": [
@@ -1574,6 +1574,18 @@
 "item": "Salary (7)",
 "category": "Staff",
 "amount": 5700
+}
+],
+"preopening": [
+{
+"date": "2026-09-26",
+"item": "Sample food tasting",
+"amount": 37159
+},
+{
+"date": "2026-09-27",
+"item": "Sample food tasting",
+"amount": 6405
 }
 ]
 }
