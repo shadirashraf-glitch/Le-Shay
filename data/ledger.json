@@ -1,5 +1,5 @@
 {
-"updated": "2026-10-20T18:30+00:00",
+"updated": "2026-10-21T13:23+00:00",
 "investment": 1100000,
 "investment_note": "Estimated, to be confirmed",
 "sales": [
@@ -90,6 +90,10 @@
 {
 "date": "2026-10-19",
 "sales": 14070
+},
+{
+"date": "2026-10-20",
+"sales": 16359
 }
 ],
 "expenses": [
@@ -1574,6 +1578,84 @@
 "item": "Salary (7)",
 "category": "Staff",
 "amount": 5700
+},
+{
+"date": "2026-10-20",
+"item": "Falafel",
+"category": "Snacks & ice cream",
+"amount": 450
+},
+{
+"date": "2026-10-20",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 200
+},
+{
+"date": "2026-10-20",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-10-20",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1533
+},
+{
+"date": "2026-10-20",
+"item": "Disposable",
+"category": "Disposables",
+"amount": 510
+},
+{
+"date": "2026-10-20",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 1050
+},
+{
+"date": "2026-10-20",
+"item": "Chicken",
+"category": "Meat, fish & eggs",
+"amount": 300
+},
+{
+"date": "2026-10-20",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 1800
+},
+{
+"date": "2026-10-20",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 1335
+},
+{
+"date": "2026-10-20",
+"item": "Milk",
+"category": "Milk",
+"amount": 742
+},
+{
+"date": "2026-10-20",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 910
+},
+{
+"date": "2026-10-20",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-10-20",
+"item": "Salary (6)",
+"category": "Staff",
+"amount": 4200
 }
 ],
 "preopening": [
