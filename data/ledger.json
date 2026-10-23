@@ -1,5 +1,5 @@
 {
-"updated": "2026-10-21T13:23+00:00",
+"updated": "2026-10-23T15:43+00:00",
 "investment": 1100000,
 "investment_note": "Estimated, to be confirmed",
 "sales": [
@@ -94,6 +94,10 @@
 {
 "date": "2026-10-20",
 "sales": 16359
+},
+{
+"date": "2026-10-22",
+"sales": 7510
 }
 ],
 "expenses": [
@@ -1656,6 +1660,60 @@
 "item": "Salary (6)",
 "category": "Staff",
 "amount": 4200
+},
+{
+"date": "2026-10-22",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 200
+},
+{
+"date": "2026-10-22",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1962
+},
+{
+"date": "2026-10-22",
+"item": "Egg",
+"category": "Meat, fish & eggs",
+"amount": 186
+},
+{
+"date": "2026-10-22",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 300
+},
+{
+"date": "2026-10-22",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-10-22",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1000
+},
+{
+"date": "2026-10-22",
+"item": "Falafel",
+"category": "Snacks & ice cream",
+"amount": 450
+},
+{
+"date": "2026-10-22",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-10-22",
+"item": "Salary (1) + Faizal (2 days)",
+"category": "Staff",
+"amount": 3000
 }
 ],
 "preopening": [
