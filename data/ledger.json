@@ -1,5 +1,5 @@
 {
-"updated": "2026-10-25T15:55+00:00",
+"updated": "2026-10-26T17:43+00:00",
 "investment": 1100000,
 "investment_note": "Estimated, to be confirmed",
 "sales": [
@@ -102,6 +102,10 @@
 {
 "date": "2026-10-23",
 "sales": 11265
+},
+{
+"date": "2026-10-21",
+"sales": 11005
 }
 ],
 "expenses": [
@@ -1778,6 +1782,84 @@
 "item": "Salary (6, 2 days)",
 "category": "Staff",
 "amount": 7700
+},
+{
+"date": "2026-10-21",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 200
+},
+{
+"date": "2026-10-21",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1574
+},
+{
+"date": "2026-10-21",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 250
+},
+{
+"date": "2026-10-21",
+"item": "Milk",
+"category": "Milk",
+"amount": 630
+},
+{
+"date": "2026-10-21",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 2000
+},
+{
+"date": "2026-10-21",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 1050
+},
+{
+"date": "2026-10-21",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 1800
+},
+{
+"date": "2026-10-21",
+"item": "Egg & disposable",
+"category": "Meat, fish & eggs",
+"amount": 500
+},
+{
+"date": "2026-10-21",
+"item": "Gas",
+"category": "Gas",
+"amount": 2570
+},
+{
+"date": "2026-10-21",
+"item": "Chicken",
+"category": "Meat, fish & eggs",
+"amount": 740
+},
+{
+"date": "2026-10-21",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-21",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-10-21",
+"item": "Salary (6)",
+"category": "Staff",
+"amount": 4200
 }
 ],
 "preopening": [
