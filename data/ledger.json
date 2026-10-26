@@ -106,6 +106,10 @@
 {
 "date": "2026-10-21",
 "sales": 11005
+},
+{
+"date": "2026-10-24",
+"sales": 12551
 }
 ],
 "expenses": [
@@ -1860,6 +1864,60 @@
 "item": "Salary (6)",
 "category": "Staff",
 "amount": 4200
+},
+{
+"date": "2026-10-24",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 2000
+},
+{
+"date": "2026-10-24",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 200
+},
+{
+"date": "2026-10-24",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1835
+},
+{
+"date": "2026-10-24",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 960
+},
+{
+"date": "2026-10-24",
+"item": "Disposable & egg",
+"category": "Meat, fish & eggs",
+"amount": 420
+},
+{
+"date": "2026-10-24",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-10-24",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 670
+},
+{
+"date": "2026-10-24",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-24",
+"item": "Salary (1)",
+"category": "Staff",
+"amount": 1000
 }
 ],
 "preopening": [
