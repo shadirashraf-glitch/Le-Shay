@@ -1,5 +1,5 @@
 {
-"updated": "2026-10-26T17:43+00:00",
+"updated": "2026-10-26T17:47+00:00",
 "investment": 1100000,
 "investment_note": "Estimated, to be confirmed",
 "sales": [
@@ -110,6 +110,10 @@
 {
 "date": "2026-10-24",
 "sales": 12551
+},
+{
+"date": "2026-10-25",
+"sales": 12570
 }
 ],
 "expenses": [
@@ -1918,6 +1922,42 @@
 "item": "Salary (1)",
 "category": "Staff",
 "amount": 1000
+},
+{
+"date": "2026-10-25",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 2850
+},
+{
+"date": "2026-10-25",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 3000
+},
+{
+"date": "2026-10-25",
+"item": "Milk",
+"category": "Milk",
+"amount": 1000
+},
+{
+"date": "2026-10-25",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1900
+},
+{
+"date": "2026-10-25",
+"item": "Rent (2 days)",
+"category": "Rent",
+"amount": 1600
+},
+{
+"date": "2026-10-25",
+"item": "Salary (6, 2 days)",
+"category": "Staff",
+"amount": 9900
 }
 ],
 "preopening": [
