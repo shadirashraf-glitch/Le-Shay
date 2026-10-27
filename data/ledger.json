@@ -1,5 +1,5 @@
 {
-"updated": "2026-10-26T17:47+00:00",
+"updated": "2026-10-27T12:27+00:00",
 "investment": 1100000,
 "investment_note": "Estimated, to be confirmed",
 "sales": [
@@ -114,6 +114,10 @@
 {
 "date": "2026-10-25",
 "sales": 12570
+},
+{
+"date": "2026-10-26",
+"sales": 13950
 }
 ],
 "expenses": [
@@ -1958,6 +1962,84 @@
 "item": "Salary (6, 2 days)",
 "category": "Staff",
 "amount": 9900
+},
+{
+"date": "2026-10-26",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 3126
+},
+{
+"date": "2026-10-26",
+"item": "Egg & disposable",
+"category": "Meat, fish & eggs",
+"amount": 420
+},
+{
+"date": "2026-10-26",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-10-26",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 450
+},
+{
+"date": "2026-10-26",
+"item": "Ice pulp",
+"category": "Snacks & ice cream",
+"amount": 1340
+},
+{
+"date": "2026-10-26",
+"item": "Gas",
+"category": "Gas",
+"amount": 5140
+},
+{
+"date": "2026-10-26",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 2000
+},
+{
+"date": "2026-10-26",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 600
+},
+{
+"date": "2026-10-26",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 800
+},
+{
+"date": "2026-10-26",
+"item": "Water",
+"category": "Utilities & misc",
+"amount": 1000
+},
+{
+"date": "2026-10-26",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-26",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-10-26",
+"item": "Salary (6)",
+"category": "Staff",
+"amount": 5200
 }
 ],
 "preopening": [
