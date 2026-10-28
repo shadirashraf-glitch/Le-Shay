@@ -1,5 +1,5 @@
 {
-"updated": "2026-10-27T12:27+00:00",
+"updated": "2026-10-28T18:55+00:00",
 "investment": 1100000,
 "investment_note": "Estimated, to be confirmed",
 "sales": [
@@ -118,6 +118,10 @@
 {
 "date": "2026-10-26",
 "sales": 13950
+},
+{
+"date": "2026-10-27",
+"sales": 13005
 }
 ],
 "expenses": [
@@ -2040,6 +2044,60 @@
 "item": "Salary (6)",
 "category": "Staff",
 "amount": 5200
+},
+{
+"date": "2026-10-27",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 200
+},
+{
+"date": "2026-10-27",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 2716
+},
+{
+"date": "2026-10-27",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 950
+},
+{
+"date": "2026-10-27",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 150
+},
+{
+"date": "2026-10-27",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1000
+},
+{
+"date": "2026-10-27",
+"item": "Milk",
+"category": "Milk",
+"amount": 1124
+},
+{
+"date": "2026-10-27",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-10-27",
+"item": "Petrol",
+"category": "Utilities & misc",
+"amount": 500
+},
+{
+"date": "2026-10-27",
+"item": "Salary (6)",
+"category": "Staff",
+"amount": 5100
 }
 ],
 "preopening": [
