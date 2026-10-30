@@ -1,5 +1,5 @@
 {
-"updated": "2026-10-29T12:26+00:00",
+"updated": "2026-10-30T10:39+00:00",
 "investment": 1100000,
 "investment_note": "Estimated, to be confirmed",
 "sales": [
@@ -126,6 +126,10 @@
 {
 "date": "2026-10-28",
 "sales": 9481
+},
+{
+"date": "2026-10-29",
+"sales": 14180
 }
 ],
 "expenses": [
@@ -2168,6 +2172,66 @@
 "item": "Salary (2)",
 "category": "Staff",
 "amount": 2500
+},
+{
+"date": "2026-10-29",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 809
+},
+{
+"date": "2026-10-29",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 440
+},
+{
+"date": "2026-10-29",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-10-29",
+"item": "Ice",
+"category": "Snacks & ice cream",
+"amount": 100
+},
+{
+"date": "2026-10-29",
+"item": "Kabab masala",
+"category": "Groceries",
+"amount": 90
+},
+{
+"date": "2026-10-29",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 2000
+},
+{
+"date": "2026-10-29",
+"item": "Milk",
+"category": "Milk",
+"amount": 504
+},
+{
+"date": "2026-10-29",
+"item": "Gas",
+"category": "Gas",
+"amount": 5140
+},
+{
+"date": "2026-10-29",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-10-29",
+"item": "Salary (6)",
+"category": "Staff",
+"amount": 4700
 }
 ],
 "preopening": [
