@@ -1,5 +1,5 @@
 {
-"updated": "2026-11-01T18:40+00:00",
+"updated": "2026-11-02T17:39+00:00",
 "investment": 1100000,
 "investment_note": "Estimated, to be confirmed",
 "sales": [
@@ -138,6 +138,10 @@
 {
 "date": "2026-10-31",
 "sales": 15476
+},
+{
+"date": "2026-11-01",
+"sales": 20312
 }
 ],
 "expenses": [
@@ -2363,6 +2367,78 @@
 },
 {
 "date": "2026-10-31",
+"item": "Salary (7)",
+"category": "Staff",
+"amount": 5400
+},
+{
+"date": "2026-11-01",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 1450
+},
+{
+"date": "2026-11-01",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 1646
+},
+{
+"date": "2026-11-01",
+"item": "Ice & Anadhi",
+"category": "Groceries",
+"amount": 915
+},
+{
+"date": "2026-11-01",
+"item": "Egg",
+"category": "Meat, fish & eggs",
+"amount": 350
+},
+{
+"date": "2026-11-01",
+"item": "Chicken",
+"category": "Meat, fish & eggs",
+"amount": 839
+},
+{
+"date": "2026-11-01",
+"item": "Milk",
+"category": "Milk",
+"amount": 210
+},
+{
+"date": "2026-11-01",
+"item": "Milk",
+"category": "Milk",
+"amount": 504
+},
+{
+"date": "2026-11-01",
+"item": "Water",
+"category": "Utilities & misc",
+"amount": 735
+},
+{
+"date": "2026-11-01",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1190
+},
+{
+"date": "2026-11-01",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-11-01",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-11-01",
 "item": "Salary (7)",
 "category": "Staff",
 "amount": 5400
