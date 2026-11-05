@@ -2,7 +2,7 @@
 import csv, json, datetime, pathlib
 root = pathlib.Path(__file__).parent / "data"
 rd = lambda n: list(csv.DictReader(open(root / n, encoding="utf-8")))
-sales = [{"date": r["date"], "sales": int(r["sales"])} for r in rd("sales.csv")]
+sales = [{"date": r["date"], "sales": int(r["sales"]), **({"kitchen": int(r["kitchen"])} if r.get("kitchen") else {})} for r in rd("sales.csv")]
 exp = [{"date": r["date"], "item": r["item"], "category": r["category"], "amount": int(r["amount"])} for r in rd("expenses.csv")]
 pre = [{"date": r["date"], "item": r["item"], "amount": int(r["amount"])} for r in rd("preopening.csv")]
 invb = [{"item": r["item"], "amount": int(r["amount"])} for r in rd("investment.csv")]
