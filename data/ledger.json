@@ -1,5 +1,5 @@
 {
-"updated": "2026-11-06T09:22+00:00",
+"updated": "2026-11-06T09:23+00:00",
 "investment": 1100000,
 "investment_note": "Estimated, to be confirmed",
 "sales": [
@@ -156,6 +156,11 @@
 "date": "2026-11-04",
 "sales": 13170,
 "kitchen": 4180
+},
+{
+"date": "2026-11-05",
+"sales": 15604,
+"kitchen": 3910
 }
 ],
 "expenses": [
@@ -2663,6 +2668,72 @@
 },
 {
 "date": "2026-11-04",
+"item": "Salary (8)",
+"category": "Staff",
+"amount": 5700
+},
+{
+"date": "2026-11-05",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 150
+},
+{
+"date": "2026-11-05",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1699
+},
+{
+"date": "2026-11-05",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 600
+},
+{
+"date": "2026-11-05",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-11-05",
+"item": "Egg & disposable",
+"category": "Meat, fish & eggs",
+"amount": 440
+},
+{
+"date": "2026-11-05",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 2000
+},
+{
+"date": "2026-11-05",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-11-05",
+"item": "Milk",
+"category": "Milk",
+"amount": 654
+},
+{
+"date": "2026-11-05",
+"item": "Snacks",
+"category": "Snacks & ice cream",
+"amount": 2370
+},
+{
+"date": "2026-11-05",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-11-05",
 "item": "Salary (8)",
 "category": "Staff",
 "amount": 5700
