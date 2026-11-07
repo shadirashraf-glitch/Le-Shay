@@ -1,5 +1,5 @@
 {
-"updated": "2026-11-06T09:23+00:00",
+"updated": "2026-11-07T21:37+00:00",
 "investment": 1100000,
 "investment_note": "Estimated, to be confirmed",
 "sales": [
@@ -161,6 +161,11 @@
 "date": "2026-11-05",
 "sales": 15604,
 "kitchen": 3910
+},
+{
+"date": "2026-11-06",
+"sales": 11570,
+"kitchen": 3880
 }
 ],
 "expenses": [
@@ -2737,6 +2742,54 @@
 "item": "Salary (8)",
 "category": "Staff",
 "amount": 5700
+},
+{
+"date": "2026-11-06",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 150
+},
+{
+"date": "2026-11-06",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1833
+},
+{
+"date": "2026-11-06",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 240
+},
+{
+"date": "2026-11-06",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 3000
+},
+{
+"date": "2026-11-06",
+"item": "Auto",
+"category": "Utilities & misc",
+"amount": 50
+},
+{
+"date": "2026-11-06",
+"item": "Petrol",
+"category": "Utilities & misc",
+"amount": 300
+},
+{
+"date": "2026-11-06",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-11-06",
+"item": "Salary (9)",
+"category": "Staff",
+"amount": 6000
 }
 ],
 "preopening": [
