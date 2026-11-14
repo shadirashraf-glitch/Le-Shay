@@ -1,0 +1,3337 @@
+{
+"updated": "2026-11-14T14:55+00:00",
+"investment": 1100000,
+"investment_note": "Estimated, to be confirmed",
+"sales": [
+{
+"date": "2026-09-28",
+"sales": 8695
+},
+{
+"date": "2026-09-29",
+"sales": 6050
+},
+{
+"date": "2026-09-30",
+"sales": 13315
+},
+{
+"date": "2026-10-01",
+"sales": 12485
+},
+{
+"date": "2026-10-02",
+"sales": 15000
+},
+{
+"date": "2026-10-03",
+"sales": 17268
+},
+{
+"date": "2026-10-04",
+"sales": 17025
+},
+{
+"date": "2026-10-05",
+"sales": 12791
+},
+{
+"date": "2026-10-06",
+"sales": 9100
+},
+{
+"date": "2026-10-07",
+"sales": 13084
+},
+{
+"date": "2026-10-08",
+"sales": 6325
+},
+{
+"date": "2026-10-09",
+"sales": 16355
+},
+{
+"date": "2026-10-10",
+"sales": 14506
+},
+{
+"date": "2026-10-11",
+"sales": 15730
+},
+{
+"date": "2026-10-12",
+"sales": 11990
+},
+{
+"date": "2026-10-13",
+"sales": 14760
+},
+{
+"date": "2026-10-14",
+"sales": 7700
+},
+{
+"date": "2026-10-15",
+"sales": 9970
+},
+{
+"date": "2026-10-16",
+"sales": 10910
+},
+{
+"date": "2026-10-17",
+"sales": 14237
+},
+{
+"date": "2026-10-18",
+"sales": 20480
+},
+{
+"date": "2026-10-19",
+"sales": 14070
+},
+{
+"date": "2026-10-20",
+"sales": 16359
+},
+{
+"date": "2026-10-22",
+"sales": 7510
+},
+{
+"date": "2026-10-23",
+"sales": 11265
+},
+{
+"date": "2026-10-21",
+"sales": 11005
+},
+{
+"date": "2026-10-24",
+"sales": 12551
+},
+{
+"date": "2026-10-25",
+"sales": 12570
+},
+{
+"date": "2026-10-26",
+"sales": 13950
+},
+{
+"date": "2026-10-27",
+"sales": 13005
+},
+{
+"date": "2026-10-28",
+"sales": 9481
+},
+{
+"date": "2026-10-29",
+"sales": 14180
+},
+{
+"date": "2026-10-30",
+"sales": 10000
+},
+{
+"date": "2026-10-31",
+"sales": 15476
+},
+{
+"date": "2026-11-01",
+"sales": 20312
+},
+{
+"date": "2026-11-02",
+"sales": 15821
+},
+{
+"date": "2026-11-03",
+"sales": 13560,
+"kitchen": 3520
+},
+{
+"date": "2026-11-04",
+"sales": 13170,
+"kitchen": 4180
+},
+{
+"date": "2026-11-05",
+"sales": 15604,
+"kitchen": 3910
+},
+{
+"date": "2026-11-06",
+"sales": 11570,
+"kitchen": 3880
+},
+{
+"date": "2026-11-07",
+"sales": 19116,
+"kitchen": 5850,
+"juice": 1820
+},
+{
+"date": "2026-11-08",
+"sales": 18246,
+"kitchen": 5474,
+"kitchen_est": true,
+"juice": 1825,
+"juice_est": true
+},
+{
+"date": "2026-11-09",
+"sales": 9290,
+"kitchen": 0,
+"note": "Main kitchen closed",
+"juice": 929,
+"juice_est": true
+},
+{
+"date": "2026-11-10",
+"sales": 10386,
+"kitchen": 2804,
+"kitchen_est": true,
+"juice": 1039,
+"juice_est": true
+},
+{
+"date": "2026-11-11",
+"sales": 9095,
+"kitchen": 2456,
+"kitchen_est": true,
+"juice": 910,
+"juice_est": true
+},
+{
+"date": "2026-11-12",
+"sales": 14132,
+"kitchen": 3816,
+"kitchen_est": true,
+"juice": 1413,
+"juice_est": true
+},
+{
+"date": "2026-11-13",
+"sales": 14893,
+"kitchen": 4021,
+"kitchen_est": true,
+"juice": 1489,
+"juice_est": true
+}
+],
+"expenses": [
+{
+"date": "2026-09-28",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 850
+},
+{
+"date": "2026-09-28",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 220
+},
+{
+"date": "2026-09-28",
+"item": "Koroth",
+"category": "Meat, fish & eggs",
+"amount": 781
+},
+{
+"date": "2026-09-28",
+"item": "Milk (Katta)",
+"category": "Milk",
+"amount": 160
+},
+{
+"date": "2026-09-28",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 130
+},
+{
+"date": "2026-09-28",
+"item": "Kada mutta",
+"category": "Meat, fish & eggs",
+"amount": 320
+},
+{
+"date": "2026-09-28",
+"item": "Dry fruits",
+"category": "Groceries",
+"amount": 850
+},
+{
+"date": "2026-09-28",
+"item": "Milk",
+"category": "Milk",
+"amount": 504
+},
+{
+"date": "2026-09-28",
+"item": "Salary (2 days)",
+"category": "Staff",
+"amount": 12600
+},
+{
+"date": "2026-09-29",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 640
+},
+{
+"date": "2026-09-29",
+"item": "Disposable",
+"category": "Disposables",
+"amount": 1150
+},
+{
+"date": "2026-09-29",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 550
+},
+{
+"date": "2026-09-29",
+"item": "Dry fruits",
+"category": "Groceries",
+"amount": 550
+},
+{
+"date": "2026-09-29",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 550
+},
+{
+"date": "2026-09-29",
+"item": "Newspaper",
+"category": "Utilities & misc",
+"amount": 50
+},
+{
+"date": "2026-09-29",
+"item": "Water",
+"category": "Utilities & misc",
+"amount": 1000
+},
+{
+"date": "2026-09-29",
+"item": "Rava",
+"category": "Groceries",
+"amount": 210
+},
+{
+"date": "2026-09-29",
+"item": "Milk",
+"category": "Milk",
+"amount": 567
+},
+{
+"date": "2026-09-29",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 200
+},
+{
+"date": "2026-09-29",
+"item": "Salary",
+"category": "Staff",
+"amount": 5200
+},
+{
+"date": "2026-09-29",
+"item": "Misc",
+"category": "Utilities & misc",
+"amount": 1540
+},
+{
+"date": "2026-09-30",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 200
+},
+{
+"date": "2026-09-30",
+"item": "Lemon",
+"category": "Groceries",
+"amount": 200
+},
+{
+"date": "2026-09-30",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 200
+},
+{
+"date": "2026-09-30",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 420
+},
+{
+"date": "2026-09-30",
+"item": "Chicken",
+"category": "Meat, fish & eggs",
+"amount": 450
+},
+{
+"date": "2026-09-30",
+"item": "Gas",
+"category": "Gas",
+"amount": 5615
+},
+{
+"date": "2026-09-30",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 875
+},
+{
+"date": "2026-09-30",
+"item": "Milk",
+"category": "Milk",
+"amount": 630
+},
+{
+"date": "2026-09-30",
+"item": "Grocery",
+"category": "Groceries",
+"amount": 595
+},
+{
+"date": "2026-09-30",
+"item": "Salary",
+"category": "Staff",
+"amount": 6700
+},
+{
+"date": "2026-09-30",
+"item": "Food (restaurant)",
+"category": "Utilities & misc",
+"amount": 1750
+},
+{
+"date": "2026-10-01",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 950
+},
+{
+"date": "2026-10-01",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 1115
+},
+{
+"date": "2026-10-01",
+"item": "Milk",
+"category": "Milk",
+"amount": 504
+},
+{
+"date": "2026-10-01",
+"item": "Ice cream",
+"category": "Snacks & ice cream",
+"amount": 1480
+},
+{
+"date": "2026-10-01",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 900
+},
+{
+"date": "2026-10-01",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 1530
+},
+{
+"date": "2026-10-01",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-01",
+"item": "Salary (6)",
+"category": "Staff",
+"amount": 5200
+},
+{
+"date": "2026-10-02",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 2954
+},
+{
+"date": "2026-10-02",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 680
+},
+{
+"date": "2026-10-02",
+"item": "Milk",
+"category": "Milk",
+"amount": 505
+},
+{
+"date": "2026-10-02",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 1050
+},
+{
+"date": "2026-10-02",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 1565
+},
+{
+"date": "2026-10-02",
+"item": "Chicken",
+"category": "Meat, fish & eggs",
+"amount": 1200
+},
+{
+"date": "2026-10-02",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-02",
+"item": "Water",
+"category": "Utilities & misc",
+"amount": 330
+},
+{
+"date": "2026-10-02",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 1100
+},
+{
+"date": "2026-10-02",
+"item": "Salary (6)",
+"category": "Staff",
+"amount": 5400
+},
+{
+"date": "2026-10-03",
+"item": "Milk",
+"category": "Milk",
+"amount": 644
+},
+{
+"date": "2026-10-03",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 3125
+},
+{
+"date": "2026-10-03",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 330
+},
+{
+"date": "2026-10-03",
+"item": "Disposable",
+"category": "Disposables",
+"amount": 630
+},
+{
+"date": "2026-10-03",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 700
+},
+{
+"date": "2026-10-03",
+"item": "Tea powder & Banana",
+"category": "Groceries",
+"amount": 325
+},
+{
+"date": "2026-10-03",
+"item": "Chicken",
+"category": "Meat, fish & eggs",
+"amount": 270
+},
+{
+"date": "2026-10-03",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 1050
+},
+{
+"date": "2026-10-03",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 350
+},
+{
+"date": "2026-10-03",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 1100
+},
+{
+"date": "2026-10-03",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 2600
+},
+{
+"date": "2026-10-03",
+"item": "Salary (6)",
+"category": "Staff",
+"amount": 5400
+},
+{
+"date": "2026-10-04",
+"item": "Milk",
+"category": "Milk",
+"amount": 1137
+},
+{
+"date": "2026-10-04",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 180
+},
+{
+"date": "2026-10-04",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 2260
+},
+{
+"date": "2026-10-04",
+"item": "Chicken",
+"category": "Meat, fish & eggs",
+"amount": 270
+},
+{
+"date": "2026-10-04",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 420
+},
+{
+"date": "2026-10-04",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 150
+},
+{
+"date": "2026-10-04",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 2500
+},
+{
+"date": "2026-10-04",
+"item": "Disposable",
+"category": "Disposables",
+"amount": 400
+},
+{
+"date": "2026-10-04",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-04",
+"item": "Juice decoration",
+"category": "Utilities & misc",
+"amount": 160
+},
+{
+"date": "2026-10-04",
+"item": "Auto",
+"category": "Utilities & misc",
+"amount": 140
+},
+{
+"date": "2026-10-04",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 910
+},
+{
+"date": "2026-10-04",
+"item": "Salary (6)",
+"category": "Staff",
+"amount": 5400
+},
+{
+"date": "2026-10-05",
+"item": "Milk",
+"category": "Milk",
+"amount": 630
+},
+{
+"date": "2026-10-05",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 180
+},
+{
+"date": "2026-10-05",
+"item": "Dry fruits",
+"category": "Groceries",
+"amount": 645
+},
+{
+"date": "2026-10-05",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1856
+},
+{
+"date": "2026-10-05",
+"item": "Beef & Chicken",
+"category": "Meat, fish & eggs",
+"amount": 1340
+},
+{
+"date": "2026-10-05",
+"item": "Milk (Katta)",
+"category": "Milk",
+"amount": 160
+},
+{
+"date": "2026-10-05",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 690
+},
+{
+"date": "2026-10-05",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-05",
+"item": "Petrol",
+"category": "Utilities & misc",
+"amount": 700
+},
+{
+"date": "2026-10-05",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 2500
+},
+{
+"date": "2026-10-05",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 600
+},
+{
+"date": "2026-10-05",
+"item": "Salary (7)",
+"category": "Staff",
+"amount": 6000
+},
+{
+"date": "2026-10-06",
+"item": "Milk",
+"category": "Milk",
+"amount": 630
+},
+{
+"date": "2026-10-06",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 1050
+},
+{
+"date": "2026-10-06",
+"item": "Chicken",
+"category": "Meat, fish & eggs",
+"amount": 290
+},
+{
+"date": "2026-10-06",
+"item": "Disposable",
+"category": "Disposables",
+"amount": 300
+},
+{
+"date": "2026-10-06",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 380
+},
+{
+"date": "2026-10-06",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-10-06",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 2000
+},
+{
+"date": "2026-10-06",
+"item": "Ice cream",
+"category": "Snacks & ice cream",
+"amount": 1620
+},
+{
+"date": "2026-10-06",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 2470
+},
+{
+"date": "2026-10-06",
+"item": "Petrol",
+"category": "Utilities & misc",
+"amount": 120
+},
+{
+"date": "2026-10-06",
+"item": "Salary (7)",
+"category": "Staff",
+"amount": 6000
+},
+{
+"date": "2026-10-07",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 180
+},
+{
+"date": "2026-10-07",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 2709
+},
+{
+"date": "2026-10-07",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 430
+},
+{
+"date": "2026-10-07",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 600
+},
+{
+"date": "2026-10-07",
+"item": "Chicken",
+"category": "Meat, fish & eggs",
+"amount": 290
+},
+{
+"date": "2026-10-07",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 1575
+},
+{
+"date": "2026-10-07",
+"item": "Milk",
+"category": "Milk",
+"amount": 1080
+},
+{
+"date": "2026-10-07",
+"item": "Egg",
+"category": "Meat, fish & eggs",
+"amount": 183
+},
+{
+"date": "2026-10-07",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 1200
+},
+{
+"date": "2026-10-07",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 1139
+},
+{
+"date": "2026-10-07",
+"item": "Salary (6)",
+"category": "Staff",
+"amount": 5000
+},
+{
+"date": "2026-10-07",
+"item": "Kalimakayi (snack)",
+"category": "Snacks & ice cream",
+"amount": 1000
+},
+{
+"date": "2026-10-08",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 1575
+},
+{
+"date": "2026-10-08",
+"item": "Chicken",
+"category": "Meat, fish & eggs",
+"amount": 290
+},
+{
+"date": "2026-10-08",
+"item": "Egg",
+"category": "Meat, fish & eggs",
+"amount": 183
+},
+{
+"date": "2026-10-08",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 1336
+},
+{
+"date": "2026-10-08",
+"item": "Salary (4)",
+"category": "Staff",
+"amount": 2800
+},
+{
+"date": "2026-10-09",
+"item": "Milk",
+"category": "Milk",
+"amount": 2010
+},
+{
+"date": "2026-10-09",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 180
+},
+{
+"date": "2026-10-09",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 200
+},
+{
+"date": "2026-10-09",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 130
+},
+{
+"date": "2026-10-09",
+"item": "Disposable",
+"category": "Disposables",
+"amount": 1257
+},
+{
+"date": "2026-10-09",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1386
+},
+{
+"date": "2026-10-09",
+"item": "Tea powder",
+"category": "Groceries",
+"amount": 360
+},
+{
+"date": "2026-10-09",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 975
+},
+{
+"date": "2026-10-09",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 460
+},
+{
+"date": "2026-10-09",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-09",
+"item": "Auto",
+"category": "Utilities & misc",
+"amount": 120
+},
+{
+"date": "2026-10-09",
+"item": "Salary (7)",
+"category": "Staff",
+"amount": 6000
+},
+{
+"date": "2026-10-10",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 1060
+},
+{
+"date": "2026-10-10",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 180
+},
+{
+"date": "2026-10-10",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1142
+},
+{
+"date": "2026-10-10",
+"item": "Disposable",
+"category": "Disposables",
+"amount": 240
+},
+{
+"date": "2026-10-10",
+"item": "Gas",
+"category": "Gas",
+"amount": 5746
+},
+{
+"date": "2026-10-10",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 680
+},
+{
+"date": "2026-10-10",
+"item": "Chicken",
+"category": "Meat, fish & eggs",
+"amount": 290
+},
+{
+"date": "2026-10-10",
+"item": "Ice cream",
+"category": "Snacks & ice cream",
+"amount": 1310
+},
+{
+"date": "2026-10-10",
+"item": "Milk",
+"category": "Milk",
+"amount": 930
+},
+{
+"date": "2026-10-10",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 1050
+},
+{
+"date": "2026-10-10",
+"item": "Salary (7)",
+"category": "Staff",
+"amount": 6000
+},
+{
+"date": "2026-10-11",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 180
+},
+{
+"date": "2026-10-11",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 2509
+},
+{
+"date": "2026-10-11",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-10-11",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 75
+},
+{
+"date": "2026-10-11",
+"item": "Egg",
+"category": "Meat, fish & eggs",
+"amount": 183
+},
+{
+"date": "2026-10-11",
+"item": "Milk",
+"category": "Milk",
+"amount": 630
+},
+{
+"date": "2026-10-11",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 1050
+},
+{
+"date": "2026-10-11",
+"item": "Chicken",
+"category": "Meat, fish & eggs",
+"amount": 270
+},
+{
+"date": "2026-10-11",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 1230
+},
+{
+"date": "2026-10-11",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-11",
+"item": "Salary (6)",
+"category": "Staff",
+"amount": 4800
+},
+{
+"date": "2026-10-12",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 1150
+},
+{
+"date": "2026-10-12",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 2000
+},
+{
+"date": "2026-10-12",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-10-12",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 680
+},
+{
+"date": "2026-10-12",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 180
+},
+{
+"date": "2026-10-12",
+"item": "Egg",
+"category": "Meat, fish & eggs",
+"amount": 585
+},
+{
+"date": "2026-10-12",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1500
+},
+{
+"date": "2026-10-12",
+"item": "Dry fruits",
+"category": "Groceries",
+"amount": 358
+},
+{
+"date": "2026-10-12",
+"item": "Chicken",
+"category": "Meat, fish & eggs",
+"amount": 290
+},
+{
+"date": "2026-10-12",
+"item": "Disposable",
+"category": "Disposables",
+"amount": 670
+},
+{
+"date": "2026-10-12",
+"item": "Milk",
+"category": "Milk",
+"amount": 1206
+},
+{
+"date": "2026-10-12",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 1050
+},
+{
+"date": "2026-10-12",
+"item": "Falafel roll",
+"category": "Snacks & ice cream",
+"amount": 600
+},
+{
+"date": "2026-10-12",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 2365
+},
+{
+"date": "2026-10-12",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-12",
+"item": "Salary (7)",
+"category": "Staff",
+"amount": 6000
+},
+{
+"date": "2026-10-12",
+"item": "Ramzan Bhai (staff)",
+"category": "Staff",
+"amount": 1000
+},
+{
+"date": "2026-10-13",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-10-13",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 330
+},
+{
+"date": "2026-10-13",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1434
+},
+{
+"date": "2026-10-13",
+"item": "Petrol",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-13",
+"item": "Falafel",
+"category": "Snacks & ice cream",
+"amount": 450
+},
+{
+"date": "2026-10-13",
+"item": "Chicken",
+"category": "Meat, fish & eggs",
+"amount": 290
+},
+{
+"date": "2026-10-13",
+"item": "Milk",
+"category": "Milk",
+"amount": 1025
+},
+{
+"date": "2026-10-13",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 1580
+},
+{
+"date": "2026-10-13",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-13",
+"item": "Salary (7)",
+"category": "Staff",
+"amount": 5900
+},
+{
+"date": "2026-10-14",
+"item": "Falafel",
+"category": "Snacks & ice cream",
+"amount": 450
+},
+{
+"date": "2026-10-14",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 180
+},
+{
+"date": "2026-10-14",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 350
+},
+{
+"date": "2026-10-14",
+"item": "Petrol",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-14",
+"item": "Disposable & egg",
+"category": "Meat, fish & eggs",
+"amount": 790
+},
+{
+"date": "2026-10-14",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1453
+},
+{
+"date": "2026-10-14",
+"item": "Milk",
+"category": "Milk",
+"amount": 756
+},
+{
+"date": "2026-10-14",
+"item": "Staff food",
+"category": "Staff",
+"amount": 100
+},
+{
+"date": "2026-10-14",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-14",
+"item": "Salary (7)",
+"category": "Staff",
+"amount": 5900
+},
+{
+"date": "2026-10-15",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 400
+},
+{
+"date": "2026-10-15",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1608
+},
+{
+"date": "2026-10-15",
+"item": "Chicken",
+"category": "Meat, fish & eggs",
+"amount": 310
+},
+{
+"date": "2026-10-15",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 1575
+},
+{
+"date": "2026-10-15",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 1419
+},
+{
+"date": "2026-10-15",
+"item": "Gas",
+"category": "Gas",
+"amount": 5680
+},
+{
+"date": "2026-10-15",
+"item": "Milk",
+"category": "Milk",
+"amount": 1080
+},
+{
+"date": "2026-10-15",
+"item": "Water",
+"category": "Utilities & misc",
+"amount": 520
+},
+{
+"date": "2026-10-15",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-15",
+"item": "Staff food",
+"category": "Staff",
+"amount": 100
+},
+{
+"date": "2026-10-15",
+"item": "Raja O/B salary",
+"category": "Staff",
+"amount": 1000
+},
+{
+"date": "2026-10-15",
+"item": "Salary (4)",
+"category": "Staff",
+"amount": 4100
+},
+{
+"date": "2026-10-16",
+"item": "Milk",
+"category": "Milk",
+"amount": 504
+},
+{
+"date": "2026-10-16",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 800
+},
+{
+"date": "2026-10-16",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-10-16",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 120
+},
+{
+"date": "2026-10-16",
+"item": "Anadhi & Butter",
+"category": "Groceries",
+"amount": 1607
+},
+{
+"date": "2026-10-16",
+"item": "Falafel",
+"category": "Snacks & ice cream",
+"amount": 900
+},
+{
+"date": "2026-10-16",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 2310
+},
+{
+"date": "2026-10-16",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 525
+},
+{
+"date": "2026-10-16",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-16",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-10-16",
+"item": "Salary (3)",
+"category": "Staff",
+"amount": 2200
+},
+{
+"date": "2026-10-16",
+"item": "Rohith O/B (2 days)",
+"category": "Staff",
+"amount": 1200
+},
+{
+"date": "2026-10-17",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 180
+},
+{
+"date": "2026-10-17",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1329
+},
+{
+"date": "2026-10-17",
+"item": "Egg & disposable",
+"category": "Meat, fish & eggs",
+"amount": 800
+},
+{
+"date": "2026-10-17",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 500
+},
+{
+"date": "2026-10-17",
+"item": "Falafel",
+"category": "Snacks & ice cream",
+"amount": 450
+},
+{
+"date": "2026-10-17",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 2050
+},
+{
+"date": "2026-10-17",
+"item": "Milk",
+"category": "Milk",
+"amount": 756
+},
+{
+"date": "2026-10-17",
+"item": "Chicken",
+"category": "Meat, fish & eggs",
+"amount": 585
+},
+{
+"date": "2026-10-17",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-17",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-10-17",
+"item": "Salary (4) + Faizal (2 days)",
+"category": "Staff",
+"amount": 5200
+},
+{
+"date": "2026-10-18",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 180
+},
+{
+"date": "2026-10-18",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-10-18",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 580
+},
+{
+"date": "2026-10-18",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 2621
+},
+{
+"date": "2026-10-18",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 1090
+},
+{
+"date": "2026-10-18",
+"item": "Milk",
+"category": "Milk",
+"amount": 630
+},
+{
+"date": "2026-10-18",
+"item": "Falafel",
+"category": "Snacks & ice cream",
+"amount": 450
+},
+{
+"date": "2026-10-18",
+"item": "Chicken",
+"category": "Meat, fish & eggs",
+"amount": 425
+},
+{
+"date": "2026-10-18",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-18",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-10-18",
+"item": "Salary",
+"category": "Staff",
+"amount": 4600
+},
+{
+"date": "2026-10-19",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 180
+},
+{
+"date": "2026-10-19",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 670
+},
+{
+"date": "2026-10-19",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-10-19",
+"item": "Fish & seafood",
+"category": "Meat, fish & eggs",
+"amount": 1240
+},
+{
+"date": "2026-10-19",
+"item": "Egg & disposable",
+"category": "Meat, fish & eggs",
+"amount": 670
+},
+{
+"date": "2026-10-19",
+"item": "Gas",
+"category": "Gas",
+"amount": 5140
+},
+{
+"date": "2026-10-19",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1799
+},
+{
+"date": "2026-10-19",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-19",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1100
+},
+{
+"date": "2026-10-19",
+"item": "Milk",
+"category": "Milk",
+"amount": 630
+},
+{
+"date": "2026-10-19",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 1210
+},
+{
+"date": "2026-10-19",
+"item": "Ice cream & ice",
+"category": "Snacks & ice cream",
+"amount": 1630
+},
+{
+"date": "2026-10-19",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-10-19",
+"item": "Falafel",
+"category": "Snacks & ice cream",
+"amount": 450
+},
+{
+"date": "2026-10-19",
+"item": "Salary (7)",
+"category": "Staff",
+"amount": 5700
+},
+{
+"date": "2026-10-20",
+"item": "Falafel",
+"category": "Snacks & ice cream",
+"amount": 450
+},
+{
+"date": "2026-10-20",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 200
+},
+{
+"date": "2026-10-20",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-10-20",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1533
+},
+{
+"date": "2026-10-20",
+"item": "Disposable",
+"category": "Disposables",
+"amount": 510
+},
+{
+"date": "2026-10-20",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 1050
+},
+{
+"date": "2026-10-20",
+"item": "Chicken",
+"category": "Meat, fish & eggs",
+"amount": 300
+},
+{
+"date": "2026-10-20",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 1800
+},
+{
+"date": "2026-10-20",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 1335
+},
+{
+"date": "2026-10-20",
+"item": "Milk",
+"category": "Milk",
+"amount": 742
+},
+{
+"date": "2026-10-20",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 910
+},
+{
+"date": "2026-10-20",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-10-20",
+"item": "Salary (6)",
+"category": "Staff",
+"amount": 4200
+},
+{
+"date": "2026-10-22",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 200
+},
+{
+"date": "2026-10-22",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1962
+},
+{
+"date": "2026-10-22",
+"item": "Egg",
+"category": "Meat, fish & eggs",
+"amount": 186
+},
+{
+"date": "2026-10-22",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 300
+},
+{
+"date": "2026-10-22",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-10-22",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1000
+},
+{
+"date": "2026-10-22",
+"item": "Falafel",
+"category": "Snacks & ice cream",
+"amount": 450
+},
+{
+"date": "2026-10-22",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-10-22",
+"item": "Salary (1) + Faizal (2 days)",
+"category": "Staff",
+"amount": 3000
+},
+{
+"date": "2026-10-23",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 200
+},
+{
+"date": "2026-10-23",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1798
+},
+{
+"date": "2026-10-23",
+"item": "Egg & beans",
+"category": "Meat, fish & eggs",
+"amount": 346
+},
+{
+"date": "2026-10-23",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-10-23",
+"item": "Milk",
+"category": "Milk",
+"amount": 1500
+},
+{
+"date": "2026-10-23",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 2000
+},
+{
+"date": "2026-10-23",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1000
+},
+{
+"date": "2026-10-23",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-10-23",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 600
+},
+{
+"date": "2026-10-23",
+"item": "Salary (6, 2 days)",
+"category": "Staff",
+"amount": 7700
+},
+{
+"date": "2026-10-21",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 200
+},
+{
+"date": "2026-10-21",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1574
+},
+{
+"date": "2026-10-21",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 250
+},
+{
+"date": "2026-10-21",
+"item": "Milk",
+"category": "Milk",
+"amount": 630
+},
+{
+"date": "2026-10-21",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 2000
+},
+{
+"date": "2026-10-21",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 1050
+},
+{
+"date": "2026-10-21",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 1800
+},
+{
+"date": "2026-10-21",
+"item": "Egg & disposable",
+"category": "Meat, fish & eggs",
+"amount": 500
+},
+{
+"date": "2026-10-21",
+"item": "Gas",
+"category": "Gas",
+"amount": 2570
+},
+{
+"date": "2026-10-21",
+"item": "Chicken",
+"category": "Meat, fish & eggs",
+"amount": 740
+},
+{
+"date": "2026-10-21",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-21",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-10-21",
+"item": "Salary (6)",
+"category": "Staff",
+"amount": 4200
+},
+{
+"date": "2026-10-24",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 2000
+},
+{
+"date": "2026-10-24",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 200
+},
+{
+"date": "2026-10-24",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1835
+},
+{
+"date": "2026-10-24",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 960
+},
+{
+"date": "2026-10-24",
+"item": "Disposable & egg",
+"category": "Meat, fish & eggs",
+"amount": 420
+},
+{
+"date": "2026-10-24",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-10-24",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 670
+},
+{
+"date": "2026-10-24",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-24",
+"item": "Salary (1)",
+"category": "Staff",
+"amount": 1000
+},
+{
+"date": "2026-10-25",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 2850
+},
+{
+"date": "2026-10-25",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 3000
+},
+{
+"date": "2026-10-25",
+"item": "Milk",
+"category": "Milk",
+"amount": 1000
+},
+{
+"date": "2026-10-25",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1900
+},
+{
+"date": "2026-10-25",
+"item": "Rent (2 days)",
+"category": "Rent",
+"amount": 1600
+},
+{
+"date": "2026-10-25",
+"item": "Salary (6, 2 days)",
+"category": "Staff",
+"amount": 9900
+},
+{
+"date": "2026-10-26",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 3126
+},
+{
+"date": "2026-10-26",
+"item": "Egg & disposable",
+"category": "Meat, fish & eggs",
+"amount": 420
+},
+{
+"date": "2026-10-26",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-10-26",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 450
+},
+{
+"date": "2026-10-26",
+"item": "Ice pulp",
+"category": "Snacks & ice cream",
+"amount": 1340
+},
+{
+"date": "2026-10-26",
+"item": "Gas",
+"category": "Gas",
+"amount": 5140
+},
+{
+"date": "2026-10-26",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 2000
+},
+{
+"date": "2026-10-26",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 600
+},
+{
+"date": "2026-10-26",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 800
+},
+{
+"date": "2026-10-26",
+"item": "Water",
+"category": "Utilities & misc",
+"amount": 1000
+},
+{
+"date": "2026-10-26",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-26",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-10-26",
+"item": "Salary (6)",
+"category": "Staff",
+"amount": 5200
+},
+{
+"date": "2026-10-27",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 200
+},
+{
+"date": "2026-10-27",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 2716
+},
+{
+"date": "2026-10-27",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 950
+},
+{
+"date": "2026-10-27",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 150
+},
+{
+"date": "2026-10-27",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1000
+},
+{
+"date": "2026-10-27",
+"item": "Milk",
+"category": "Milk",
+"amount": 1124
+},
+{
+"date": "2026-10-27",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-10-27",
+"item": "Petrol",
+"category": "Utilities & misc",
+"amount": 500
+},
+{
+"date": "2026-10-27",
+"item": "Salary (6)",
+"category": "Staff",
+"amount": 5100
+},
+{
+"date": "2026-10-28",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 2394
+},
+{
+"date": "2026-10-28",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-10-28",
+"item": "Egg",
+"category": "Meat, fish & eggs",
+"amount": 360
+},
+{
+"date": "2026-10-28",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 2000
+},
+{
+"date": "2026-10-28",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 3000
+},
+{
+"date": "2026-10-28",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 2000
+},
+{
+"date": "2026-10-28",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 200
+},
+{
+"date": "2026-10-28",
+"item": "Milk",
+"category": "Milk",
+"amount": 1686
+},
+{
+"date": "2026-10-28",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-28",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-10-28",
+"item": "Salary (2)",
+"category": "Staff",
+"amount": 2500
+},
+{
+"date": "2026-10-29",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 809
+},
+{
+"date": "2026-10-29",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 440
+},
+{
+"date": "2026-10-29",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-10-29",
+"item": "Ice",
+"category": "Snacks & ice cream",
+"amount": 100
+},
+{
+"date": "2026-10-29",
+"item": "Kabab masala",
+"category": "Groceries",
+"amount": 90
+},
+{
+"date": "2026-10-29",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 2000
+},
+{
+"date": "2026-10-29",
+"item": "Milk",
+"category": "Milk",
+"amount": 504
+},
+{
+"date": "2026-10-29",
+"item": "Gas",
+"category": "Gas",
+"amount": 5140
+},
+{
+"date": "2026-10-29",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-10-29",
+"item": "Salary (6)",
+"category": "Staff",
+"amount": 4700
+},
+{
+"date": "2026-10-30",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 5409
+},
+{
+"date": "2026-10-30",
+"item": "Egg & disposable",
+"category": "Meat, fish & eggs",
+"amount": 1420
+},
+{
+"date": "2026-10-30",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 150
+},
+{
+"date": "2026-10-30",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 1500
+},
+{
+"date": "2026-10-30",
+"item": "Milk",
+"category": "Milk",
+"amount": 630
+},
+{
+"date": "2026-10-30",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 2500
+},
+{
+"date": "2026-10-30",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1753
+},
+{
+"date": "2026-10-30",
+"item": "Water",
+"category": "Utilities & misc",
+"amount": 530
+},
+{
+"date": "2026-10-30",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 200
+},
+{
+"date": "2026-10-30",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-10-30",
+"item": "Salary (7)",
+"category": "Staff",
+"amount": 4900
+},
+{
+"date": "2026-10-31",
+"item": "Dosa maav & maavu",
+"category": "Produce & batter",
+"amount": 400
+},
+{
+"date": "2026-10-31",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 700
+},
+{
+"date": "2026-10-31",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 550
+},
+{
+"date": "2026-10-31",
+"item": "Disposable",
+"category": "Disposables",
+"amount": 240
+},
+{
+"date": "2026-10-31",
+"item": "Gas",
+"category": "Gas",
+"amount": 5140
+},
+{
+"date": "2026-10-31",
+"item": "Milk",
+"category": "Milk",
+"amount": 826
+},
+{
+"date": "2026-10-31",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1190
+},
+{
+"date": "2026-10-31",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-10-31",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-10-31",
+"item": "Salary (7)",
+"category": "Staff",
+"amount": 5400
+},
+{
+"date": "2026-11-01",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 1450
+},
+{
+"date": "2026-11-01",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 1646
+},
+{
+"date": "2026-11-01",
+"item": "Ice & Anadhi",
+"category": "Groceries",
+"amount": 915
+},
+{
+"date": "2026-11-01",
+"item": "Egg",
+"category": "Meat, fish & eggs",
+"amount": 350
+},
+{
+"date": "2026-11-01",
+"item": "Chicken",
+"category": "Meat, fish & eggs",
+"amount": 839
+},
+{
+"date": "2026-11-01",
+"item": "Milk",
+"category": "Milk",
+"amount": 210
+},
+{
+"date": "2026-11-01",
+"item": "Milk",
+"category": "Milk",
+"amount": 504
+},
+{
+"date": "2026-11-01",
+"item": "Water",
+"category": "Utilities & misc",
+"amount": 735
+},
+{
+"date": "2026-11-01",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1190
+},
+{
+"date": "2026-11-01",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-11-01",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-11-01",
+"item": "Salary (7)",
+"category": "Staff",
+"amount": 5400
+},
+{
+"date": "2026-11-02",
+"item": "Ice cream",
+"category": "Snacks & ice cream",
+"amount": 1520
+},
+{
+"date": "2026-11-02",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 4622
+},
+{
+"date": "2026-11-02",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 620
+},
+{
+"date": "2026-11-02",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 150
+},
+{
+"date": "2026-11-02",
+"item": "Jubly ice",
+"category": "Snacks & ice cream",
+"amount": 650
+},
+{
+"date": "2026-11-02",
+"item": "Milk",
+"category": "Milk",
+"amount": 630
+},
+{
+"date": "2026-11-02",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 397
+},
+{
+"date": "2026-11-02",
+"item": "Snacks",
+"category": "Snacks & ice cream",
+"amount": 1681
+},
+{
+"date": "2026-11-02",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-11-02",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-11-02",
+"item": "Salary (7)",
+"category": "Staff",
+"amount": 5400
+},
+{
+"date": "2026-11-03",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 2390
+},
+{
+"date": "2026-11-03",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 200
+},
+{
+"date": "2026-11-03",
+"item": "Egg & disposable",
+"category": "Meat, fish & eggs",
+"amount": 570
+},
+{
+"date": "2026-11-03",
+"item": "Sugar & fennel",
+"category": "Groceries",
+"amount": 460
+},
+{
+"date": "2026-11-03",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-11-03",
+"item": "Chicken",
+"category": "Meat, fish & eggs",
+"amount": 829
+},
+{
+"date": "2026-11-03",
+"item": "Gas",
+"category": "Gas",
+"amount": 2570
+},
+{
+"date": "2026-11-03",
+"item": "Milk",
+"category": "Milk",
+"amount": 1056
+},
+{
+"date": "2026-11-03",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-11-03",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1190
+},
+{
+"date": "2026-11-03",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-11-03",
+"item": "Salary (6)",
+"category": "Staff",
+"amount": 5000
+},
+{
+"date": "2026-11-04",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 150
+},
+{
+"date": "2026-11-04",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 300
+},
+{
+"date": "2026-11-04",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1833
+},
+{
+"date": "2026-11-04",
+"item": "Egg & disposable",
+"category": "Meat, fish & eggs",
+"amount": 670
+},
+{
+"date": "2026-11-04",
+"item": "Samosa",
+"category": "Snacks & ice cream",
+"amount": 170
+},
+{
+"date": "2026-11-04",
+"item": "Gas",
+"category": "Gas",
+"amount": 2570
+},
+{
+"date": "2026-11-04",
+"item": "Milk",
+"category": "Milk",
+"amount": 630
+},
+{
+"date": "2026-11-04",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 3150
+},
+{
+"date": "2026-11-04",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-11-04",
+"item": "Water",
+"category": "Utilities & misc",
+"amount": 500
+},
+{
+"date": "2026-11-04",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-11-04",
+"item": "Salary (8)",
+"category": "Staff",
+"amount": 5700
+},
+{
+"date": "2026-11-05",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 150
+},
+{
+"date": "2026-11-05",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1699
+},
+{
+"date": "2026-11-05",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 600
+},
+{
+"date": "2026-11-05",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-11-05",
+"item": "Egg & disposable",
+"category": "Meat, fish & eggs",
+"amount": 440
+},
+{
+"date": "2026-11-05",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 2000
+},
+{
+"date": "2026-11-05",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-11-05",
+"item": "Milk",
+"category": "Milk",
+"amount": 654
+},
+{
+"date": "2026-11-05",
+"item": "Snacks",
+"category": "Snacks & ice cream",
+"amount": 2370
+},
+{
+"date": "2026-11-05",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-11-05",
+"item": "Salary (8)",
+"category": "Staff",
+"amount": 5700
+},
+{
+"date": "2026-11-06",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 150
+},
+{
+"date": "2026-11-06",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1833
+},
+{
+"date": "2026-11-06",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 240
+},
+{
+"date": "2026-11-06",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 3000
+},
+{
+"date": "2026-11-06",
+"item": "Auto",
+"category": "Utilities & misc",
+"amount": 50
+},
+{
+"date": "2026-11-06",
+"item": "Petrol",
+"category": "Utilities & misc",
+"amount": 300
+},
+{
+"date": "2026-11-06",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-11-06",
+"item": "Salary (9)",
+"category": "Staff",
+"amount": 6000
+},
+{
+"date": "2026-11-07",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 2338
+},
+{
+"date": "2026-11-07",
+"item": "Egg",
+"category": "Meat, fish & eggs",
+"amount": 558
+},
+{
+"date": "2026-11-07",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 950
+},
+{
+"date": "2026-11-07",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-11-07",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 300
+},
+{
+"date": "2026-11-07",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 200
+},
+{
+"date": "2026-11-07",
+"item": "Milk",
+"category": "Milk",
+"amount": 1456
+},
+{
+"date": "2026-11-07",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-11-07",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1410
+},
+{
+"date": "2026-11-07",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 1460
+},
+{
+"date": "2026-11-07",
+"item": "Salary (8)",
+"category": "Staff",
+"amount": 6000
+},
+{
+"date": "2026-11-08",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 1200
+},
+{
+"date": "2026-11-08",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1290
+},
+{
+"date": "2026-11-08",
+"item": "Samosa",
+"category": "Snacks & ice cream",
+"amount": 200
+},
+{
+"date": "2026-11-08",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 2700
+},
+{
+"date": "2026-11-08",
+"item": "Milk",
+"category": "Milk",
+"amount": 906
+},
+{
+"date": "2026-11-08",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1180
+},
+{
+"date": "2026-11-08",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-11-08",
+"item": "Salary (8)",
+"category": "Staff",
+"amount": 5000
+},
+{
+"date": "2026-11-09",
+"item": "Gas",
+"category": "Gas",
+"amount": 2570
+},
+{
+"date": "2026-11-09",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 800
+},
+{
+"date": "2026-11-09",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 2656
+},
+{
+"date": "2026-11-09",
+"item": "Egg & disposable",
+"category": "Meat, fish & eggs",
+"amount": 540
+},
+{
+"date": "2026-11-09",
+"item": "Milk",
+"category": "Milk",
+"amount": 780
+},
+{
+"date": "2026-11-09",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-11-09",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-11-09",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1500
+},
+{
+"date": "2026-11-09",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 2185
+},
+{
+"date": "2026-11-09",
+"item": "Salary (7)",
+"category": "Staff",
+"amount": 4700
+},
+{
+"date": "2026-11-10",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1511
+},
+{
+"date": "2026-11-10",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-11-10",
+"item": "Egg & disposable",
+"category": "Meat, fish & eggs",
+"amount": 280
+},
+{
+"date": "2026-11-10",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 2430
+},
+{
+"date": "2026-11-10",
+"item": "Milk",
+"category": "Milk",
+"amount": 906
+},
+{
+"date": "2026-11-10",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 200
+},
+{
+"date": "2026-11-10",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-11-10",
+"item": "Salary (7)",
+"category": "Staff",
+"amount": 4200
+},
+{
+"date": "2026-11-11",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1059
+},
+{
+"date": "2026-11-11",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-11-11",
+"item": "Egg",
+"category": "Meat, fish & eggs",
+"amount": 360
+},
+{
+"date": "2026-11-11",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1165
+},
+{
+"date": "2026-11-11",
+"item": "Gas",
+"category": "Gas",
+"amount": 2570
+},
+{
+"date": "2026-11-11",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-11-11",
+"item": "Milk",
+"category": "Milk",
+"amount": 1006
+},
+{
+"date": "2026-11-11",
+"item": "Salary (7)",
+"category": "Staff",
+"amount": 4200
+},
+{
+"date": "2026-11-12",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1343
+},
+{
+"date": "2026-11-12",
+"item": "Egg & disposable",
+"category": "Meat, fish & eggs",
+"amount": 270
+},
+{
+"date": "2026-11-12",
+"item": "Ice cream",
+"category": "Snacks & ice cream",
+"amount": 850
+},
+{
+"date": "2026-11-12",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1100
+},
+{
+"date": "2026-11-12",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 2300
+},
+{
+"date": "2026-11-12",
+"item": "Bike",
+"category": "Utilities & misc",
+"amount": 500
+},
+{
+"date": "2026-11-12",
+"item": "Samosa",
+"category": "Snacks & ice cream",
+"amount": 280
+},
+{
+"date": "2026-11-12",
+"item": "Milk",
+"category": "Milk",
+"amount": 906
+},
+{
+"date": "2026-11-12",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 200
+},
+{
+"date": "2026-11-12",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 2550
+},
+{
+"date": "2026-11-12",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-11-12",
+"item": "Salary (7)",
+"category": "Staff",
+"amount": 3900
+},
+{
+"date": "2026-11-13",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1150
+},
+{
+"date": "2026-11-13",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1359
+},
+{
+"date": "2026-11-13",
+"item": "Egg & disposable",
+"category": "Meat, fish & eggs",
+"amount": 440
+},
+{
+"date": "2026-11-13",
+"item": "Samosa",
+"category": "Snacks & ice cream",
+"amount": 220
+},
+{
+"date": "2026-11-13",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 580
+},
+{
+"date": "2026-11-13",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-11-13",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 2500
+},
+{
+"date": "2026-11-13",
+"item": "Auto",
+"category": "Utilities & misc",
+"amount": 50
+},
+{
+"date": "2026-11-13",
+"item": "Water",
+"category": "Utilities & misc",
+"amount": 780
+},
+{
+"date": "2026-11-13",
+"item": "Milk",
+"category": "Milk",
+"amount": 882
+},
+{
+"date": "2026-11-13",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-11-13",
+"item": "Salary (7)",
+"category": "Staff",
+"amount": 4200
+}
+],
+"preopening": [
+{
+"date": "2026-09-26",
+"item": "Sample food tasting",
+"amount": 37159
+},
+{
+"date": "2026-09-27",
+"item": "Sample food tasting",
+"amount": 6405
+}
+],
+"investment_items": [
+{
+"item": "Bed pillows",
+"amount": 1140
+},
+{
+"item": "Kooli",
+"amount": 1580
+},
+{
+"item": "Diamond crockery",
+"amount": 21500
+},
+{
+"item": "Auto & knife",
+"amount": 300
+},
+{
+"item": "Cook",
+"amount": 500
+},
+{
+"item": "Mixy",
+"amount": 7200
+},
+{
+"item": "Board out",
+"amount": 6500
+},
+{
+"item": "Gas",
+"amount": 8421
+},
+{
+"item": "Table kooli",
+"amount": 10000
+},
+{
+"item": "Chair",
+"amount": 2000
+},
+{
+"item": "Wood",
+"amount": 13500
+},
+{
+"item": "Sticker work",
+"amount": 7900
+},
+{
+"item": "Out board",
+"amount": 5000
+},
+{
+"item": "Mixy",
+"amount": 11000
+},
+{
+"item": "Electric work",
+"amount": 5500
+}
+]
+}
