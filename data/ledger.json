@@ -1,5 +1,5 @@
 {
-"updated": "2026-11-14T14:49+00:00",
+"updated": "2026-11-14T14:50+00:00",
 "investment": 1100000,
 "investment_note": "Estimated, to be confirmed",
 "sales": [
@@ -177,8 +177,17 @@
 "date": "2026-11-08",
 "sales": 18246,
 "kitchen": 5474,
+"kitchen_est": true,
 "juice": 1825,
-"split_est": true
+"juice_est": true
+},
+{
+"date": "2026-11-09",
+"sales": 9290,
+"kitchen": 0,
+"note": "Main kitchen closed",
+"juice": 929,
+"juice_est": true
 }
 ],
 "expenses": [
@@ -2917,6 +2926,66 @@
 "item": "Salary (8)",
 "category": "Staff",
 "amount": 5000
+},
+{
+"date": "2026-11-09",
+"item": "Gas",
+"category": "Gas",
+"amount": 2570
+},
+{
+"date": "2026-11-09",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 800
+},
+{
+"date": "2026-11-09",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 2656
+},
+{
+"date": "2026-11-09",
+"item": "Egg & disposable",
+"category": "Meat, fish & eggs",
+"amount": 540
+},
+{
+"date": "2026-11-09",
+"item": "Milk",
+"category": "Milk",
+"amount": 780
+},
+{
+"date": "2026-11-09",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-11-09",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-11-09",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1500
+},
+{
+"date": "2026-11-09",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 2185
+},
+{
+"date": "2026-11-09",
+"item": "Salary (7)",
+"category": "Staff",
+"amount": 4700
 }
 ],
 "preopening": [

@@ -186,7 +186,7 @@ function model(j) {
   let run = 0;
   const daily = j.sales.slice().sort((a, b) => a.date < b.date ? -1 : 1).map(s => {
     const sp = spend[s.date] || 0; run += s.sales - sp;
-    return { date: s.date, sales: s.sales, kitchen: s.kitchen, juice: s.juice, est: !!s.split_est, spend: sp, net: s.sales - sp, staff: staff[s.date] || 0, cum: run };
+    return { date: s.date, sales: s.sales, kitchen: s.kitchen, juice: s.juice, kest: !!s.kitchen_est, jest: !!s.juice_est, est: !!(s.kitchen_est || s.juice_est), note: s.note, spend: sp, net: s.sales - sp, staff: staff[s.date] || 0, cum: run };
   });
   const weeks = d3.rollups(daily, v => ({ days: v.length, sales: d3.sum(v, d => d.sales), spend: d3.sum(v, d => d.spend) }), d => d3.utcFormat('%Y-%m-%d')(d3.utcMonday.floor(P(d.date))))
     .map(([week, v]) => ({ week, ...v, net: v.sales - v.spend })).sort((a, b) => a.week < b.week ? -1 : 1);
@@ -204,7 +204,7 @@ function summary() {
   const L = d[n - 1], avg = S / n;
   $('lt-label').textContent = d3.utcFormat('%A, %-d %B')(P(L.date));
   $('lt-sales').textContent = inr(L.sales);
-  $('lt-vs').textContent = (L.sales >= avg ? '+' : '-') + '₹' + Math.round(Math.abs(L.sales - avg)).toLocaleString('en-IN') + ' vs daily average' + (L.kitchen != null ? ' · kitchen ' + inr(L.kitchen) + ' (' + Math.round(L.kitchen / L.sales * 100) + '%)' : '') + (L.juice != null ? ' · juice & shakes ' + inr(L.juice) + ' (' + Math.round(L.juice / L.sales * 100) + '%)' : '') + (L.est ? ' · split estimated' : '');
+  $('lt-vs').textContent = (L.sales >= avg ? '+' : '-') + '₹' + Math.round(Math.abs(L.sales - avg)).toLocaleString('en-IN') + ' vs daily average' + (L.kitchen != null ? ' · kitchen ' + inr(L.kitchen) + ' (' + Math.round(L.kitchen / L.sales * 100) + '%)' : '') + (L.juice != null ? ' · juice & shakes ' + inr(L.juice) + ' (' + Math.round(L.juice / L.sales * 100) + '%)' : '') + (L.est ? ' · split estimated' : '') + (L.note ? ' · ' + L.note.toLowerCase() : '');
   $('lt-spend').textContent = inr(L.spend);
   $('lt-net').textContent = inr(L.net); $('lt-net').className = 'big ' + (L.net >= 0 ? 'pos' : 'neg');
   $('lt-kind').textContent = L.net >= 0 ? 'Profit day' : 'Loss day';
@@ -325,7 +325,7 @@ function dayView() {
   const day = logRows().find(d => d.date === picked);
   const add = (l, s, v, cls) => { const r = document.createElement('div'); r.className = 'row ' + (cls || ''); const a = document.createElement('span'); a.textContent = l; if (s) { const m = document.createElement('small'); m.textContent = s; a.appendChild(m); } const b = document.createElement('span'); b.textContent = v; r.append(a, b); box.appendChild(r); };
   add('Sales', day.pre ? 'Pre-opening, no sales' : '', inr(day.sales), 'tot');
-  if (day.kitchen != null) { add('Kitchen main dishes', day.est ? 'Estimate, 30% of sales' : 'Dosa, puttu, porotta', inr(day.kitchen)); if (day.juice != null) add('Juice and shakes', day.est ? 'Estimate, 10% of sales' : '', inr(day.juice)); add('Counter and other', 'Tea, snacks', inr(day.sales - day.kitchen - (day.juice || 0))); }
+  if (day.kitchen != null) { add('Kitchen main dishes', day.note && day.kitchen === 0 ? day.note : day.kest ? 'Estimate, 30% of sales' : 'Dosa, puttu, porotta', inr(day.kitchen)); if (day.juice != null) add('Juice and shakes', day.jest ? 'Estimate, 10% of sales' : '', inr(day.juice)); add('Counter and other', 'Tea, snacks', inr(day.sales - day.kitchen - (day.juice || 0))); }
   if (day.pre) (D.preopening || []).filter(e => e.date === picked).forEach(e => add(e.item, 'Launch tasting', inr(e.amount)));
   D.expenses.filter(e => e.date === picked).forEach(e => add(e.item, e.category, inr(e.amount)));
   add('Total spend', '', inr(day.spend), 'tot');
