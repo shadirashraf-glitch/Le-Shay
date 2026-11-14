@@ -1,7 +1,10 @@
-"""Rebuild data/ledger.json from the CSV files. Run after adding a day."""
-import csv, json, datetime, pathlib
+"""Rebuild data/ledger.json from the CSV files, and check the owner-funding reconciliation.
+Run after adding a day. Stops with an error if the investment ledger no longer reconciles."""
+import csv, json, datetime, pathlib, sys
 root = pathlib.Path(__file__).parent / "data"
-rd = lambda n: list(csv.DictReader(open(root / n, encoding="utf-8")))
+rd = lambda n: list(csv.DictReader(open(root / n, encoding="utf-8-sig")))
+
+# Daily trading records (unchanged history)
 sales = []
 for r in rd("sales.csv"):
     x = {"date": r["date"], "sales": int(r["sales"])}
@@ -13,7 +16,6 @@ for r in rd("sales.csv"):
     sales.append(x)
 exp = [{"date": r["date"], "item": r["item"], "category": r["category"], "amount": int(r["amount"])} for r in rd("expenses.csv")]
 pre = [{"date": r["date"], "item": r["item"], "amount": int(r["amount"])} for r in rd("preopening.csv")]
-invb = [{"item": r["item"], "amount": int(r["amount"])} for r in rd("investment.csv")]
 cfg = {r["key"]: r["value"] for r in rd("settings.csv")}
 if "est_from" in cfg:
     for x in sales:
@@ -21,8 +23,31 @@ if "est_from" in cfg:
             for k in ("kitchen", "juice"):
                 if k not in x:
                     x[k] = round(x["sales"] * float(cfg[k + "_pct"])); x[k + "_est"] = True
-inv = next(r for r in rd("settings.csv") if r["key"] == "investment")
+
+# Owner funding ledger
+inv = [{k: (v.strip() if isinstance(v, str) else v) for k, v in r.items()} for r in rd("investment_ledger.csv")]
+for r in inv: r["amount_inr"] = int(r["amount_inr"])
+adv = [dict(r, amount=int(r["amount"])) for r in rd("cash_advances.csv")]
+cash = rd("cashbook.csv")
+pending = [dict(r, amount=int(r["amount"])) for r in rd("pending.csv")]
+
+EXPECT = {"Pre-opening investment": 1000359, "Operational cash advance": 106149, "October salaries": 20000,
+          "October electricity": 15000, "Owner-funded stock": 4400}
+cls = {}
+for r in inv: cls[r["classification"]] = cls.get(r["classification"], 0) + r["amount_inr"]
+problems = []
+if len(inv) != 145: problems.append(f"expected 145 ledger rows, found {len(inv)}")
+if len({r['transaction_id'] for r in inv}) != len(inv): problems.append("duplicate transaction IDs")
+if sum(r["amount_inr"] for r in inv) != 1145908: problems.append(f"ledger total {sum(r['amount_inr'] for r in inv)} != 1145908")
+if cls != EXPECT: problems.append(f"classification totals {cls} != {EXPECT}")
+if sum(a["amount"] for a in adv) != EXPECT["Operational cash advance"]: problems.append("cash advance register does not match ledger")
+dep = sum(r["amount_inr"] for r in inv if r["category"] == "Shop security deposit")
+if dep != 150000: problems.append(f"deposit {dep} != 150000")
+if problems: sys.exit("RECONCILIATION FAILED: " + "; ".join(problems))
+
 out = {"updated": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="minutes"),
-       "investment": int(inv["value"]), "investment_note": inv["note"], "sales": sales, "expenses": exp, "preopening": pre, "investment_items": invb}
+       "sales": sales, "expenses": exp, "preopening": pre, "settings": cfg,
+       "investment_ledger": inv, "funding_classes": cls, "deposit": dep,
+       "cash_advances": adv, "cashbook": cash, "pending": pending}
 json.dump(out, open(root / "ledger.json", "w", encoding="utf-8"), ensure_ascii=False, indent=0)
-print(len(sales), "days,", len(exp), "expense lines")
+print(len(sales), "days,", len(exp), "expense lines | funding reconciled:", sum(cls.values()), cls)
