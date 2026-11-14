@@ -6,6 +6,11 @@ sales = [{"date": r["date"], "sales": int(r["sales"]), **({"kitchen": int(r["kit
 exp = [{"date": r["date"], "item": r["item"], "category": r["category"], "amount": int(r["amount"])} for r in rd("expenses.csv")]
 pre = [{"date": r["date"], "item": r["item"], "amount": int(r["amount"])} for r in rd("preopening.csv")]
 invb = [{"item": r["item"], "amount": int(r["amount"])} for r in rd("investment.csv")]
+cfg = {r["key"]: r["value"] for r in rd("settings.csv")}
+if "est_from" in cfg:
+    for x in sales:
+        if x["date"] >= cfg["est_from"] and "kitchen" not in x:
+            x["kitchen"] = round(x["sales"] * float(cfg["kitchen_pct"])); x["juice"] = round(x["sales"] * float(cfg["juice_pct"])); x["split_est"] = True
 inv = next(r for r in rd("settings.csv") if r["key"] == "investment")
 out = {"updated": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="minutes"),
        "investment": int(inv["value"]), "investment_note": inv["note"], "sales": sales, "expenses": exp, "preopening": pre, "investment_items": invb}

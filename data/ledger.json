@@ -1,5 +1,5 @@
 {
-"updated": "2026-11-14T14:45+00:00",
+"updated": "2026-11-14T14:49+00:00",
 "investment": 1100000,
 "investment_note": "Estimated, to be confirmed",
 "sales": [
@@ -172,6 +172,13 @@
 "sales": 19116,
 "kitchen": 5850,
 "juice": 1820
+},
+{
+"date": "2026-11-08",
+"sales": 18246,
+"kitchen": 5474,
+"juice": 1825,
+"split_est": true
 }
 ],
 "expenses": [
@@ -2862,6 +2869,54 @@
 "item": "Salary (8)",
 "category": "Staff",
 "amount": 6000
+},
+{
+"date": "2026-11-08",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 1200
+},
+{
+"date": "2026-11-08",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1290
+},
+{
+"date": "2026-11-08",
+"item": "Samosa",
+"category": "Snacks & ice cream",
+"amount": 200
+},
+{
+"date": "2026-11-08",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 2700
+},
+{
+"date": "2026-11-08",
+"item": "Milk",
+"category": "Milk",
+"amount": 906
+},
+{
+"date": "2026-11-08",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1180
+},
+{
+"date": "2026-11-08",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-11-08",
+"item": "Salary (8)",
+"category": "Staff",
+"amount": 5000
 }
 ],
 "preopening": [
