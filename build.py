@@ -6,7 +6,9 @@ sales = []
 for r in rd("sales.csv"):
     x = {"date": r["date"], "sales": int(r["sales"])}
     for k in ("kitchen", "juice"):
-        if (r.get(k) or "").strip() != "": x[k] = int(r[k])
+        v = (r.get(k) or "").strip()
+        if v.startswith("~"): x[k] = int(v[1:]); x[k + "_est"] = True
+        elif v != "": x[k] = int(v)
     if (r.get("note") or "").strip(): x["note"] = r["note"].strip()
     sales.append(x)
 exp = [{"date": r["date"], "item": r["item"], "category": r["category"], "amount": int(r["amount"])} for r in rd("expenses.csv")]

@@ -1,5 +1,5 @@
 {
-"updated": "2026-11-14T14:50+00:00",
+"updated": "2026-11-14T14:52+00:00",
 "investment": 1100000,
 "investment_note": "Estimated, to be confirmed",
 "sales": [
@@ -187,6 +187,14 @@
 "kitchen": 0,
 "note": "Main kitchen closed",
 "juice": 929,
+"juice_est": true
+},
+{
+"date": "2026-11-10",
+"sales": 10386,
+"kitchen": 2804,
+"kitchen_est": true,
+"juice": 1039,
 "juice_est": true
 }
 ],
@@ -2986,6 +2994,54 @@
 "item": "Salary (7)",
 "category": "Staff",
 "amount": 4700
+},
+{
+"date": "2026-11-10",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1511
+},
+{
+"date": "2026-11-10",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-11-10",
+"item": "Egg & disposable",
+"category": "Meat, fish & eggs",
+"amount": 280
+},
+{
+"date": "2026-11-10",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 2430
+},
+{
+"date": "2026-11-10",
+"item": "Milk",
+"category": "Milk",
+"amount": 906
+},
+{
+"date": "2026-11-10",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 200
+},
+{
+"date": "2026-11-10",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-11-10",
+"item": "Salary (7)",
+"category": "Staff",
+"amount": 4200
 }
 ],
 "preopening": [
