@@ -1,5 +1,5 @@
 {
-"updated": "2026-11-14T17:14+00:00",
+"updated": "2026-11-14T17:36+00:00",
 "sales": [
 {
 "date": "2026-09-28",
@@ -6071,8 +6071,9 @@
 {
 "item": "Launch tasting 26-27 Sep",
 "amount": 43564,
-"status": "Pending reconciliation",
-"notes": "Funding source not yet verified. Kept in operating results; not added to the owner funding total."
+"status": "Reconciled",
+"funded_from": "Operational cash advances",
+"notes": "OWNER CONFIRMED 14 Nov: paid from the manager's operational cash advances. Not additional owner funding, so not added to the 11,45,908 total."
 }
 ]
 }

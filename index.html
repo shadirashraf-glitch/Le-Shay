@@ -79,6 +79,10 @@ section.tab[hidden] { display: none; }
 .status b { font-family: var(--serif); font-size: 20px; font-weight: 700; }
 .status span { font-size: 14px; color: var(--beige); }
 .nyr { color: var(--warn); font-weight: 600; }
+.cashcard { border-color: rgba(212,175,55,.35); }
+.cc-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+.cc-head .lbl { display: block; color: var(--beige); font-size: 13px; font-weight: 600; }
+.cc-head .val { display: block; font-family: var(--serif); font-weight: 700; font-size: clamp(32px, 10vw, 44px); line-height: 1.1; font-variant-numeric: tabular-nums lining-nums; white-space: nowrap; }
 .stack { display: flex; height: 16px; border-radius: 8px; overflow: hidden; background: var(--grid); }
 .stack > div { height: 100%; }
 .legend { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 13px; color: var(--beige); }
@@ -164,6 +168,11 @@ footer { color: var(--muted); font-size: 12px; text-align: center; letter-spacin
         <div class="kpi"><span class="lbl">Recorded operating expenses</span><span class="val" id="o-spend">—</span><span class="ctx" id="o-spend-c"></span></div>
         <div class="kpi"><span class="lbl">Trading result</span><span class="val" id="o-trade">—</span><span class="ctx">Sales minus recorded expenses</span></div>
         <div class="kpi hero"><span class="lbl">Cumulative cash-flow shortfall</span><span class="val" id="o-cum">—</span><span class="ctx">After October owner-paid costs and launch tasting</span></div>
+      </div>
+      <div class="card cashcard" id="o-cashcard">
+        <div class="cc-head"><div><span class="lbl">Operating cash available</span><span class="val" id="o-oc">—</span></div><span class="pill" id="o-oc-pill">Estimate</span></div>
+        <div class="items" id="o-oc-rows"></div>
+        <p class="note" id="o-oc-note"></p>
       </div>
     </div>
 
@@ -279,8 +288,8 @@ footer { color: var(--muted); font-size: 12px; text-align: center; letter-spacin
       <div class="tw"><table><thead><tr><th>Ledger date</th><th>Sales</th><th>Expenses</th><th>Result</th></tr></thead><tbody id="tb-day"></tbody></table></div>
     </div>
     <div class="card" id="pre-card">
-      <h3>Launch tasting <span class="flag">Pending reconciliation</span></h3>
-      <p class="note">Sample food served before opening. In the cumulative shortfall, not in daily averages or charts, and not in owner funding until its funding source is verified.</p>
+      <h3>Launch tasting <span class="flag ok">Funded from cash advances</span></h3>
+      <p class="note">Sample food served before opening, paid from the manager's operational cash advances. Included in the cumulative shortfall and in operating cash used; kept out of daily averages and charts; not additional owner funding.</p>
       <div class="items" id="pre-items"></div>
     </div>
    </div>
@@ -361,6 +370,11 @@ footer { color: var(--muted); font-size: 12px; text-align: center; letter-spacin
   <!-- ================= CASH ================= -->
   <section class="tab" id="cash" role="tabpanel" aria-labelledby="t-cash" hidden>
     <div class="status" id="cash-status"></div>
+    <div class="card cashcard">
+      <div class="cc-head"><div><span class="lbl">Operating cash available</span><span class="val" id="c-oc">—</span></div><span class="pill" id="c-oc-pill">Estimate</span></div>
+      <div class="items" id="c-oc-rows"></div>
+      <p class="note" id="c-oc-note"></p>
+    </div>
     <div class="kpis two">
       <div class="kpi"><span class="lbl">Operational cash advances</span><span class="val" id="c-adv">—</span><span class="ctx">Handed over to run the cafe</span></div>
       <div class="kpi"><span class="lbl">Paid directly by owner</span><span class="val" id="c-direct">—</span><span class="ctx">Never passed through manager cash</span></div>
@@ -458,7 +472,8 @@ function model(j) {
   const L = j.investment_ledger, ownerCosts = L.filter(r => OWNER_COST.includes(r.classification));
   const tasting = d3.sum(j.preopening || [], x => x.amount), OC = d3.sum(ownerCosts, r => r.amount_inr);
   const fundTotal = d3.sum(L, r => r.amount_inr), adv = d3.sum(j.cash_advances, a => a.amount), stockOwner = j.funding_classes['Owner-funded stock'] || 0;
-  return { ...j, daily, weeks, cats, L, ownerCosts, tasting, S, E, T: S - E, OC, OP: S - E - OC, CUM: S - E - OC - tasting, fundTotal, adv, stockOwner, direct: OC + stockOwner };
+  const tastingFromAdv = (j.pending || []).some(p => /launch tasting/i.test(p.item) && /advance/i.test(p.funded_from || ''));
+  return { ...j, tastingFromAdv, daily, weeks, cats, L, ownerCosts, tasting, S, E, T: S - E, OC, OP: S - E - OC, CUM: S - E - OC - tasting, fundTotal, adv, stockOwner, direct: OC + stockOwner };
 }
 function win(k) { const d = D.daily, n = d.length, cur = d.slice(-k), prev = d.slice(Math.max(0, n - 2 * k), n - k); return { cur: d3.sum(cur, x => x.net), prev: d3.sum(prev, x => x.net), pn: prev.length, cn: cur.length, cs: d3.sum(cur, x => x.sales) }; }
 
@@ -468,6 +483,7 @@ function overview() {
   setVal('o-sales', D.S); $('o-sales-c').textContent = n + ' trading days · ' + inr(D.S / n) + ' a day';
   setVal('o-spend', D.E); $('o-spend-c').textContent = 'Daily ledger · ' + inr(D.E / n) + ' a day';
   setVal('o-trade', D.T, true); setVal('o-cum', D.CUM, true);
+  operatingCash($('o-oc'), $('o-oc-rows'), $('o-oc-note'), $('o-oc-pill'));
   const w7 = win(7), w30 = win(30);
   setVal('o-7', w7.cur, true); $('o-7d').replaceChildren(delta(w7.cur, w7.prev, 'previous 7 days')); $('o-7c').textContent = 'Sales ' + inr(w7.cs) + ' · ' + inr(w7.cs / w7.cn) + ' a day';
   setVal('o-30', w30.cur, true); $('o-30d').replaceChildren(delta(w30.cur / w30.cn * 7, w30.pn ? w30.prev / w30.pn * 7 : 0, 'the ' + w30.pn + ' days before', ' a week'));
@@ -484,6 +500,18 @@ function overview() {
   setVal('o-adv', D.adv); setVal('o-direct', D.direct);
   cashStatus($('o-cash'));
 }
+function operatingCash(valEl, rowsEl, noteEl, pillEl) {
+  const fromAdv = D.tastingFromAdv, cash = D.adv + D.T - (fromAdv ? D.tasting : 0);
+  valEl.textContent = inr(cash); valEl.classList.remove('pos', 'neg'); valEl.classList.add(cash >= 0 ? 'pos' : 'neg');
+  rowsEl.replaceChildren();
+  row(rowsEl, 'Cash given for operations', 'GKU, Ukku, Nauman', '+' + inr(D.adv));
+  row(rowsEl, 'Trading result', 'sales minus daily expenses', inr(D.T), D.T < 0 ? 'neg' : 'pos');
+  if (fromAdv) row(rowsEl, 'Launch tasting', 'paid from the advances', inr(-D.tasting), 'neg');
+  row(rowsEl, cash < 0 ? 'Negative balance' : 'Cash available', 'estimate', inr(cash), 'sum');
+  noteEl.textContent = (cash <= 0 ? 'The ' + inr(D.adv) + ' in advances has been fully used, so the cafe is now running on daily sales, and each shortfall day needs new cash. ' : 'Estimated cash still with the manager from the advances. ')
+    + 'Assumes the manager collected all sales and paid all recorded expenses. October costs paid directly by the owner are not included. Confirm with a physical cash count.';
+  if (pillEl) pillEl.textContent = 'Estimate';
+}
 function recoveryStatus(box) {
   const d = D.daily, r30 = d3.sum(d.slice(-30), x => x.net), r14 = d3.sum(d.slice(-14), x => x.net);
   if (r30 > 0) { box.className = 'status good'; box.replaceChildren(el('b', null, 'Generating surplus'), el('span', null, 'Last 30 days ' + inr(r30) + '. Recovery counts once cash is returned to the owners. Returned so far: ₹0.')); }
@@ -491,7 +519,7 @@ function recoveryStatus(box) {
 }
 function cashStatus(box) {
   const book = D.cashbook || []; box.className = 'status';
-  if (!book.length) box.replaceChildren(el('b', null, 'Manager cash: Not yet reconcilable'), el('span', null, 'Cash sales, till payments, deposits and the opening balance have not been recorded yet, so no balance is shown.'));
+  if (!book.length) box.replaceChildren(el('b', null, 'Counted cash: Not yet reconcilable'), el('span', null, 'The operating cash figure is an estimate. Confirming it needs the manager\'s opening cash, cash vs UPI sales, till payments and a physical cash count.'));
   else box.replaceChildren(el('b', null, 'Cashbook started'), el('span', null, book.length + ' days recorded. See Cash Reconciliation.'));
 }
 
@@ -551,7 +579,7 @@ function operations() {
   row(br, 'Trading result', '', inr(D.T), 'tot ' + (D.T >= 0 ? 'pos' : 'neg'));
   D.ownerCosts.forEach(r => row(br, (WHO[r.transaction_id] || r.original_description) + ', October', r.classification === 'October electricity' ? 'owner-paid, October only' : 'management salary, owner-paid', inr(-r.amount_inr)));
   row(br, 'Operating result', '', inr(D.OP), 'tot ' + (D.OP >= 0 ? 'pos' : 'neg'));
-  row(br, 'Launch tasting', '26–27 Sep, before opening', inr(-D.tasting), '', { text: 'Pending' });
+  row(br, 'Launch tasting', '26–27 Sep, paid from cash advances', inr(-D.tasting));
   row(br, 'Cumulative cash-flow ' + (D.CUM < 0 ? 'shortfall' : 'surplus'), 'since opening, cash view', inr(D.CUM), 'sum');
   $('periods').replaceChildren(...[[7, 'Last 7 days'], [30, 'Last 30 days']].map(([k, lab]) => { const w = win(k), t = el('div', 'kpi sm-val');
     t.append(el('span', 'lbl', lab + ' result'), el('span', 'val ' + (w.cur >= 0 ? 'pos' : 'neg'), inr(w.cur)), delta(w.cur / w.cn * 7, w.pn ? w.prev / w.pn * 7 : 0, k === 7 ? 'previous 7 days' : 'the ' + w.pn + ' days before', k === 7 ? '' : ' a week'), el('span', 'ctx', 'Sales ' + inr(w.cs) + ' · ' + inr(w.cs / w.cn) + ' a day')); return t; }));
@@ -676,6 +704,7 @@ function stockTable() {
 function cashTab() {
   const adv = D.adv, book = D.cashbook || [], NYR = 'Not yet reconcilable';
   cashStatus($('cash-status')); setVal('c-adv', adv); setVal('c-direct', D.direct);
+  operatingCash($('c-oc'), $('c-oc-rows'), $('c-oc-note'), $('c-oc-pill'));
   stack($('c-bar'), [[adv, 'var(--kraft)'], [D.OC, 'var(--c-juice)'], [D.stockOwner, 'var(--c-stock)']], adv + D.direct);
   const cs = $('c-split'); cs.replaceChildren();
   splitRow(cs, 'var(--kraft)', 'Cash advances to manager', inr(adv), 'GKU, Ukku, Nauman');
@@ -728,12 +757,13 @@ function records() {
     ['Recovery', 'Cash returned to the owners, against funding excluding the refundable deposit.'],
     ['Sales mix', 'Main Kitchen, Juice & Shakes and Main Counter shares from complete reporting days only, adding to 100%. Partial and estimated days are shown separately and never counted as actual performance.'],
     ['Ledger date', 'The date on the manager\'s page. Expenses are usually written a day after they happen.'],
+    ['Operating cash available', 'Cash given for operations (₹1,06,149) plus the trading result, minus the launch tasting, which was paid from the advances. An estimate of what is left from the advances, assuming the manager collected all sales and paid all recorded expenses. October costs paid directly by the owner are excluded. A negative figure means the advances are used up.'],
+    ['Launch tasting', 'Sample food before opening (₹43,564), paid from the operational cash advances. Not additional owner funding.'],
   ];
   $('defs').replaceChildren(...defs.flatMap(([t, x]) => [el('dt', null, t), el('dd', null, x)]));
   const m = mixData(), dup = D.L.filter(r => r.potential_duplicate).length, prov = D.L.filter(r => /provisional|Tentatively/i.test(r.notes || '')).length;
   const unv = d3.sum(D.stockRows || [], r => r.src === 'Not yet verified' ? r.amt : 0);
   $('flags').replaceChildren(...[
-    'Launch tasting ' + inr(D.tasting) + ': funding source not verified. Not added to owner funding.',
     dup + ' investment ledger transactions look like possible duplicates. All kept as genuine until checked.',
     prov + ' investment ledger categories are provisional because the description is unclear.',
     'No investment ledger transaction has a confirmed date or receipt yet.',

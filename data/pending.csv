@@ -1,2 +1,2 @@
-item,amount,status,notes
-Launch tasting 26-27 Sep,43564,Pending reconciliation,Funding source not yet verified. Kept in operating results; not added to the owner funding total.
+item,amount,status,funded_from,notes
+Launch tasting 26-27 Sep,43564,Reconciled,Operational cash advances,"OWNER CONFIRMED 14 Nov: paid from the manager's operational cash advances. Not additional owner funding, so not added to the 11,45,908 total."
