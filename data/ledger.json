@@ -204,6 +204,14 @@
 "kitchen_est": true,
 "juice": 910,
 "juice_est": true
+},
+{
+"date": "2026-11-12",
+"sales": 14132,
+"kitchen": 3816,
+"kitchen_est": true,
+"juice": 1413,
+"juice_est": true
 }
 ],
 "expenses": [
@@ -3098,6 +3106,78 @@
 "item": "Salary (7)",
 "category": "Staff",
 "amount": 4200
+},
+{
+"date": "2026-11-12",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1343
+},
+{
+"date": "2026-11-12",
+"item": "Egg & disposable",
+"category": "Meat, fish & eggs",
+"amount": 270
+},
+{
+"date": "2026-11-12",
+"item": "Ice cream",
+"category": "Snacks & ice cream",
+"amount": 850
+},
+{
+"date": "2026-11-12",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1100
+},
+{
+"date": "2026-11-12",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 2300
+},
+{
+"date": "2026-11-12",
+"item": "Bike",
+"category": "Utilities & misc",
+"amount": 500
+},
+{
+"date": "2026-11-12",
+"item": "Samosa",
+"category": "Snacks & ice cream",
+"amount": 280
+},
+{
+"date": "2026-11-12",
+"item": "Milk",
+"category": "Milk",
+"amount": 906
+},
+{
+"date": "2026-11-12",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 200
+},
+{
+"date": "2026-11-12",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 2550
+},
+{
+"date": "2026-11-12",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-11-12",
+"item": "Salary (7)",
+"category": "Staff",
+"amount": 3900
 }
 ],
 "preopening": [
