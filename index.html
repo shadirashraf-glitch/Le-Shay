@@ -76,7 +76,12 @@ footer { color: var(--muted); font-size: 11px; text-align: center; letter-spacin
 nav.tabs { position: sticky; top: 0; z-index: 5; background: var(--bg); padding: 8px 0; display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 6px; border-bottom: 1px solid var(--line); }
 nav.tabs button { font: inherit; font-size: 12px; font-weight: 500; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 9px 4px; cursor: pointer; line-height: 1.2; }
 nav.tabs button[aria-selected=true] { color: var(--bg); background: var(--gold); border-color: var(--gold); font-weight: 600; }
-section.tab { display: grid; gap: 18px; }
+section.tab, .grp { display: grid; gap: 18px; }
+.subnav { grid-column: 1 / -1; display: flex; gap: 6px; overflow-x: auto; padding-top: 2px; scrollbar-width: none; }
+.subnav::-webkit-scrollbar { display: none; }
+.subnav a { flex: 1 0 auto; text-align: center; font-size: 12px; color: var(--gold); text-decoration: none; border: 1px solid var(--gold-soft); border-radius: 999px; padding: 6px 10px; white-space: nowrap; }
+.subnav a.on { background: var(--gold-soft); border-color: var(--gold); }
+.subnav[hidden] { display: none; }
 section.tab[hidden] { display: none; }
 .flag { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 1px 6px; border-radius: 6px; border: 1px solid var(--warn); color: var(--warn); margin-left: 6px; white-space: nowrap; vertical-align: 1px; }
 .flag.ok { border-color: var(--ok); color: var(--ok); }
@@ -107,10 +112,14 @@ ul.list { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 13p
     <button role="tab" id="t-inv" aria-controls="inv" data-tab="inv">Investment &amp; Funding</button>
     <button role="tab" id="t-cash" aria-controls="cash" data-tab="cash">Cash Reconciliation</button>
     <button role="tab" id="t-rec" aria-controls="rec" data-tab="rec">Records &amp; Definitions</button>
+    <div class="subnav" id="subnav" aria-label="Jump to">
+      <a href="#g-overview" data-jump="g-overview">Overview</a><a href="#g-sales" data-jump="g-sales">Sales &amp; Expenses</a><a href="#g-weekly" data-jump="g-weekly">Weekly</a><a href="#g-daily" data-jump="g-daily">Daily</a>
+    </div>
   </nav>
 
   <!-- ============ OPERATIONS ============ -->
   <section class="tab" id="ops" role="tabpanel" aria-labelledby="t-ops">
+   <div class="grp" id="g-overview">
     <div class="takebox"><p class="take" id="takeaway" style="margin:0"></p></div>
 
     <section class="card">
@@ -120,7 +129,7 @@ ul.list { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 13p
         <div class="tile"><span class="lbl">Sales</span><span class="big" id="lt-sales">—</span><span class="sm" id="lt-vs"></span></div>
         <div class="tile"><span class="lbl">Recorded spend</span><span class="big" id="lt-spend">—</span><span class="sm">Purchases and wages on the page</span></div>
         <div class="tile"><span class="lbl">Day result</span><span class="big" id="lt-net">—</span><span class="sm" id="lt-kind"></span></div>
-        <div class="tile"><span class="lbl">Staff cost</span><span class="big" id="lt-staff">—</span><span class="sm" id="lt-staffpct"></span></div>
+        <div class="tile"><span class="lbl">Daily staff wages</span><span class="big" id="lt-staff">—</span><span class="sm" id="lt-staffpct"></span></div>
       </div>
     </section>
 
@@ -134,22 +143,26 @@ ul.list { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 13p
     </section>
 
     <section class="card" id="bridge-card">
-      <h2>From trading result to cumulative result</h2>
-      <p class="note">How the daily ledger result becomes the total since opening, step by step.</p>
+      <h2>From trading result to cumulative cash-flow shortfall</h2>
+      <p class="note">How the daily ledger result becomes the total since opening, step by step. This is a cash view, not fully reconciled accounting profit.</p>
       <div class="items" id="bridge"></div>
     </section>
+   </div>
 
-    <section class="card">
-      <h2>Recent periods</h2>
-      <p class="note">Sales minus recorded daily spend. The October owner-paid costs have no dates, so they are not included in these windows.</p>
-      <div class="tiles" id="periods"></div>
-    </section>
-
-    <section class="card">
-      <h2>Month by month</h2>
-      <p class="note">Owner-paid costs are added to the month they belong to, even though their exact dates are not confirmed.</p>
-      <div class="tw"><table><thead><tr><th class="l">Month</th><th>Days</th><th>Sales</th><th>Recorded spend</th><th>Owner-paid</th><th>Result</th></tr></thead><tbody id="tb-month"></tbody></table></div>
-    </section>
+   <div class="grp" id="g-sales">
+    <div class="grid2">
+      <section class="card">
+        <h2>Sales vs recorded spend, by day</h2>
+        <p class="note">Tap the chart to see each day.</p>
+        <div class="legend"><span><i style="background:var(--sales)"></i>Sales</span><span><i style="background:var(--spend)"></i>Recorded spend</span></div>
+        <div class="chart" id="ch-trend"></div>
+      </section>
+      <section class="card">
+        <h2>Daily result</h2>
+        <p class="note">Sales minus recorded spend. Green is a surplus day, red a shortfall.</p>
+        <div class="chart" id="ch-net"></div>
+      </section>
+    </div>
 
     <section class="card" id="mix-card" style="display:none">
       <h2>Sales mix</h2>
@@ -165,39 +178,34 @@ ul.list { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 13p
       <p class="note" id="mix-history"></p>
     </section>
 
-    <div class="grid2">
-      <section class="card">
-        <h2>Sales vs recorded spend, by day</h2>
-        <p class="note">Tap the chart to see each day.</p>
-        <div class="legend"><span><i style="background:var(--sales)"></i>Sales</span><span><i style="background:var(--spend)"></i>Recorded spend</span></div>
-        <div class="chart" id="ch-trend"></div>
-      </section>
-      <section class="card">
-        <h2>Daily result</h2>
-        <p class="note">Sales minus recorded spend. Green is a surplus day, red a shortfall.</p>
-        <div class="chart" id="ch-net"></div>
-      </section>
-    </div>
+    <section class="card">
+      <h2>Where the money goes</h2>
+      <p class="note">Recorded daily spend by category since opening, each as a share of sales. Daily staff wages are the regular cafe staff paid daily; management salaries for October are in the bridge.</p>
+      <div class="cats" id="cats"></div>
+    </section>
+   </div>
 
-    <div class="grid2">
-      <section class="card">
-        <h2>Week by week</h2>
-        <p class="note">Monday to Sunday. The latest week may be partial.</p>
-        <div class="tw"><table><thead><tr><th>Week of</th><th>Days</th><th>Sales</th><th>Spend</th><th>Result</th></tr></thead><tbody id="tb-week"></tbody></table></div>
-      </section>
-      <section class="card">
-        <h2>Where the money goes</h2>
-        <p class="note">Recorded daily spend by category since opening, each as a share of sales. Owner-paid October costs are in the bridge above.</p>
-        <div class="cats" id="cats"></div>
-      </section>
-    </div>
-
-    <section class="card" id="pre-card">
-      <h2>Launch tasting <span class="flag">Pending reconciliation</span></h2>
-      <p class="note">Free sample food served before opening. Included in the cumulative result, but kept out of daily averages and charts. Its funding source has not been verified, so it is not part of the owner funding total.</p>
-      <div class="items" id="pre-items"></div>
+   <div class="grp" id="g-weekly">
+    <section class="card">
+      <h2>Recent periods</h2>
+      <p class="note">Sales minus recorded daily spend. The October owner-paid costs have no dates, so they are not included in these windows.</p>
+      <div class="tiles" id="periods"></div>
     </section>
 
+    <section class="card">
+      <h2>Week by week</h2>
+      <p class="note">Monday to Sunday. The latest week may be partial.</p>
+      <div class="tw"><table><thead><tr><th>Week of</th><th>Days</th><th>Sales</th><th>Spend</th><th>Result</th></tr></thead><tbody id="tb-week"></tbody></table></div>
+    </section>
+
+    <section class="card">
+      <h2>Month by month</h2>
+      <p class="note">Owner-paid costs are added to the month they belong to, even though their exact dates are not confirmed.</p>
+      <div class="tw"><table><thead><tr><th class="l">Month</th><th class="hide-sm">Days</th><th>Sales</th><th>Spend</th><th>Owner-paid</th><th>Result</th></tr></thead><tbody id="tb-month"></tbody></table></div>
+    </section>
+   </div>
+
+   <div class="grp" id="g-daily">
     <section class="card" id="day">
       <h2>Day breakdown</h2>
       <p class="note">Every line from the manager's ledger page for the chosen ledger date.</p>
@@ -211,6 +219,13 @@ ul.list { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 13p
       <div class="tw"><table><thead><tr><th>Ledger date</th><th>Sales</th><th>Spend</th><th>Result</th></tr></thead><tbody id="tb-day"></tbody></table></div>
       <p class="note">Ledger date is the date written on the manager's page. Expenses are usually written one day after they happen, so a single day can look better or worse than it was. Actual expense dates are not recorded, so the dashboard does not try to shift them. Weekly and monthly totals smooth this out.</p>
     </section>
+
+    <section class="card" id="pre-card">
+      <h2>Launch tasting <span class="flag">Pending reconciliation</span></h2>
+      <p class="note">Free sample food served before opening. Included in the cumulative cash-flow shortfall, but kept out of daily averages and charts. Its funding source has not been verified, so it is not part of the owner funding total.</p>
+      <div class="items" id="pre-items"></div>
+    </section>
+   </div>
   </section>
 
   <!-- ============ INVESTMENT ============ -->
@@ -256,11 +271,24 @@ ul.list { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 13p
         <h3>Owner-paid October operating costs</h3>
         <p class="note">Paid directly by the owner, outside the daily ledger. Counted once, in October's result.</p>
         <div class="items" id="post-oct"></div>
-        <h3>Owner-funded inventory</h3>
-        <p class="note">Stock bought personally by the owner and supplied to the cafe. Outside manager cash and the daily ledger, and not counted as a cost until sold.</p>
+        <h3>Owner-Funded Stock</h3>
+        <p class="note">Bought with the owner's personal funds and supplied to Le Shay. Not from manager cash, not in daily expenses, and not counted as an immediate cost.</p>
         <div class="items" id="post-stock"></div>
       </section>
     </div>
+
+    <section class="card" id="stock-card">
+      <h2>Stock purchases by funding source</h2>
+      <p class="note">Separates stock the owner bought directly from stock bought with the manager's operating cash. Owner-funded stock counts towards owner funding but is not treated as an immediate expense. Manager-cash stock comes from the daily ledger and is already in recorded spend.</p>
+      <div class="controls">
+        <select id="st-src" aria-label="Funding source"><option value="">All funding sources</option><option>Owner paid</option><option>Manager operating cash</option></select>
+        <select id="st-type" aria-label="Stock type"><option value="">All stock types</option><option>Beverages</option><option>Groceries</option><option>Meat &amp; Fish</option><option>Dairy</option><option>Other</option></select>
+        <select id="st-per" aria-label="Period"><option value="">All periods</option><option>Pre-opening</option><option>Post-opening</option></select>
+      </div>
+      <div class="tiles" id="st-tiles"></div>
+      <p class="note" id="st-count"></p>
+      <div class="tw"><table><thead><tr><th class="l">Date or period</th><th class="l">Item</th><th class="l hide-sm">Type</th><th>Amount</th></tr></thead><tbody id="tb-stock"></tbody></table></div>
+    </section>
 
     <section class="card" id="ledger-card">
       <h2>Investment ledger</h2>
@@ -268,6 +296,10 @@ ul.list { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 13p
       <div class="controls">
         <input type="search" id="lg-q" placeholder="Search description or ID" aria-label="Search ledger">
         <select id="lg-cat" aria-label="Filter by category"></select>
+        <select id="lg-exp" aria-label="Expense category"></select>
+        <select id="lg-src" aria-label="Funding source"><option value="">All funding sources</option><option>Owner paid</option><option>Manager operating cash</option></select>
+        <select id="lg-stk" aria-label="Stock type"><option value="">All stock types</option><option>Beverages</option><option>Groceries</option><option>Meat &amp; Fish</option><option>Dairy</option><option>Other</option></select>
+        <select id="lg-per" aria-label="Period"><option value="">All periods</option><option>Pre-opening</option><option>Post-opening</option></select>
         <label><input type="checkbox" id="lg-flag"> Flagged only</label>
       </div>
       <p class="note" id="lg-count"></p>
@@ -351,7 +383,9 @@ const P = d => new Date(d + 'T00:00:00Z');
 const fd = d => d3.utcFormat('%-d %b')(P(d));
 const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
-const OWNER_COST = ['October salaries', 'October electricity'];
+const OWNER_COST = ['October management salaries', 'October electricity'];
+const CAT_LABEL = c => c === 'Staff' ? 'Daily staff wages' : c;
+const STOCK_TYPE = { 'Milk': 'Dairy', 'Meat, fish & eggs': 'Meat & Fish', 'Groceries': 'Groceries', 'Produce & batter': 'Groceries', 'Snacks & ice cream': 'Other' };
 let D, picked;
 
 function row(box, label, sub, value, cls, flag) {
@@ -372,7 +406,7 @@ function model(j) {
   const weeks = d3.rollups(daily, v => ({ days: v.length, sales: d3.sum(v, d => d.sales), spend: d3.sum(v, d => d.spend) }), d => d3.utcFormat('%Y-%m-%d')(d3.utcMonday.floor(P(d.date))))
     .map(([week, v]) => ({ week, ...v, net: v.sales - v.spend })).sort((a, b) => a.week < b.week ? -1 : 1);
   const S = d3.sum(daily, d => d.sales);
-  const cats = d3.rollups(j.expenses, v => d3.sum(v, e => e.amount), e => e.category).map(([c, a]) => ({ c, a, share: a / S })).sort((a, b) => b.a - a.a);
+  const cats = d3.rollups(j.expenses, v => d3.sum(v, e => e.amount), e => CAT_LABEL(e.category)).map(([c, a]) => ({ c, a, share: a / S })).sort((a, b) => b.a - a.a);
   const L = j.investment_ledger;
   const ownerCosts = L.filter(r => OWNER_COST.includes(r.classification));
   const tasting = d3.sum(j.preopening || [], x => x.amount);
@@ -387,7 +421,7 @@ function operations() {
   $('range').textContent = 'Trading ' + fd(d[0].date) + ' to ' + fd(d[n - 1].date) + ' 2026 (' + n + ' days)' + (pre.length ? ' · Launch tasting ' + fd(pre[0].date) + ' to ' + fd(pre[pre.length - 1].date) : '') + ' · all amounts in ₹';
   const l7 = d3.sum(d.slice(-7), x => x.net), p7 = d3.sum(d.slice(-14, -7), x => x.net);
   const staffPct = Math.round(d3.sum(d, x => x.staff) / S * 100);
-  $('takeaway').textContent = 'Last 7 days: ' + inr(l7) + ' from the daily ledger, ' + (n > 7 ? (l7 >= p7 ? 'better' : 'worse') + ' than the 7 days before (' + inr(p7) + '). ' : '') + 'Daily wages are ' + staffPct + '% of sales, the biggest cost to watch. Cumulative result after October owner-paid costs and the launch tasting: ' + inr(CUM) + '.';
+  $('takeaway').textContent = 'Last 7 days: ' + inr(l7) + ' from the daily ledger, ' + (n > 7 ? (l7 >= p7 ? 'better' : 'worse') + ' than the 7 days before (' + inr(p7) + '). ' : '') + 'Daily staff wages are ' + staffPct + '% of sales, the biggest cost to watch. Cumulative cash-flow ' + (CUM < 0 ? 'shortfall' : 'surplus') + ' after October owner-paid costs and the launch tasting: ' + inr(CUM) + '.';
   const Lt = d[n - 1], avg = S / n;
   $('lt-label').textContent = d3.utcFormat('%A, %-d %B')(P(Lt.date)) + ' (ledger date)';
   $('lt-sales').textContent = inr(Lt.sales);
@@ -408,11 +442,11 @@ function operations() {
   row(br, 'Sales', n + ' trading days', inr(S));
   row(br, 'Recorded daily spend', 'from the manager\'s pages', inr(-E));
   row(br, 'Trading result', 'sales minus recorded spend', inr(T), 'tot ' + (T >= 0 ? 'pos' : 'neg'));
-  const WHO = { 'LSI-143': 'Firoz, staff salary', 'LSI-144': 'GKU, manager salary', 'LSI-145': 'Electricity' };
-  D.ownerCosts.forEach(r => row(br, (WHO[r.transaction_id] || r.original_description) + ', October', 'owner-paid, date not confirmed', inr(-r.amount_inr)));
-  row(br, 'Operating result', 'after owner-paid October costs', inr(OP), 'tot ' + (OP >= 0 ? 'pos' : 'neg'));
+  const WHO = { 'LSI-143': 'Firoz, operations salary', 'LSI-144': 'GKU, management salary', 'LSI-145': 'Electricity' };
+  D.ownerCosts.forEach(r => row(br, (WHO[r.transaction_id] || r.original_description) + ', October', r.classification === 'October electricity' ? 'owner-paid, October only, date not confirmed' : 'management salary, owner-paid, date not confirmed', inr(-r.amount_inr)));
+  row(br, 'Operating result', 'after October management salaries and electricity', inr(OP), 'tot ' + (OP >= 0 ? 'pos' : 'neg'));
   row(br, 'Launch tasting, 26 to 27 Sep', 'before opening', inr(-D.tasting), '', { text: 'Pending reconciliation' });
-  row(br, 'Cumulative result since opening', 'cash view, see definitions', inr(CUM), 'sum');
+  row(br, 'Cumulative cash-flow ' + (CUM < 0 ? 'shortfall' : 'surplus'), 'since opening, cash view', inr(CUM), 'sum');
 
   // periods
   const pb = $('periods'); pb.innerHTML = '';
@@ -467,8 +501,8 @@ function investment() {
   const L = D.L, tot = d3.sum(L, r => r.amount_inr), dep = D.deposit, ex = tot - dep;
   $('f-total').textContent = inr(tot); $('f-rows').textContent = L.length + ' transactions';
   $('f-dep').textContent = inr(dep); $('f-ex').textContent = inr(ex);
-  const order = ['Pre-opening investment', 'Operational cash advance', 'October salaries', 'October electricity', 'Owner-funded stock'];
-  const sub = { 'Pre-opening investment': 'includes ' + inr(dep) + ' refundable deposit', 'Operational cash advance': 'working capital, not an expense', 'October salaries': 'GKU manager and Firoz staff, owner-paid', 'October electricity': 'confirmed October payment only', 'Owner-funded stock': 'cool drinks, owner-supplied' };
+  const order = ['Pre-opening investment', 'Operational cash advance', 'October management salaries', 'October electricity', 'Owner-funded stock'];
+  const sub = { 'Pre-opening investment': 'includes ' + inr(dep) + ' refundable deposit', 'Operational cash advance': 'working capital, not an expense', 'October management salaries': 'GKU manager and Firoz operations, owner-paid', 'October electricity': 'confirmed October payment only', 'Owner-funded stock': 'cool drinks, beverages, owner\'s personal funds' };
   const fr = $('f-recon'); fr.innerHTML = '';
   order.forEach(k => row(fr, k, sub[k], inr(D.funding_classes[k] || 0)));
   row(fr, 'Total owner funding and spending', '', inr(tot), 'sum');
@@ -508,23 +542,26 @@ function investment() {
   D.cash_advances.forEach(a => row(pa, a.given_to, a.source_transaction + ' · date not confirmed', inr(a.amount)));
   row(pa, 'Total cash advances', '', inr(d3.sum(D.cash_advances, a => a.amount)), 'tot');
   const po = $('post-oct'); po.innerHTML = '';
-  const who = { 'LSI-143': 'Firoz, operational staff salary', 'LSI-144': 'GKU, manager salary', 'LSI-145': 'Electricity' };
+  const who = { 'LSI-143': 'Firoz, operations salary', 'LSI-144': 'GKU, management salary', 'LSI-145': 'Electricity, October only' };
   D.ownerCosts.forEach(r => row(po, who[r.transaction_id] || r.original_description, r.transaction_id + ' · October 2026', inr(r.amount_inr)));
   row(po, 'Total October owner-paid costs', '', inr(d3.sum(D.ownerCosts, r => r.amount_inr)), 'tot');
   const ps = $('post-stock'); ps.innerHTML = '';
-  L.filter(r => r.classification === 'Owner-funded stock').forEach(r => row(ps, 'Cool drinks', r.transaction_id + ' · bought by owner', inr(r.amount_inr)));
+  L.filter(r => r.classification === 'Owner-funded stock').forEach(r => row(ps, 'Cool Drinks', r.transaction_id + ' · ' + r.stock_type + ' · in daily expenses: ' + r.included_in_daily_expenses, inr(r.amount_inr)));
 
   // ledger table controls
   const cats = Array.from(new Set(L.map(r => r.category))).sort();
   const sel = $('lg-cat'); sel.innerHTML = ''; sel.appendChild(new Option('All categories', ''));
   cats.forEach(c => sel.appendChild(new Option(c, c)));
-  ['lg-q', 'lg-cat', 'lg-flag'].forEach(id => $(id).oninput = ledgerTable);
+  const xs = $('lg-exp'); xs.innerHTML = ''; xs.appendChild(new Option('All expense categories', ''));
+  ['Stock', 'Salaries', 'Utilities', 'Equipment', 'Other', 'Working capital', 'Deposit'].forEach(c => xs.appendChild(new Option(c, c)));
+  ['lg-q', 'lg-cat', 'lg-exp', 'lg-src', 'lg-stk', 'lg-per', 'lg-flag'].forEach(id => $(id).oninput = ledgerTable);
   ledgerTable();
+  stockSetup();
 }
 
 function ledgerTable() {
-  const q = $('lg-q').value.trim().toLowerCase(), c = $('lg-cat').value, fl = $('lg-flag').checked;
-  const rows = D.L.filter(r => (!c || r.category === c) && (!fl || r.potential_duplicate) && (!q || (r.transaction_id + ' ' + r.original_description).toLowerCase().includes(q)));
+  const q = $('lg-q').value.trim().toLowerCase(), c = $('lg-cat').value, fl = $('lg-flag').checked, ex = $('lg-exp').value, src = $('lg-src').value, stk = $('lg-stk').value, per = $('lg-per').value;
+  const rows = D.L.filter(r => (!c || r.category === c) && (!ex || r.expense_category === ex) && (!src || r.funding_source === src) && (!stk || r.stock_type === stk) && (!per || r.period === per) && (!fl || r.potential_duplicate) && (!q || (r.transaction_id + ' ' + r.original_description).toLowerCase().includes(q)));
   const tb = $('tb-ledger'); tb.innerHTML = '';
   rows.forEach(r => {
     const tr = tb.insertRow(), a = tr.insertCell(), b = tr.insertCell(), cc = tr.insertCell(), dd = tr.insertCell();
@@ -535,7 +572,32 @@ function ledgerTable() {
     if (/provisional|Tentatively/i.test(r.notes || '')) b.appendChild(el('span', 'flag muted', 'Provisional category'));
     cc.className = 'l hide-sm'; cc.textContent = r.category; dd.textContent = inr(r.amount_inr);
   });
-  $('lg-count').textContent = rows.length + ' of ' + D.L.length + ' transactions · ' + inr(d3.sum(rows, r => r.amount_inr));
+  $('lg-count').textContent = rows.length + ' of ' + D.L.length + ' transactions · ' + inr(d3.sum(rows, r => r.amount_inr)) + ($('lg-src').value === 'Manager operating cash' ? '. Every investment ledger entry was paid by the owner; manager-cash purchases are in the daily ledger and the stock card above.' : '');
+}
+
+function stockSetup() {
+  const rows = [];
+  D.L.filter(r => r.expense_category === 'Stock').forEach(r => rows.push({ when: '9999', label: r.period, item: r.original_description.replace(/ Rai$/, ''), type: r.stock_type || 'Other', src: r.funding_source, per: r.period, amt: r.amount_inr }));
+  D.expenses.forEach(e => {
+    let t = STOCK_TYPE[e.category];
+    if (!t && /^water$/i.test(e.item)) t = 'Beverages';
+    if (t) rows.push({ when: e.date, label: fd(e.date), item: e.item, type: t, src: 'Manager operating cash', per: 'Post-opening', amt: e.amount });
+  });
+  rows.sort((a, b) => a.when < b.when ? 1 : -1);
+  D.stockRows = rows;
+  ['st-src', 'st-type', 'st-per'].forEach(id => $(id).oninput = stockTable);
+  stockTable();
+}
+function stockTable() {
+  const src = $('st-src').value, ty = $('st-type').value, per = $('st-per').value;
+  const rows = D.stockRows.filter(r => (!src || r.src === src) && (!ty || r.type === ty) && (!per || r.per === per));
+  const t = $('st-tiles'); t.innerHTML = '';
+  ['Owner paid', 'Manager operating cash'].forEach(k => { const v = d3.sum(rows.filter(r => r.src === k), r => r.amt), e = el('div', 'tile'); e.append(el('span', 'lbl', k), el('span', 'big', inr(v)), el('span', 'sm', k === 'Owner paid' ? 'in owner funding, not daily expenses' : 'already in recorded daily spend')); t.appendChild(e); });
+  const tb = $('tb-stock'); tb.innerHTML = '';
+  rows.slice(0, 600).forEach(r => { const tr = tb.insertRow(), a = tr.insertCell(), b = tr.insertCell(), c = tr.insertCell(), d = tr.insertCell();
+    a.className = 'l'; a.textContent = r.label; b.className = 'l'; b.textContent = r.item; b.appendChild(el('span', 'flag ' + (r.src === 'Owner paid' ? 'ok' : 'muted'), r.src === 'Owner paid' ? 'Owner paid' : 'Manager cash'));
+    c.className = 'l hide-sm'; c.textContent = r.type; d.textContent = inr(r.amt); });
+  $('st-count').textContent = rows.length + ' stock purchases · ' + inr(d3.sum(rows, r => r.amt)) + '. Stock types for daily purchases follow their ledger category.';
 }
 
 /* ---------------- Cash ---------------- */
@@ -570,9 +632,9 @@ function cashTab() {
   D.cash_advances.forEach(a => row(ar, a.given_to, a.advance_id + ' · ' + (a.date ? fd(a.date) : 'date not confirmed'), inr(a.amount)));
   row(ar, 'Total', '', inr(adv), 'tot');
   const od = $('owner-direct'); od.innerHTML = '';
-  const who = { 'LSI-143': 'Firoz, October salary', 'LSI-144': 'GKU, October salary', 'LSI-145': 'October electricity' };
+  const who = { 'LSI-143': 'Firoz, October management salary', 'LSI-144': 'GKU, October management salary', 'LSI-145': 'October electricity' };
   D.ownerCosts.forEach(r => row(od, who[r.transaction_id] || r.original_description, r.transaction_id, inr(r.amount_inr)));
-  D.L.filter(r => r.classification === 'Owner-funded stock').forEach(r => row(od, 'Cool drinks stock', r.transaction_id, inr(r.amount_inr)));
+  D.L.filter(r => r.classification === 'Owner-funded stock').forEach(r => row(od, 'Cool Drinks, owner-funded stock', r.transaction_id, inr(r.amount_inr)));
   row(od, 'Total paid directly', '', inr(d3.sum(D.ownerCosts, r => r.amount_inr) + (D.funding_classes['Owner-funded stock'] || 0)), 'tot');
 }
 
@@ -582,9 +644,12 @@ function records() {
     ['Sales', 'The income written on the manager\'s daily page.'],
     ['Recorded spend', 'Every expense line on the manager\'s daily pages: purchases, stock, daily wages, rent, gas and so on.'],
     ['Day result and trading result', 'Sales minus recorded spend. This is a cash view: stock is counted on the day it is bought, not when it is sold, so a big purchase can make one day look worse than the business really is. It is not an accounting profit.'],
-    ['Owner-paid October costs', 'Salaries for GKU (manager) and Firoz (staff), and October electricity, paid directly by the owner and not on the daily pages. Added once, to October, with no invented dates.'],
+    ['Daily staff wages', 'Regular cafe staff paid daily: front desk, kitchen, cooks and other daily workers. Already in the daily ledger and unchanged.'],
+    ['Management salaries', 'Monthly salaries for GKU (manager) and Firoz (operations), paid separately by the owner. Kept apart from daily staff wages and never treated as duplicates of them.'],
+    ['Owner-paid October costs', 'October management salaries (₹20,000) and October electricity (₹15,000), paid directly by the owner and not on the daily pages. Added once, to October, with no invented dates. Electricity is not assumed to repeat.'],
     ['Operating result', 'Trading result minus owner-paid operating costs.'],
-    ['Cumulative result', 'Operating result minus the launch tasting. The total shortfall or surplus since opening, on the same cash basis.'],
+    ['Cumulative cash-flow shortfall', 'Operating result minus the launch tasting. The total shortfall since opening on a cash basis. Daily spend includes stock purchases and other cash spending, so this is not a fully reconciled accounting profit or loss.'],
+    ['Owner-Funded Stock', 'Stock bought with the owner\'s personal funds and supplied to the cafe. Counted in owner funding, not in daily expenses, and not treated as an immediate expense or cost of goods sold.'],
     ['Owner funding', 'All money the owners have put in: pre-opening spending and the deposit, operational cash advances, owner-paid costs and owner-supplied stock. Money put in is not the same as money lost.'],
     ['Operational cash advance', 'Working capital handed to the cafe to pay day-to-day costs. Those costs are already in recorded spend, so advances are never counted as expenses.'],
     ['Refundable deposit', 'The ₹1,50,000 shop advance. Part of owner funding, but treated as recoverable, so it is left out of the recovery target.'],
@@ -602,8 +667,7 @@ function records() {
     dup + ' investment ledger transactions look like possible duplicates. All are kept as genuine until checked.',
     prov + ' investment ledger categories are provisional because the original description is unclear.',
     'No investment ledger transaction has a confirmed date or a verified receipt yet.',
-    'October salaries and electricity (' + inr(d3.sum(D.ownerCosts, r => r.amount_inr)) + ') have no confirmed payment dates. Electricity is a confirmed October payment only and is not assumed to repeat.',
-    'Daily salary lines do not name staff, so it cannot be fully confirmed that GKU\'s and Firoz\'s October salaries are not partly inside daily wages. Owner has confirmed they were paid separately.',
+    'October management salaries and electricity (' + inr(d3.sum(D.ownerCosts, r => r.amount_inr)) + ') have no confirmed payment dates. Electricity is a confirmed October payment only and is not assumed to repeat.',
     'Cash advance dates are not confirmed, and payment method (cash, UPI, bank) is not recorded for any expense.',
     est + ' trading days use an estimated kitchen and juice split.',
     'Expenses are written on the ledger one day after they happen; actual dates are not recorded.',
@@ -613,7 +677,7 @@ function records() {
 
   // all records
   const all = [];
-  D.expenses.forEach(e => all.push({ when: e.date, label: fd(e.date), desc: e.item, cat: e.category, src: 'Daily ledger', amt: -e.amount }));
+  D.expenses.forEach(e => all.push({ when: e.date, label: fd(e.date), desc: e.item, cat: CAT_LABEL(e.category), src: 'Daily ledger', amt: -e.amount }));
   D.sales.forEach(s => all.push({ when: s.date, label: fd(s.date), desc: 'Sales', cat: 'Sales', src: 'Daily ledger', amt: s.sales }));
   (D.preopening || []).forEach(p => all.push({ when: p.date, label: fd(p.date), desc: p.item, cat: 'Launch tasting', src: 'Launch tasting', amt: -p.amount }));
   D.L.forEach(r => all.push({ when: r.expense_period ? r.expense_period + '-99' : (r.period === 'Pre-opening' ? '0000' : '9999'), label: r.expense_period ? 'Oct 2026' : (r.period === 'Pre-opening' ? 'Pre-opening' : 'Post-opening'), desc: r.transaction_id + ' · ' + r.original_description, cat: r.classification, src: 'Investment ledger', amt: r.amount_inr, dup: !!r.potential_duplicate }));
@@ -716,7 +780,7 @@ function dayView() {
   add('Sales', day.pre ? 'Pre-opening, no sales' : '', inr(day.sales), 'tot');
   if (day.kitchen != null) { add('Kitchen main dishes', day.note && day.kitchen === 0 ? day.note : day.kest ? 'Estimate, ' + Math.round(day.kitchen / day.sales * 100) + '% of sales' : 'Reported: dosa, puttu, porotta', inr(day.kitchen)); if (day.juice != null) add('Juice and shakes', day.jest ? 'Estimate, ' + Math.round(day.juice / day.sales * 100) + '% of sales' : 'Reported', inr(day.juice)); add('Counter and other', 'Tea, snacks', inr(day.sales - day.kitchen - (day.juice || 0))); }
   if (day.pre) (D.preopening || []).filter(e => e.date === picked).forEach(e => add(e.item, 'Launch tasting', inr(e.amount)));
-  D.expenses.filter(e => e.date === picked).forEach(e => add(e.item, e.category, inr(e.amount)));
+  D.expenses.filter(e => e.date === picked).forEach(e => add(e.item, CAT_LABEL(e.category), inr(e.amount)));
   add('Total recorded spend', '', inr(day.spend), 'tot');
   add('Day result', day.net >= 0 ? 'surplus' : 'shortfall', inr(day.net), 'tot ' + (day.net >= 0 ? 'pos' : 'neg'));
   document.querySelectorAll('#tb-day tr').forEach(tr => tr.classList.toggle('sel', tr.dataset.key === picked));
@@ -726,10 +790,16 @@ function charts() { drawTrend(); drawNet(); }
 /* ---------------- Tabs ---------------- */
 function showTab(id, push) {
   document.querySelectorAll('section.tab').forEach(s => s.hidden = s.id !== id);
+  $('subnav').hidden = id !== 'ops';
   document.querySelectorAll('nav.tabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === id));
   if (push) history.replaceState(null, '', '#' + id);
   if (id === 'ops') charts();
 }
+document.querySelectorAll('#subnav a').forEach(a => a.onclick = ev => {
+  ev.preventDefault(); const g = $(a.dataset.jump), nav = document.querySelector('nav.tabs');
+  window.scrollTo({ top: g.getBoundingClientRect().top + scrollY - nav.offsetHeight - 8, behavior: 'smooth' });
+  document.querySelectorAll('#subnav a').forEach(x => x.classList.toggle('on', x === a));
+});
 document.querySelectorAll('nav.tabs button').forEach(b => b.onclick = () => { showTab(b.dataset.tab, true); window.scrollTo({ top: document.querySelector('nav.tabs').offsetTop - 4 }); });
 
 fetch('data/ledger.json?v=' + Date.now(), { cache: 'no-store' }).then(r => r.json()).then(j => {

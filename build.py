@@ -31,7 +31,7 @@ adv = [dict(r, amount=int(r["amount"])) for r in rd("cash_advances.csv")]
 cash = rd("cashbook.csv")
 pending = [dict(r, amount=int(r["amount"])) for r in rd("pending.csv")]
 
-EXPECT = {"Pre-opening investment": 1000359, "Operational cash advance": 106149, "October salaries": 20000,
+EXPECT = {"Pre-opening investment": 1000359, "Operational cash advance": 106149, "October management salaries": 20000,
           "October electricity": 15000, "Owner-funded stock": 4400}
 cls = {}
 for r in inv: cls[r["classification"]] = cls.get(r["classification"], 0) + r["amount_inr"]

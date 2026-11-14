@@ -1,5 +1,5 @@
 {
-"updated": "2026-11-14T16:23+00:00",
+"updated": "2026-11-14T16:40+00:00",
 "sales": [
 {
 "date": "2026-09-28",
@@ -3289,7 +3289,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-002",
@@ -3304,7 +3308,11 @@
 "potential_duplicate": "",
 "notes": "Confirmed contractor payment by owner.",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-003",
@@ -3319,7 +3327,11 @@
 "potential_duplicate": "",
 "notes": "Confirmed contractor payment by owner.",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-004",
@@ -3334,7 +3346,11 @@
 "potential_duplicate": "",
 "notes": "Corrected arithmetic: 2200+1500+1300=5000.",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-005",
@@ -3349,7 +3365,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-006",
@@ -3364,7 +3384,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-007",
@@ -3379,7 +3403,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-008",
@@ -3394,7 +3422,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-009",
@@ -3409,7 +3441,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-010",
@@ -3424,7 +3460,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-011",
@@ -3439,7 +3479,11 @@
 "potential_duplicate": "Review",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-012",
@@ -3454,7 +3498,11 @@
 "potential_duplicate": "Review",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-013",
@@ -3469,7 +3517,11 @@
 "potential_duplicate": "Review",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-014",
@@ -3484,7 +3536,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-015",
@@ -3499,7 +3555,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-016",
@@ -3514,7 +3574,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-017",
@@ -3529,7 +3593,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-018",
@@ -3544,7 +3612,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-019",
@@ -3559,7 +3631,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-020",
@@ -3574,7 +3650,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-021",
@@ -3589,7 +3669,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-022",
@@ -3604,7 +3688,11 @@
 "potential_duplicate": "",
 "notes": "Category provisional: confirm item meaning/use.",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-023",
@@ -3619,7 +3707,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-024",
@@ -3634,7 +3726,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-025",
@@ -3649,7 +3745,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-026",
@@ -3664,7 +3764,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-027",
@@ -3679,7 +3783,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-028",
@@ -3694,7 +3802,11 @@
 "potential_duplicate": "",
 "notes": "Category provisional: confirm item meaning/use.",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-029",
@@ -3709,7 +3821,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-030",
@@ -3724,7 +3840,11 @@
 "potential_duplicate": "Review",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-031",
@@ -3739,7 +3859,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-032",
@@ -3754,7 +3878,11 @@
 "potential_duplicate": "Review",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-033",
@@ -3769,7 +3897,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-034",
@@ -3784,7 +3916,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-035",
@@ -3799,7 +3935,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-036",
@@ -3814,7 +3954,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-037",
@@ -3829,7 +3973,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-038",
@@ -3844,7 +3992,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-039",
@@ -3859,7 +4011,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-040",
@@ -3874,7 +4030,11 @@
 "potential_duplicate": "Review",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-041",
@@ -3889,7 +4049,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-042",
@@ -3904,7 +4068,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-043",
@@ -3919,7 +4087,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-044",
@@ -3934,7 +4106,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-045",
@@ -3949,7 +4125,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-046",
@@ -3964,7 +4144,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-047",
@@ -3979,7 +4163,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-048",
@@ -3994,7 +4182,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-049",
@@ -4009,7 +4201,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-050",
@@ -4024,7 +4220,11 @@
 "potential_duplicate": "Review",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-051",
@@ -4039,7 +4239,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-052",
@@ -4054,7 +4258,11 @@
 "potential_duplicate": "Review",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-053",
@@ -4069,7 +4277,11 @@
 "potential_duplicate": "",
 "notes": "Category provisional: confirm item meaning/use.",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-054",
@@ -4084,7 +4296,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-055",
@@ -4099,7 +4315,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-056",
@@ -4114,7 +4334,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-057",
@@ -4129,7 +4353,11 @@
 "potential_duplicate": "Review",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-058",
@@ -4144,7 +4372,11 @@
 "potential_duplicate": "Review",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-059",
@@ -4159,7 +4391,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-060",
@@ -4174,7 +4410,11 @@
 "potential_duplicate": "",
 "notes": "Confirmed employee accommodation by owner.",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-061",
@@ -4189,7 +4429,11 @@
 "potential_duplicate": "",
 "notes": "Confirmed employee accommodation by owner.",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-062",
@@ -4204,7 +4448,11 @@
 "potential_duplicate": "",
 "notes": "Confirmed employee accommodation by owner.",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-063",
@@ -4219,7 +4467,11 @@
 "potential_duplicate": "",
 "notes": "Tentatively employee accommodation; confirm original meaning.",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-064",
@@ -4234,7 +4486,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-065",
@@ -4249,7 +4505,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-066",
@@ -4264,7 +4524,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-067",
@@ -4279,7 +4543,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-068",
@@ -4294,7 +4562,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-069",
@@ -4309,7 +4581,11 @@
 "potential_duplicate": "Review",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-070",
@@ -4324,7 +4600,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-071",
@@ -4339,7 +4619,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-072",
@@ -4354,7 +4638,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-073",
@@ -4369,7 +4657,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-074",
@@ -4384,7 +4676,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-075",
@@ -4399,7 +4695,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-076",
@@ -4414,7 +4714,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-077",
@@ -4429,7 +4733,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-078",
@@ -4444,7 +4752,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-079",
@@ -4459,7 +4771,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-080",
@@ -4474,7 +4790,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-081",
@@ -4489,7 +4809,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-082",
@@ -4504,7 +4828,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-083",
@@ -4519,7 +4847,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-084",
@@ -4534,7 +4866,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-085",
@@ -4549,7 +4885,11 @@
 "potential_duplicate": "",
 "notes": "Category provisional: confirm item meaning/use.",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-086",
@@ -4564,7 +4904,11 @@
 "potential_duplicate": "",
 "notes": "Category provisional: confirm item meaning/use.",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-087",
@@ -4579,7 +4923,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-088",
@@ -4594,7 +4942,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-089",
@@ -4609,7 +4961,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-090",
@@ -4624,7 +4980,11 @@
 "potential_duplicate": "",
 "notes": "Category provisional: confirm item meaning/use.",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-091",
@@ -4639,7 +4999,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-092",
@@ -4654,7 +5018,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-093",
@@ -4669,7 +5037,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-094",
@@ -4684,7 +5056,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-095",
@@ -4699,7 +5075,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-096",
@@ -4714,7 +5094,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-097",
@@ -4729,7 +5113,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-098",
@@ -4744,7 +5132,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-099",
@@ -4759,7 +5151,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-100",
@@ -4774,7 +5170,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-101",
@@ -4789,7 +5189,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-102",
@@ -4804,7 +5208,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-103",
@@ -4819,7 +5227,11 @@
 "potential_duplicate": "",
 "notes": "Category provisional: confirm item meaning/use.",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-104",
@@ -4834,7 +5246,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-105",
@@ -4849,7 +5265,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-106",
@@ -4864,7 +5284,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-107",
@@ -4879,7 +5303,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-108",
@@ -4894,7 +5322,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-109",
@@ -4909,7 +5341,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-110",
@@ -4924,7 +5360,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-111",
@@ -4939,7 +5379,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-112",
@@ -4954,7 +5398,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-113",
@@ -4969,7 +5417,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-114",
@@ -4984,7 +5436,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-115",
@@ -4999,7 +5455,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-116",
@@ -5014,7 +5474,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-117",
@@ -5029,7 +5493,11 @@
 "potential_duplicate": "",
 "notes": "Category provisional: confirm item meaning/use.",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-118",
@@ -5044,7 +5512,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-119",
@@ -5059,7 +5531,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-120",
@@ -5074,7 +5550,11 @@
 "potential_duplicate": "",
 "notes": "Confirmed employee accommodation by owner.",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-121",
@@ -5089,7 +5569,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-122",
@@ -5104,7 +5588,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-123",
@@ -5119,7 +5607,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-124",
@@ -5134,7 +5626,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-125",
@@ -5149,7 +5645,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-126",
@@ -5164,7 +5664,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-127",
@@ -5179,7 +5683,11 @@
 "potential_duplicate": "",
 "notes": "Category provisional: confirm item meaning/use.",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-128",
@@ -5194,7 +5702,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-129",
@@ -5209,7 +5721,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-130",
@@ -5224,7 +5740,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-131",
@@ -5239,7 +5759,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-132",
@@ -5254,7 +5778,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-133",
@@ -5269,7 +5797,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Equipment",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-134",
@@ -5284,7 +5816,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-135",
@@ -5299,7 +5835,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-136",
@@ -5314,7 +5854,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-137",
@@ -5329,7 +5873,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Other",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-138",
@@ -5344,7 +5892,11 @@
 "potential_duplicate": "",
 "notes": "",
 "classification": "Pre-opening investment",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Deposit",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-139",
@@ -5359,7 +5911,11 @@
 "potential_duplicate": "",
 "notes": "OWNER CONFIRMED: cash funding for manager operations, NOT an additional expense; reconcile with manager cash ledger.",
 "classification": "Operational cash advance",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Working capital",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-140",
@@ -5374,7 +5930,11 @@
 "potential_duplicate": "",
 "notes": "OWNER CONFIRMED: cash funding for manager operations, NOT an additional expense; reconcile with manager cash ledger.",
 "classification": "Operational cash advance",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Working capital",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-141",
@@ -5389,7 +5949,11 @@
 "potential_duplicate": "",
 "notes": "OWNER CONFIRMED: cash funding for manager operations, NOT an additional expense; reconcile with manager cash ledger.",
 "classification": "Operational cash advance",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Working capital",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-142",
@@ -5397,14 +5961,18 @@
 "original_description": "Cool drinks Rai",
 "amount_inr": 4400,
 "period": "Post-opening",
-"category": "Owner-funded inventory",
+"category": "Owner-Funded Stock",
 "accounting_treatment": "Owner-supplied inventory - NOT immediate COGS",
 "transaction_date": "",
 "receipt_verified": "No",
 "potential_duplicate": "",
-"notes": "OWNER CONFIRMED: personally purchased cool-drinks inventory delivered to cafe, outside manager cash and daily expenses.",
+"notes": "OWNER CONFIRMED: Cool Drinks bought with the owner's personal funds and supplied to Le Shay. Not bought with manager operating cash, not in daily expenses. Counted in owner funding, not as an immediate expense or COGS.",
 "classification": "Owner-funded stock",
-"expense_period": ""
+"expense_period": "",
+"funding_source": "Owner paid",
+"expense_category": "Stock",
+"stock_type": "Beverages",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-143",
@@ -5412,14 +5980,18 @@
 "original_description": "Firoz Rai",
 "amount_inr": 10000,
 "period": "Post-opening",
-"category": "October salaries",
-"accounting_treatment": "Owner-paid October operating cost",
+"category": "October management salaries",
+"accounting_treatment": "Owner-paid October management salary (monthly, separate from daily staff wages)",
 "transaction_date": "",
 "receipt_verified": "No",
 "potential_duplicate": "",
 "notes": "OWNER CONFIRMED 14 Nov: Firoz, operational staff, October 2026 salary. Payment date not confirmed.",
-"classification": "October salaries",
-"expense_period": "2026-10"
+"classification": "October management salaries",
+"expense_period": "2026-10",
+"funding_source": "Owner paid",
+"expense_category": "Salaries",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-144",
@@ -5427,14 +5999,18 @@
 "original_description": "Gku Rai",
 "amount_inr": 10000,
 "period": "Post-opening",
-"category": "October salaries",
-"accounting_treatment": "Owner-paid October operating cost",
+"category": "October management salaries",
+"accounting_treatment": "Owner-paid October management salary (monthly, separate from daily staff wages)",
 "transaction_date": "",
 "receipt_verified": "No",
 "potential_duplicate": "Review",
 "notes": "OWNER CONFIRMED 14 Nov: GKU, Le Shay manager, October 2026 salary. Reclassified from operational cash advance. Payment date not confirmed.",
-"classification": "October salaries",
-"expense_period": "2026-10"
+"classification": "October management salaries",
+"expense_period": "2026-10",
+"funding_source": "Owner paid",
+"expense_category": "Salaries",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 },
 {
 "transaction_id": "LSI-145",
@@ -5449,14 +6025,18 @@
 "potential_duplicate": "",
 "notes": "OWNER CONFIRMED 14 Nov: October 2026 electricity. Confirmed October payment only, not assumed recurring. Payment date not confirmed.",
 "classification": "October electricity",
-"expense_period": "2026-10"
+"expense_period": "2026-10",
+"funding_source": "Owner paid",
+"expense_category": "Utilities",
+"stock_type": "",
+"included_in_daily_expenses": "No"
 }
 ],
 "funding_classes": {
 "Pre-opening investment": 1000359,
 "Operational cash advance": 106149,
 "Owner-funded stock": 4400,
-"October salaries": 20000,
+"October management salaries": 20000,
 "October electricity": 15000
 },
 "deposit": 150000,
