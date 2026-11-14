@@ -1,5 +1,5 @@
 {
-"updated": "2026-11-14T14:52+00:00",
+"updated": "2026-11-14T14:54+00:00",
 "investment": 1100000,
 "investment_note": "Estimated, to be confirmed",
 "sales": [
@@ -195,6 +195,14 @@
 "kitchen": 2804,
 "kitchen_est": true,
 "juice": 1039,
+"juice_est": true
+},
+{
+"date": "2026-11-11",
+"sales": 9095,
+"kitchen": 2456,
+"kitchen_est": true,
+"juice": 910,
 "juice_est": true
 }
 ],
@@ -3039,6 +3047,54 @@
 },
 {
 "date": "2026-11-10",
+"item": "Salary (7)",
+"category": "Staff",
+"amount": 4200
+},
+{
+"date": "2026-11-11",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1059
+},
+{
+"date": "2026-11-11",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-11-11",
+"item": "Egg",
+"category": "Meat, fish & eggs",
+"amount": 360
+},
+{
+"date": "2026-11-11",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1165
+},
+{
+"date": "2026-11-11",
+"item": "Gas",
+"category": "Gas",
+"amount": 2570
+},
+{
+"date": "2026-11-11",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-11-11",
+"item": "Milk",
+"category": "Milk",
+"amount": 1006
+},
+{
+"date": "2026-11-11",
 "item": "Salary (7)",
 "category": "Staff",
 "amount": 4200
