@@ -6,375 +6,412 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Le Shay Cafe Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="logo.png">
 <meta name="theme-color" content="#0D0D0D">
-<script src="lib/d3.min.js"></script>
+<script src="lib/d3.min.js" defer></script>
 <style>
 :root {
-  --bg: #0D0D0D; --panel: #17130F; --fg: #F5E9D7; --muted: #A8998A; --line: #2E261D; --grid: #231D16;
-  --gold: #D4AF37; --gold-soft: rgba(212,175,55,.16); --sales: #D4AF37; --spend: #A88B63; --ok: #7FC89A; --bad: #E8735C; --muted-bar: #3A3026; --warn: #E3B35A;
-  --serif: "Playfair Display", Georgia, serif; --sans: "Montserrat", system-ui, -apple-system, sans-serif;
+  --bg: #0D0D0D; --panel: #17130F; --panel-2: #1E1813; --fg: #F7F3ED; --beige: #F5E9D7; --muted: #B8AA99; --line: #2F271F; --grid: #2A231B;
+  --gold: #D4AF37; --gold-soft: rgba(212,175,55,.14); --kraft: #8B6F47;
+  --ok: #7FD19B; --bad: #FF8A73; --warn: #E8BE62;
+  --sales: #D4AF37; --spend: #A88B63;
+  --c-kitchen: #D4AF37; --c-juice: #C98F5A; --c-counter: #8B6F47; --c-stock: #6FA39A;
+  --serif: "Playfair Display", Georgia, serif; --sans: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --r: 16px; --gap: 16px;
 }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--sans); font-size: 15px; line-height: 1.45; -webkit-text-size-adjust: 100%; }
-.wrap { max-width: 1080px; margin: 0 auto; padding: 20px 16px 48px; display: grid; gap: 18px; }
-header.brand { display: grid; justify-items: center; text-align: center; gap: 8px; padding: 22px 12px 18px; border-bottom: 1px solid var(--line); background: radial-gradient(ellipse at 50% 30%, rgba(212,175,55,.10), transparent 70%); }
-header.brand img { width: min(260px, 72vw); height: auto; display: block; }
-.tag { color: var(--gold); font-size: 9px; letter-spacing: .2em; text-transform: uppercase; white-space: nowrap; }
-.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-.takebox { border: 1px solid var(--gold-soft); background: var(--panel); border-left: 3px solid var(--gold); border-radius: 12px; padding: 12px 14px; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--sans); font-size: 16px; line-height: 1.5; -webkit-text-size-adjust: 100%; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px 56px; }
+header.brand { display: grid; justify-items: center; text-align: center; gap: 8px; padding: 22px 8px 16px; }
+header.brand img { width: min(240px, 66vw); height: auto; display: block; }
+.tag { color: var(--gold); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; white-space: nowrap; }
+@media (max-width: 440px) { .tag { font-size: 8.5px; letter-spacing: .16em; } }
 .sub { color: var(--muted); font-size: 13px; }
-.take { margin: 6px 0 0; font-size: 15px; }
-h2 { font-family: var(--serif); font-size: 19px; font-weight: 600; margin: 0; color: var(--fg); }
-h3 { font-size: 13px; font-weight: 600; margin: 6px 0 0; color: var(--gold); letter-spacing: .06em; text-transform: uppercase; }
-.note { color: var(--muted); font-size: 13px; margin: 0; }
-.card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 10px; min-width: 0; }
-.tiles { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
-.tiles.three { grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); }
-@media (min-width: 760px) { .tiles.four { grid-template-columns: repeat(4, minmax(0,1fr)); } }
-.tile { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: grid; gap: 2px; align-content: start; min-width: 0; }
-.card .tile { background: transparent; }
-.lbl { color: var(--muted); font-size: 12px; }
-.big { font-family: var(--serif); font-size: 24px; color: var(--fg); font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.sm { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
-.pos { color: var(--ok); } .neg { color: var(--bad); }
-.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: 18px; }
-.bar { height: 12px; background: var(--grid); border-radius: 6px; overflow: hidden; display: flex; }
-.bar > div { height: 100%; background: var(--gold); }
-.chart { position: relative; min-height: 220px; touch-action: pan-y; }
-.tip { position: absolute; top: 0; pointer-events: none; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 6px 18px rgba(0,0,0,.5); padding: 6px 9px; font-size: 12px; white-space: nowrap; display: none; z-index: 3; font-variant-numeric: tabular-nums; }
-.tip .d { color: var(--muted); }
-.legend { display: flex; gap: 14px; font-size: 12px; color: var(--muted); flex-wrap: wrap; }
-.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
-.cats { display: grid; gap: 10px; }
-.cat { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 3px 8px; font-size: 13px; font-variant-numeric: tabular-nums; }
-.cat .amt { color: var(--muted); font-size: 12px; }
-.cat .track { grid-column: 1 / -1; height: 8px; background: var(--grid); border-radius: 4px; overflow: hidden; }
-.cat .track div { height: 100%; border-radius: 4px; }
-.cat.click { cursor: pointer; }
-.tw { max-height: 420px; overflow: auto; }
-table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
-th { position: sticky; top: 0; background: var(--panel); color: var(--muted); font-weight: 500; text-align: right; padding: 6px 4px; border-bottom: 1px solid var(--line); }
-td { text-align: right; padding: 8px 4px; border-bottom: 1px solid var(--line); vertical-align: top; }
-th:first-child, td:first-child { text-align: left; }
-td.l, th.l { text-align: left; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+nav.tabs { position: sticky; top: 0; z-index: 10; background: rgba(13,13,13,.97); margin: 0 -16px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+.tabrow { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.tabrow::-webkit-scrollbar, .subnav::-webkit-scrollbar { display: none; }
+.tabrow button { flex: 0 0 auto; scroll-snap-align: start; font: inherit; font-size: 14px; font-weight: 600; color: var(--beige); background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 0 16px; min-height: 44px; cursor: pointer; white-space: nowrap; }
+.tabrow button[aria-selected=true] { color: #0D0D0D; background: var(--gold); border-color: var(--gold); }
+.tabrow button:focus-visible, .subnav a:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+@media (min-width: 900px) { .tabrow { justify-content: center; } }
+.subnav { display: flex; gap: 8px; overflow-x: auto; margin-top: 8px; scrollbar-width: none; }
+.subnav[hidden] { display: none; }
+.subnav a { flex: 0 0 auto; display: inline-flex; align-items: center; min-height: 38px; font-size: 13px; font-weight: 500; color: var(--gold); text-decoration: none; border: 1px solid var(--gold-soft); border-radius: 999px; padding: 0 14px; white-space: nowrap; }
+.subnav a.on { background: var(--gold-soft); border-color: var(--gold); }
+section.tab { display: grid; gap: 28px; padding-top: 20px; }
+section.tab[hidden] { display: none; }
+.grp { display: grid; gap: var(--gap); }
+.sec-h { display: flex; align-items: baseline; gap: 10px; margin: 6px 2px -4px; }
+.sec-h .n { font-family: var(--serif); color: var(--gold); font-size: 15px; font-weight: 700; }
+.sec-h h2 { font-family: var(--sans); font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--beige); margin: 0; }
+.sec-h .q { color: var(--muted); font-size: 13px; margin-left: auto; text-align: right; }
+@media (max-width: 480px) { .sec-h { flex-wrap: wrap; } .sec-h .q { margin-left: 0; text-align: left; flex-basis: 100%; } }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; display: grid; gap: 12px; min-width: 0; }
+.card h3 { font-family: var(--serif); font-size: 20px; font-weight: 700; margin: 0; color: var(--fg); line-height: 1.25; }
+.card h4 { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin: 6px 0 0; }
+.note { color: var(--muted); font-size: 14px; margin: 0; }
+.grid { display: grid; gap: var(--gap); grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+.kpis { display: grid; gap: 12px; grid-template-columns: 1fr; }
+@media (min-width: 420px) { .kpis.two { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 760px) { .kpis.four { grid-template-columns: repeat(4, 1fr); } .kpis.three { grid-template-columns: repeat(3, 1fr); } }
+.kpi { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 18px; display: grid; gap: 4px; align-content: start; min-width: 0; }
+.card .kpi { background: var(--panel-2); }
+.kpi.hero { border-color: rgba(212,175,55,.35); }
+.kpi .lbl { color: var(--beige); font-size: 13px; font-weight: 600; letter-spacing: .02em; }
+.kpi .val { font-family: var(--serif); font-weight: 700; font-size: clamp(28px, 8.4vw, 36px); line-height: 1.15; color: var(--fg); font-variant-numeric: tabular-nums lining-nums; white-space: nowrap; }
+.kpi.sm-val .val { font-size: clamp(24px, 7vw, 30px); }
+.kpi .ctx { color: var(--muted); font-size: 13px; line-height: 1.4; }
+@media (min-width: 420px) { .kpis.two .kpi .val { font-size: clamp(22px, 6vw, 30px); } }
+@media (min-width: 760px) { .kpi .val, .kpis.two .kpi .val { font-size: 30px; } }
+.pos { color: var(--ok) !important; } .neg { color: var(--bad) !important; }
+.delta { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; padding: 2px 9px; border-radius: 999px; width: fit-content; max-width: 100%; }
+.delta.up { color: var(--ok); background: rgba(127,209,155,.12); } .delta.down { color: var(--bad); background: rgba(255,138,115,.12); } .delta.flat { color: var(--muted); background: var(--grid); }
+.pill { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--warn); color: var(--warn); width: fit-content; white-space: nowrap; }
+.pill.ok { border-color: var(--ok); color: var(--ok); } .pill.muted { border-color: #4A3E32; color: var(--muted); }
+.pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.flag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; padding: 1px 7px; border-radius: 6px; border: 1px solid var(--warn); color: var(--warn); margin-left: 6px; white-space: nowrap; vertical-align: 1px; }
+.flag.ok { border-color: var(--ok); color: var(--ok); } .flag.muted { border-color: #4A3E32; color: var(--muted); }
+.status { border-left: 4px solid var(--warn); background: rgba(232,190,98,.07); border-radius: 12px; padding: 14px 16px; display: grid; gap: 4px; }
+.status.good { border-left-color: var(--ok); background: rgba(127,209,155,.07); }
+.status b { font-family: var(--serif); font-size: 20px; font-weight: 700; }
+.status span { font-size: 14px; color: var(--beige); }
+.nyr { color: var(--warn); font-weight: 600; }
+.stack { display: flex; height: 16px; border-radius: 8px; overflow: hidden; background: var(--grid); }
+.stack > div { height: 100%; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 13px; color: var(--beige); }
+.legend i { display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.split { display: grid; gap: 12px; }
+.sr2 { display: grid; grid-template-columns: 12px minmax(0,1fr) auto; gap: 10px; align-items: baseline; font-size: 15px; }
+.sr2 i { width: 12px; height: 12px; border-radius: 3px; align-self: center; }
+.sr2 .v { font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.sr2 .v small { display: block; color: var(--muted); font-weight: 500; font-size: 12px; white-space: normal; }
+.cats { display: grid; gap: 14px; }
+.cat { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 4px 10px; font-size: 14px; font-variant-numeric: tabular-nums; }
+.cat .amt { color: var(--beige); font-weight: 600; white-space: nowrap; }
+.cat .amt small { color: var(--muted); font-weight: 500; }
+.cat .track { grid-column: 1 / -1; height: 9px; background: var(--grid); border-radius: 5px; overflow: hidden; }
+.cat .track div { height: 100%; border-radius: 5px; }
+.cat.click { cursor: pointer; padding: 6px 0; margin: -6px 0; }
+.chart { position: relative; min-height: 240px; touch-action: pan-y; }
+.chart.small { min-height: 200px; }
+.tip { position: absolute; top: 0; pointer-events: none; background: #221B15; border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 8px 22px rgba(0,0,0,.55); padding: 8px 10px; font-size: 13px; white-space: nowrap; display: none; z-index: 3; font-variant-numeric: tabular-nums; }
+.tip .d { color: var(--muted); font-size: 12px; }
+.items { display: grid; font-size: 15px; font-variant-numeric: tabular-nums; }
+.items .row { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 10px; padding: 11px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+.items .row > span:last-child { white-space: nowrap; font-weight: 600; }
+.items small { display: block; color: var(--muted); font-size: 12px; margin-top: 1px; }
+.items .tot { font-weight: 700; }
+.items .sum { border-top: 2px solid var(--gold); border-bottom: none; color: var(--gold); font-weight: 700; }
+.tw { max-height: 460px; overflow: auto; border-radius: 10px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+th { position: sticky; top: 0; background: var(--panel); color: var(--muted); font-weight: 600; font-size: 12px; letter-spacing: .03em; text-align: right; padding: 8px 6px; border-bottom: 1px solid var(--line); }
+td { text-align: right; padding: 11px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th:first-child, td:first-child, td.l, th.l { text-align: left; }
+td small { display: block; color: var(--muted); font-size: 12px; }
 #tb-day tr { cursor: pointer; }
 tr.sel td { background: var(--gold-soft); }
-select, input[type=search] { font: inherit; font-size: 14px; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); max-width: 100%; }
-.controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-.controls input[type=search] { flex: 1 1 12rem; min-width: 0; }
-.controls label { font-size: 13px; color: var(--muted); display: flex; gap: 6px; align-items: center; }
-.items { display: grid; font-size: 14px; font-variant-numeric: tabular-nums; }
-.items .row { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 8px; padding: 7px 0; border-bottom: 1px dashed var(--line); }
-.items small { color: var(--muted); margin-left: 6px; font-size: 11px; }
-.items .tot { font-weight: 600; border-bottom: 1px solid var(--line); }
-.items .sum { font-weight: 600; border-top: 1px solid var(--gold); border-bottom: none; color: var(--gold); }
-footer { color: var(--muted); font-size: 11px; text-align: center; letter-spacing: .08em; }
-.err { padding: 40px 0; text-align: center; color: var(--muted); }
-/* tabs */
-nav.tabs { position: sticky; top: 0; z-index: 5; background: var(--bg); padding: 8px 0; display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 6px; border-bottom: 1px solid var(--line); }
-nav.tabs button { font: inherit; font-size: 12px; font-weight: 500; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 9px 4px; cursor: pointer; line-height: 1.2; }
-nav.tabs button[aria-selected=true] { color: var(--bg); background: var(--gold); border-color: var(--gold); font-weight: 600; }
-section.tab, .grp { display: grid; gap: 18px; }
-.subnav { grid-column: 1 / -1; display: flex; gap: 6px; overflow-x: auto; padding-top: 2px; scrollbar-width: none; }
-.subnav::-webkit-scrollbar { display: none; }
-.subnav a { flex: 1 0 auto; text-align: center; font-size: 12px; color: var(--gold); text-decoration: none; border: 1px solid var(--gold-soft); border-radius: 999px; padding: 6px 10px; white-space: nowrap; }
-.subnav a.on { background: var(--gold-soft); border-color: var(--gold); }
-.subnav[hidden] { display: none; }
-section.tab[hidden] { display: none; }
-.flag { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 1px 6px; border-radius: 6px; border: 1px solid var(--warn); color: var(--warn); margin-left: 6px; white-space: nowrap; vertical-align: 1px; }
-.flag.ok { border-color: var(--ok); color: var(--ok); }
-.flag.muted { border-color: var(--line); color: var(--muted); }
-.nyr { color: var(--warn); font-size: 13px; font-weight: 500; }
-.status { border-left: 3px solid var(--warn); background: rgba(227,179,90,.07); border-radius: 10px; padding: 12px 14px; }
-.status.good { border-left-color: var(--ok); background: rgba(127,200,154,.07); }
-.status b { display: block; font-family: var(--serif); font-size: 18px; font-weight: 600; margin-bottom: 2px; }
-dl.defs { margin: 0; display: grid; gap: 12px; }
-dl.defs dt { font-weight: 600; font-size: 14px; color: var(--gold); }
-dl.defs dd { margin: 2px 0 0; font-size: 13px; color: var(--fg); }
-ul.list { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 13px; }
-.mono { font-variant-numeric: tabular-nums; }
-@media (max-width: 520px) { .hide-sm { display: none; } }
+.controls { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr)); align-items: center; }
+select, input[type=search] { font: inherit; font-size: 15px; min-height: 44px; padding: 8px 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); width: 100%; min-width: 0; }
+.controls label { font-size: 14px; color: var(--beige); display: flex; gap: 8px; align-items: center; min-height: 44px; }
+.controls input[type=checkbox] { width: 20px; height: 20px; accent-color: var(--gold); }
+.count { color: var(--muted); font-size: 13px; margin: 0; }
+.dcat .d { padding: 12px 0; border-bottom: 1px solid var(--line); display: grid; gap: 8px; }
+.dcat .top { display: flex; justify-content: space-between; gap: 8px; align-items: center; font-size: 15px; font-weight: 600; flex-wrap: wrap; }
+.dcat .top .dt { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.dcat .vals { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.dcat .vals small { display: block; color: var(--muted); font-size: 11px; font-weight: 500; }
+.dcat .vals .est { color: var(--muted); font-style: italic; font-weight: 500; }
+dl.defs { margin: 0; display: grid; gap: 14px; }
+dl.defs dt { font-weight: 700; font-size: 15px; color: var(--gold); }
+dl.defs dd { margin: 3px 0 0; font-size: 14px; color: var(--beige); }
+ul.list { margin: 0; padding-left: 20px; display: grid; gap: 8px; font-size: 14px; color: var(--beige); }
+footer { color: var(--muted); font-size: 12px; text-align: center; letter-spacing: .06em; padding-top: 28px; }
+.err { padding: 48px 0; text-align: center; color: var(--muted); }
+@media (max-width: 420px) { .hide-sm { display: none; } }
 </style>
 </head>
 <body>
 <div class="wrap" id="app">
   <header class="brand">
     <h1 class="sr">Le Shay Cafe Tracker</h1>
-    <img src="logo.png" alt="Le Shay Cafe">
+    <img src="logo.png" alt="Le Shay Cafe" width="560" height="164">
     <div class="tag">Good food · Good people · Great conversations</div>
     <div class="sub" id="range">Loading…</div>
   </header>
 
-  <nav class="tabs" role="tablist" aria-label="Dashboard sections">
-    <button role="tab" id="t-ops" aria-controls="ops" data-tab="ops">Operations</button>
-    <button role="tab" id="t-inv" aria-controls="inv" data-tab="inv">Investment &amp; Funding</button>
-    <button role="tab" id="t-cash" aria-controls="cash" data-tab="cash">Cash Reconciliation</button>
-    <button role="tab" id="t-rec" aria-controls="rec" data-tab="rec">Records &amp; Definitions</button>
-    <div class="subnav" id="subnav" aria-label="Jump to">
-      <a href="#g-overview" data-jump="g-overview">Overview</a><a href="#g-sales" data-jump="g-sales">Sales &amp; Expenses</a><a href="#g-weekly" data-jump="g-weekly">Weekly</a><a href="#g-daily" data-jump="g-daily">Daily</a>
+  <nav class="tabs" aria-label="Dashboard sections">
+    <div class="tabrow" role="tablist">
+      <button role="tab" id="t-ovw" aria-controls="ovw" data-tab="ovw">Overview</button>
+      <button role="tab" id="t-ops" aria-controls="ops" data-tab="ops">Operations</button>
+      <button role="tab" id="t-inv" aria-controls="inv" data-tab="inv">Investment &amp; Funding</button>
+      <button role="tab" id="t-cash" aria-controls="cash" data-tab="cash">Cash Reconciliation</button>
+      <button role="tab" id="t-rec" aria-controls="rec" data-tab="rec">Records &amp; Definitions</button>
+    </div>
+    <div class="subnav" id="subnav" aria-label="Jump to" hidden>
+      <a href="#g-sales" data-jump="g-sales">Sales &amp; Expenses</a><a href="#g-mix" data-jump="g-mix">Sales Mix</a><a href="#g-weekly" data-jump="g-weekly">Weekly &amp; Monthly</a><a href="#g-daily" data-jump="g-daily">Daily</a>
     </div>
   </nav>
 
-  <!-- ============ OPERATIONS ============ -->
-  <section class="tab" id="ops" role="tabpanel" aria-labelledby="t-ops">
-   <div class="grp" id="g-overview">
-    <div class="takebox"><p class="take" id="takeaway" style="margin:0"></p></div>
-
-    <section class="card">
-      <h2>Latest day</h2>
-      <p class="note" id="lt-label"></p>
-      <div class="tiles">
-        <div class="tile"><span class="lbl">Sales</span><span class="big" id="lt-sales">—</span><span class="sm" id="lt-vs"></span></div>
-        <div class="tile"><span class="lbl">Recorded spend</span><span class="big" id="lt-spend">—</span><span class="sm">Purchases and wages on the page</span></div>
-        <div class="tile"><span class="lbl">Day result</span><span class="big" id="lt-net">—</span><span class="sm" id="lt-kind"></span></div>
-        <div class="tile"><span class="lbl">Daily staff wages</span><span class="big" id="lt-staff">—</span><span class="sm" id="lt-staffpct"></span></div>
+  <!-- ================= OVERVIEW ================= -->
+  <section class="tab" id="ovw" role="tabpanel" aria-labelledby="t-ovw">
+    <div class="grp">
+      <div class="sec-h"><span class="n">01</span><h2>Business performance</h2><span class="q">Selling, spending and the result</span></div>
+      <div class="kpis two four">
+        <div class="kpi hero"><span class="lbl">Total sales</span><span class="val" id="o-sales">—</span><span class="ctx" id="o-sales-c"></span></div>
+        <div class="kpi"><span class="lbl">Recorded operating expenses</span><span class="val" id="o-spend">—</span><span class="ctx" id="o-spend-c"></span></div>
+        <div class="kpi"><span class="lbl">Trading result</span><span class="val" id="o-trade">—</span><span class="ctx">Sales minus recorded expenses</span></div>
+        <div class="kpi hero"><span class="lbl">Cumulative cash-flow shortfall</span><span class="val" id="o-cum">—</span><span class="ctx">After October owner-paid costs and launch tasting</span></div>
       </div>
-    </section>
-
-    <section>
-      <div class="tiles four">
-        <div class="tile"><span class="lbl">Total sales</span><span class="big" id="t-sales">—</span><span class="sm" id="t-avgs"></span></div>
-        <div class="tile"><span class="lbl">Recorded spend</span><span class="big" id="t-spend">—</span><span class="sm" id="t-avge"></span></div>
-        <div class="tile"><span class="lbl">Trading result</span><span class="big" id="t-trade">—</span><span class="sm" id="t-days"></span></div>
-        <div class="tile"><span class="lbl">Days in surplus</span><span class="big" id="t-prof">—</span><span class="sm" id="t-best"></span></div>
-      </div>
-    </section>
-
-    <section class="card" id="bridge-card">
-      <h2>From trading result to cumulative cash-flow shortfall</h2>
-      <p class="note">How the daily ledger result becomes the total since opening, step by step. This is a cash view, not fully reconciled accounting profit.</p>
-      <div class="items" id="bridge"></div>
-    </section>
-   </div>
-
-   <div class="grp" id="g-sales">
-    <div class="grid2">
-      <section class="card">
-        <h2>Sales vs recorded spend, by day</h2>
-        <p class="note">Tap the chart to see each day.</p>
-        <div class="legend"><span><i style="background:var(--sales)"></i>Sales</span><span><i style="background:var(--spend)"></i>Recorded spend</span></div>
-        <div class="chart" id="ch-trend"></div>
-      </section>
-      <section class="card">
-        <h2>Daily result</h2>
-        <p class="note">Sales minus recorded spend. Green is a surplus day, red a shortfall.</p>
-        <div class="chart" id="ch-net"></div>
-      </section>
     </div>
 
-    <section class="card" id="mix-card" style="display:none">
-      <h2>Sales mix</h2>
-      <p class="note" id="mix-note"></p>
-      <div class="bar" id="mix-bar"></div>
-      <div class="legend"><span><i style="background:var(--gold)"></i>Kitchen</span><span><i style="background:var(--spend)"></i>Juice and shakes</span><span><i style="background:var(--muted-bar)"></i>Counter and other</span></div>
-      <div class="tiles three">
-        <div class="tile"><span class="lbl">Kitchen main dishes</span><span class="big" id="mix-k">—</span><span class="sm" id="mix-kp"></span></div>
-        <div class="tile"><span class="lbl">Juice and shakes</span><span class="big" id="mix-j">—</span><span class="sm" id="mix-jp"></span></div>
-        <div class="tile"><span class="lbl">Counter and other</span><span class="big" id="mix-c">—</span><span class="sm" id="mix-cp"></span></div>
+    <div class="grp">
+      <div class="sec-h"><span class="n">02</span><h2>Recent trends</h2><span class="q">Improving or declining?</span></div>
+      <div class="kpis two">
+        <div class="kpi sm-val"><span class="lbl">Last 7 days result</span><span class="val" id="o-7">—</span><span id="o-7d"></span><span class="ctx" id="o-7c"></span></div>
+        <div class="kpi sm-val"><span class="lbl">Last 30 days result</span><span class="val" id="o-30">—</span><span id="o-30d"></span><span class="ctx" id="o-30c"></span></div>
       </div>
-      <p class="note" id="mix-quality"></p>
-      <p class="note" id="mix-history"></p>
-    </section>
+      <div class="card">
+        <h3>Sales vs expenses, last 30 days</h3>
+        <div class="legend"><span><i style="background:var(--sales)"></i>Sales</span><span><i style="background:var(--spend)"></i>Recorded expenses</span></div>
+        <div class="chart small" id="ch-o-trend"></div>
+      </div>
+    </div>
 
-    <section class="card">
-      <h2>Where the money goes</h2>
-      <p class="note">Recorded daily spend by category since opening, each as a share of sales. Daily staff wages are the regular cafe staff paid daily; management salaries for October are in the bridge.</p>
+    <div class="grp">
+      <div class="sec-h"><span class="n">03</span><h2>Revenue sources</h2><span class="q">Reported data only</span></div>
+      <div class="card" id="o-mix"></div>
+    </div>
+
+    <div class="grp">
+      <div class="sec-h"><span class="n">04</span><h2>Investment</h2><span class="q">What the owners have put in</span></div>
+      <div class="kpis two">
+        <div class="kpi hero"><span class="lbl">Total owner funding</span><span class="val" id="o-fund">—</span><span class="ctx" id="o-fund-c"></span></div>
+        <div class="kpi"><span class="lbl">Funding excluding refundable deposit</span><span class="val" id="o-fund-ex">—</span><span class="ctx">Recovery target</span></div>
+      </div>
+      <div class="card">
+        <div class="stack" id="o-fund-bar"></div>
+        <div class="legend" id="o-fund-leg"></div>
+        <div class="status" id="o-rec"></div>
+      </div>
+    </div>
+
+    <div class="grp">
+      <div class="sec-h"><span class="n">05</span><h2>Cash position</h2><span class="q">Money handed over to run the cafe</span></div>
+      <div class="kpis two">
+        <div class="kpi"><span class="lbl">Operational cash advances</span><span class="val" id="o-adv">—</span><span class="ctx">Working capital, never an expense</span></div>
+        <div class="kpi"><span class="lbl">Paid directly by owner</span><span class="val" id="o-direct">—</span><span class="ctx">October costs and Owner-Funded Stock</span></div>
+      </div>
+      <div class="status" id="o-cash"></div>
+    </div>
+  </section>
+
+  <!-- ================= OPERATIONS ================= -->
+  <section class="tab" id="ops" role="tabpanel" aria-labelledby="t-ops" hidden>
+   <div class="grp" id="g-sales">
+    <div class="sec-h"><h2>Sales &amp; expenses</h2></div>
+    <div class="card">
+      <h3>Latest day</h3>
+      <p class="note" id="lt-label"></p>
+      <div class="kpis two">
+        <div class="kpi sm-val"><span class="lbl">Sales</span><span class="val" id="lt-sales">—</span><span class="ctx" id="lt-vs"></span></div>
+        <div class="kpi sm-val"><span class="lbl">Recorded expenses</span><span class="val" id="lt-spend">—</span><span class="ctx">Purchases and daily wages on the page</span></div>
+        <div class="kpi sm-val"><span class="lbl">Day result</span><span class="val" id="lt-net">—</span><span class="ctx" id="lt-kind"></span></div>
+        <div class="kpi sm-val"><span class="lbl">Daily staff wages</span><span class="val" id="lt-staff">—</span><span class="ctx" id="lt-staffpct"></span></div>
+      </div>
+    </div>
+    <div class="card" id="bridge-card">
+      <h3>From trading result to cumulative cash-flow shortfall</h3>
+      <p class="note">A cash view, not fully reconciled accounting profit.</p>
+      <div class="items" id="bridge"></div>
+    </div>
+    <div class="card">
+      <h3>Sales vs recorded expenses, by day</h3>
+      <p class="note">Tap the chart to see each day.</p>
+      <div class="legend"><span><i style="background:var(--sales)"></i>Sales</span><span><i style="background:var(--spend)"></i>Recorded expenses</span></div>
+      <div class="chart" id="ch-trend"></div>
+    </div>
+    <div class="card">
+      <h3>Daily result</h3>
+      <p class="note">Green is a surplus day, red a shortfall.</p>
+      <div class="chart" id="ch-net"></div>
+    </div>
+    <div class="card">
+      <h3>Where the money goes</h3>
+      <p class="note">Recorded daily expenses by category, as a share of sales. October management salaries and electricity are in the bridge.</p>
       <div class="cats" id="cats"></div>
-    </section>
+    </div>
+   </div>
+
+   <div class="grp" id="g-mix">
+    <div class="sec-h"><h2>Sales mix</h2><span class="q">Main Kitchen · Juice &amp; Shakes · Main Counter</span></div>
+    <div class="card" id="mix-main"></div>
+    <div class="card">
+      <h3>Daily category revenue</h3>
+      <p class="note">Every day since category reporting began. Estimated figures are in italics and are never counted as actual performance.</p>
+      <div class="dcat" id="mix-days"></div>
+    </div>
    </div>
 
    <div class="grp" id="g-weekly">
-    <section class="card">
-      <h2>Recent periods</h2>
-      <p class="note">Sales minus recorded daily spend. The October owner-paid costs have no dates, so they are not included in these windows.</p>
-      <div class="tiles" id="periods"></div>
-    </section>
-
-    <section class="card">
-      <h2>Week by week</h2>
+    <div class="sec-h"><h2>Weekly &amp; monthly</h2></div>
+    <div class="kpis two" id="periods"></div>
+    <div class="kpis three" id="months"></div>
+    <div class="card">
+      <h3>Week by week</h3>
       <p class="note">Monday to Sunday. The latest week may be partial.</p>
-      <div class="tw"><table><thead><tr><th>Week of</th><th>Days</th><th>Sales</th><th>Spend</th><th>Result</th></tr></thead><tbody id="tb-week"></tbody></table></div>
-    </section>
-
-    <section class="card">
-      <h2>Month by month</h2>
-      <p class="note">Owner-paid costs are added to the month they belong to, even though their exact dates are not confirmed.</p>
-      <div class="tw"><table><thead><tr><th class="l">Month</th><th class="hide-sm">Days</th><th>Sales</th><th>Spend</th><th>Owner-paid</th><th>Result</th></tr></thead><tbody id="tb-month"></tbody></table></div>
-    </section>
+      <div class="tw"><table><thead><tr><th>Week of</th><th class="hide-sm">Days</th><th>Sales</th><th>Expenses</th><th>Result</th></tr></thead><tbody id="tb-week"></tbody></table></div>
+    </div>
    </div>
 
    <div class="grp" id="g-daily">
-    <section class="card" id="day">
-      <h2>Day breakdown</h2>
-      <p class="note">Every line from the manager's ledger page for the chosen ledger date.</p>
+    <div class="sec-h"><h2>Daily transactions</h2></div>
+    <div class="card" id="day">
+      <h3>Day breakdown</h3>
       <select id="day-pick" aria-label="Choose a day"></select>
       <div class="items" id="day-items"></div>
-    </section>
-
-    <section class="card">
-      <h2>Daily log</h2>
-      <p class="note">Tap a row to open its breakdown.</p>
-      <div class="tw"><table><thead><tr><th>Ledger date</th><th>Sales</th><th>Spend</th><th>Result</th></tr></thead><tbody id="tb-day"></tbody></table></div>
-      <p class="note">Ledger date is the date written on the manager's page. Expenses are usually written one day after they happen, so a single day can look better or worse than it was. Actual expense dates are not recorded, so the dashboard does not try to shift them. Weekly and monthly totals smooth this out.</p>
-    </section>
-
-    <section class="card" id="pre-card">
-      <h2>Launch tasting <span class="flag">Pending reconciliation</span></h2>
-      <p class="note">Free sample food served before opening. Included in the cumulative cash-flow shortfall, but kept out of daily averages and charts. Its funding source has not been verified, so it is not part of the owner funding total.</p>
+    </div>
+    <div class="card">
+      <h3>Daily log</h3>
+      <p class="note">Tap a row to open its breakdown. Ledger date is the date on the manager's page; expenses are usually written a day after they happen.</p>
+      <div class="tw"><table><thead><tr><th>Ledger date</th><th>Sales</th><th>Expenses</th><th>Result</th></tr></thead><tbody id="tb-day"></tbody></table></div>
+    </div>
+    <div class="card" id="pre-card">
+      <h3>Launch tasting <span class="flag">Pending reconciliation</span></h3>
+      <p class="note">Sample food served before opening. In the cumulative shortfall, not in daily averages or charts, and not in owner funding until its funding source is verified.</p>
       <div class="items" id="pre-items"></div>
-    </section>
+    </div>
    </div>
   </section>
 
-  <!-- ============ INVESTMENT ============ -->
+  <!-- ================= INVESTMENT ================= -->
   <section class="tab" id="inv" role="tabpanel" aria-labelledby="t-inv" hidden>
-    <section class="card">
-      <h2>Owner funding and spending</h2>
-      <p class="note">Everything the owners have paid into Le Shay, from the 145-transaction investment ledger. This is money put in, not the cafe's losses.</p>
-      <div class="tiles three">
-        <div class="tile"><span class="lbl">Total owner funding</span><span class="big" id="f-total">—</span><span class="sm" id="f-rows"></span></div>
-        <div class="tile"><span class="lbl">Refundable shop deposit</span><span class="big" id="f-dep">—</span><span class="sm">Asset, assumed fully refundable</span></div>
-        <div class="tile"><span class="lbl">Funding excluding deposit</span><span class="big" id="f-ex">—</span><span class="sm">Recovery target</span></div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Reconciliation</h2>
+    <div class="kpis three">
+      <div class="kpi hero"><span class="lbl">Total owner funding</span><span class="val" id="f-total">—</span><span class="ctx" id="f-rows"></span></div>
+      <div class="kpi"><span class="lbl">Refundable shop deposit</span><span class="val" id="f-dep">—</span><span class="ctx">Asset, assumed fully refundable</span></div>
+      <div class="kpi"><span class="lbl">Funding excluding deposit</span><span class="val" id="f-ex">—</span><span class="ctx">Recovery target</span></div>
+    </div>
+    <div class="card">
+      <h3>Pre-opening vs post-opening</h3>
+      <div class="stack" id="f-pp-bar"></div>
+      <div class="split" id="f-pp"></div>
+    </div>
+    <div class="card">
+      <h3>Reconciliation</h3>
       <p class="note" id="f-check"></p>
       <div class="items" id="f-recon"></div>
-    </section>
-
-    <section class="card">
-      <h2>Investment recovery</h2>
-      <div class="status" id="rc-status"></div>
-      <div class="tiles">
-        <div class="tile"><span class="lbl">Recovery target</span><span class="big" id="rc-target">—</span><span class="sm">Funding excluding refundable deposit</span></div>
-        <div class="tile"><span class="lbl">Returned to owners</span><span class="big" id="rc-ret">—</span><span class="sm">No cash returns recorded yet</span></div>
-      </div>
-      <p class="note" id="rc-note"></p>
-    </section>
-
-    <div class="grid2">
-      <section class="card">
-        <h2>Pre-opening, by category</h2>
-        <p class="note" id="pre-cat-note">Tap a category to see its transactions in the ledger below.</p>
-        <div class="cats" id="pre-cats"></div>
-      </section>
-      <section class="card">
-        <h2>Post-opening funding</h2>
-        <p class="note">Three different kinds of money, kept separate.</p>
-        <h3>Operational cash advances</h3>
-        <p class="note">Working capital given to run the cafe day to day. Not an expense: it pays for costs already in the daily ledger.</p>
-        <div class="items" id="post-adv"></div>
-        <h3>Owner-paid October operating costs</h3>
-        <p class="note">Paid directly by the owner, outside the daily ledger. Counted once, in October's result.</p>
-        <div class="items" id="post-oct"></div>
-        <h3>Owner-Funded Stock</h3>
-        <p class="note">Bought with the owner's personal funds and supplied to Le Shay. Not from manager cash, not in daily expenses, and not counted as an immediate cost.</p>
-        <div class="items" id="post-stock"></div>
-      </section>
     </div>
-
-    <section class="card" id="stock-card">
-      <h2>Stock purchases by funding source</h2>
-      <p class="note">Separates stock the owner bought directly from stock bought with the manager's operating cash. Owner-funded stock counts towards owner funding but is not treated as an immediate expense. Manager-cash stock comes from the daily ledger and is already in recorded spend.</p>
+    <div class="card">
+      <h3>Investment recovery</h3>
+      <div class="status" id="rc-status"></div>
+      <div class="kpis two">
+        <div class="kpi sm-val"><span class="lbl">Recovery target</span><span class="val" id="rc-target">—</span><span class="ctx">Funding excluding refundable deposit</span></div>
+        <div class="kpi sm-val"><span class="lbl">Returned to owners</span><span class="val" id="rc-ret">—</span><span class="ctx">No cash returns recorded yet</span></div>
+      </div>
+      <p class="note">Recovery is measured by cash the cafe returns to the owners. Operating losses are not subtracted from the funding again, because the cash advances already paid for them.</p>
+    </div>
+    <div class="card">
+      <h3>Pre-opening, by category</h3>
+      <p class="note" id="pre-cat-note"></p>
+      <div class="cats" id="pre-cats"></div>
+    </div>
+    <div class="card">
+      <h3>Post-opening funding</h3>
+      <h4>Operational cash advances</h4>
+      <p class="note">Working capital to run the cafe. Not an expense: it pays for costs already in the daily ledger.</p>
+      <div class="items" id="post-adv"></div>
+      <h4>October owner-paid operating costs</h4>
+      <p class="note">Paid directly by the owner, outside the daily ledger. Counted once, in October.</p>
+      <div class="items" id="post-oct"></div>
+      <h4>Owner-Funded Stock</h4>
+      <p class="note">Bought with the owner's personal funds. Not in daily expenses and not an immediate cost.</p>
+      <div class="items" id="post-stock"></div>
+    </div>
+    <div class="card" id="stock-card">
+      <h3>Stock purchases by funding source</h3>
+      <p class="note">Only the owner-funded purchase has a verified funding source. Stock purchases on the daily pages have not had their payment method checked, so they are not assumed to come from manager cash.</p>
       <div class="controls">
-        <select id="st-src" aria-label="Funding source"><option value="">All funding sources</option><option>Owner paid</option><option>Manager operating cash</option></select>
+        <select id="st-src" aria-label="Funding source"><option value="">All funding sources</option><option>Owner paid (verified)</option><option>Not yet verified</option></select>
         <select id="st-type" aria-label="Stock type"><option value="">All stock types</option><option>Beverages</option><option>Groceries</option><option>Meat &amp; Fish</option><option>Dairy</option><option>Other</option></select>
         <select id="st-per" aria-label="Period"><option value="">All periods</option><option>Pre-opening</option><option>Post-opening</option></select>
       </div>
-      <div class="tiles" id="st-tiles"></div>
-      <p class="note" id="st-count"></p>
-      <div class="tw"><table><thead><tr><th class="l">Date or period</th><th class="l">Item</th><th class="l hide-sm">Type</th><th>Amount</th></tr></thead><tbody id="tb-stock"></tbody></table></div>
-    </section>
-
-    <section class="card" id="ledger-card">
-      <h2>Investment ledger</h2>
-      <p class="note">All 145 transactions with their original descriptions and IDs. Categories for unclear descriptions are provisional. Possible duplicates are flagged for checking, not removed.</p>
+      <div class="kpis two" id="st-tiles"></div>
+      <p class="count" id="st-count"></p>
+      <div class="tw"><table><thead><tr><th class="l">Date</th><th class="l">Item</th><th class="l hide-sm">Type</th><th>Amount</th></tr></thead><tbody id="tb-stock"></tbody></table></div>
+    </div>
+    <div class="card" id="ledger-card">
+      <h3>Investment ledger</h3>
+      <p class="note">All 145 transactions with their original descriptions and IDs. Possible duplicates are flagged for checking, not removed.</p>
       <div class="controls">
         <input type="search" id="lg-q" placeholder="Search description or ID" aria-label="Search ledger">
-        <select id="lg-cat" aria-label="Filter by category"></select>
+        <select id="lg-cat" aria-label="Category"></select>
         <select id="lg-exp" aria-label="Expense category"></select>
-        <select id="lg-src" aria-label="Funding source"><option value="">All funding sources</option><option>Owner paid</option><option>Manager operating cash</option></select>
+        <select id="lg-src" aria-label="Funding source"><option value="">All funding sources</option><option value="Owner paid">Owner paid (verified)</option><option value="Not yet verified">Not yet verified</option></select>
         <select id="lg-stk" aria-label="Stock type"><option value="">All stock types</option><option>Beverages</option><option>Groceries</option><option>Meat &amp; Fish</option><option>Dairy</option><option>Other</option></select>
         <select id="lg-per" aria-label="Period"><option value="">All periods</option><option>Pre-opening</option><option>Post-opening</option></select>
         <label><input type="checkbox" id="lg-flag"> Flagged only</label>
       </div>
-      <p class="note" id="lg-count"></p>
+      <p class="count" id="lg-count"></p>
       <div class="tw"><table><thead><tr><th class="l">ID</th><th class="l">Description</th><th class="l hide-sm">Category</th><th>Amount</th></tr></thead><tbody id="tb-ledger"></tbody></table></div>
-    </section>
-  </section>
-
-  <!-- ============ CASH ============ -->
-  <section class="tab" id="cash" role="tabpanel" aria-labelledby="t-cash" hidden>
-    <section class="card">
-      <h2>Manager cash position</h2>
-      <div class="status" id="cash-status"></div>
-      <p class="note">This section tracks cash movements, which are different from profit. Cash advances are never counted as operating expenses here or anywhere else on the dashboard. Where the data does not exist yet, the line says so rather than guessing.</p>
-    </section>
-
-    <section class="card">
-      <h2>Cash reconciliation</h2>
-      <div class="items" id="cash-recon"></div>
-    </section>
-
-    <div class="grid2">
-      <section class="card">
-        <h2>Cash advances register</h2>
-        <p class="note">Operational cash given to run the cafe. Payment dates not confirmed.</p>
-        <div class="items" id="adv-reg"></div>
-      </section>
-      <section class="card">
-        <h2>Paid directly by the owner</h2>
-        <p class="note">These never passed through the manager's cash, so they do not affect the cash he should be holding.</p>
-        <div class="items" id="owner-direct"></div>
-      </section>
     </div>
-
-    <section class="card">
-      <h2>What is needed to reconcile</h2>
-      <p class="note">Four extra lines on each daily page, plus a one-off opening figure, are enough to calculate the expected cash and compare it with a physical count.</p>
-      <ul class="list">
-        <li><b>Once:</b> the cash the manager had on the first trading day, and the dates each advance was handed over.</li>
-        <li><b>Daily:</b> cash sales and UPI or card sales, as separate figures.</li>
-        <li><b>Daily:</b> how much of the spend was paid from the till, and how much by UPI or bank.</li>
-        <li><b>When it happens:</b> cash deposited in the bank, or handed back to the owner.</li>
-        <li><b>Weekly:</b> a physical count of the cash on hand, to check against the expected figure.</li>
-      </ul>
-    </section>
   </section>
 
-  <!-- ============ RECORDS ============ -->
+  <!-- ================= CASH ================= -->
+  <section class="tab" id="cash" role="tabpanel" aria-labelledby="t-cash" hidden>
+    <div class="status" id="cash-status"></div>
+    <div class="kpis two">
+      <div class="kpi"><span class="lbl">Operational cash advances</span><span class="val" id="c-adv">—</span><span class="ctx">Handed over to run the cafe</span></div>
+      <div class="kpi"><span class="lbl">Paid directly by owner</span><span class="val" id="c-direct">—</span><span class="ctx">Never passed through manager cash</span></div>
+    </div>
+    <div class="card">
+      <h3>Owner money into operations</h3>
+      <div class="stack" id="c-bar"></div>
+      <div class="split" id="c-split"></div>
+    </div>
+    <div class="card">
+      <h3>Cash reconciliation</h3>
+      <p class="note">Cash movements, not profit. Advances are never counted as expenses. Missing data is shown as missing, not guessed.</p>
+      <div class="items" id="cash-recon"></div>
+    </div>
+    <div class="grid">
+      <div class="card"><h3>Cash advances register</h3><div class="items" id="adv-reg"></div></div>
+      <div class="card"><h3>Paid directly by the owner</h3><div class="items" id="owner-direct"></div></div>
+    </div>
+    <div class="card">
+      <h3>What is needed to reconcile</h3>
+      <ul class="list">
+        <li><b>Once:</b> the manager's cash on the first trading day, and the date each advance was handed over.</li>
+        <li><b>Daily:</b> cash sales and UPI or card sales as separate figures.</li>
+        <li><b>Daily:</b> how much spend was paid from the till, and how much by UPI or bank.</li>
+        <li><b>When it happens:</b> cash deposited in the bank or handed back to the owner.</li>
+        <li><b>Weekly:</b> a physical count of the cash on hand.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= RECORDS ================= -->
   <section class="tab" id="rec" role="tabpanel" aria-labelledby="t-rec" hidden>
-    <section class="card">
-      <h2>How the numbers are calculated</h2>
-      <dl class="defs" id="defs"></dl>
-    </section>
-
-    <section class="card">
-      <h2>Data quality flags</h2>
-      <p class="note">Open items to confirm. None of them change the historical records.</p>
-      <ul class="list" id="flags"></ul>
-    </section>
-
-    <section class="card">
-      <h2>All records</h2>
+    <div class="card"><h3>How the numbers are calculated</h3><dl class="defs" id="defs"></dl></div>
+    <div class="card"><h3>Data quality flags</h3><p class="note">Open items to confirm. None of them change the historical records.</p><ul class="list" id="flags"></ul></div>
+    <div class="card">
+      <h3>All records</h3>
       <p class="note">Every transaction behind the dashboard, with its source. Payment method has not been recorded for any of them yet.</p>
       <div class="controls">
         <input type="search" id="ar-q" placeholder="Search" aria-label="Search all records">
         <select id="ar-src" aria-label="Filter by source"></select>
       </div>
-      <p class="note" id="ar-count"></p>
-      <div class="tw"><table><thead><tr><th class="l">Date or period</th><th class="l">Description</th><th class="l hide-sm">Source</th><th>Amount</th></tr></thead><tbody id="tb-all"></tbody></table></div>
-    </section>
+      <p class="count" id="ar-count"></p>
+      <div class="tw"><table><thead><tr><th class="l">Date</th><th class="l">Description</th><th class="l hide-sm">Source</th><th>Amount</th></tr></thead><tbody id="tb-all"></tbody></table></div>
+    </div>
   </section>
 
   <footer id="foot"></footer>
 </div>
 
 <script>
+document.addEventListener('DOMContentLoaded', () => {
 const $ = id => document.getElementById(id);
 const inr = v => (v < 0 ? '-₹' : '₹') + Math.round(Math.abs(v)).toLocaleString('en-IN');
 const sgn = v => (v > 0 ? '+' : '') + inr(v);
@@ -383,17 +420,26 @@ const P = d => new Date(d + 'T00:00:00Z');
 const fd = d => d3.utcFormat('%-d %b')(P(d));
 const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+const setVal = (id, v, colour) => { const e = $(id); e.textContent = inr(v); e.classList.remove('pos', 'neg'); if (colour) e.classList.add(v >= 0 ? 'pos' : 'neg'); };
 const OWNER_COST = ['October management salaries', 'October electricity'];
 const CAT_LABEL = c => c === 'Staff' ? 'Daily staff wages' : c;
 const STOCK_TYPE = { 'Milk': 'Dairy', 'Meat, fish & eggs': 'Meat & Fish', 'Groceries': 'Groceries', 'Produce & batter': 'Groceries', 'Snacks & ice cream': 'Other' };
+const SECT = [['Main Kitchen', 'var(--c-kitchen)', 'Dosa, puttu, porotta, mains'], ['Juice & Shakes', 'var(--c-juice)', 'Juices, shakes, mojitos'], ['Main Counter', 'var(--c-counter)', 'Tea, coffee, snacks']];
 let D, picked;
 
 function row(box, label, sub, value, cls, flag) {
   const r = el('div', 'row ' + (cls || '')), a = el('span', null, label);
-  if (sub) a.appendChild(el('small', null, sub));
   if (flag) a.appendChild(el('span', 'flag ' + (flag.cls || ''), flag.text));
+  if (sub) a.appendChild(el('small', null, sub));
   const b = el('span', null, value); r.append(a, b); box.appendChild(r); return b;
 }
+function delta(cur, prev, label, unit) {
+  const d = cur - prev, cls = Math.abs(d) < 1 ? 'flat' : d > 0 ? 'up' : 'down';
+  return el('span', 'delta ' + cls, (cls === 'up' ? '▲ ' : cls === 'down' ? '▼ ' : '● ') + sgn(Math.round(d)) + (unit || '') + ' vs ' + label);
+}
+function stack(bar, parts, total) { bar.replaceChildren(...parts.map(([v, c]) => { const s = el('div'); s.style.width = (v / total * 100) + '%'; s.style.background = c; return s; })); }
+function pct100(vals) { const t = d3.sum(vals), raw = vals.map(v => v / t * 100), fl = raw.map(Math.floor); let left = 100 - d3.sum(fl); raw.map((v, i) => [v - fl[i], i]).sort((a, b) => b[0] - a[0]).forEach(([, i]) => { if (left > 0) { fl[i]++; left--; } }); return fl; }
+function splitRow(box, colour, label, value, sub) { const r = el('div', 'sr2'), sw = el('i'); sw.style.background = colour; const v = el('span', 'v', value); if (sub) v.appendChild(el('small', null, sub)); r.append(sw, el('span', null, label), v); box.appendChild(r); }
 
 function model(j) {
   const spend = {}, staff = {};
@@ -401,371 +447,135 @@ function model(j) {
   let run = 0;
   const daily = j.sales.slice().sort((a, b) => a.date < b.date ? -1 : 1).map(s => {
     const sp = spend[s.date] || 0; run += s.sales - sp;
-    return { date: s.date, sales: s.sales, kitchen: s.kitchen, juice: s.juice, kest: !!s.kitchen_est, jest: !!s.juice_est, est: !!(s.kitchen_est || s.juice_est), note: s.note, spend: sp, net: s.sales - sp, staff: staff[s.date] || 0, cum: run };
+    const kA = s.kitchen != null && !s.kitchen_est, jA = s.juice != null && !s.juice_est, tracked = s.kitchen != null || s.juice != null;
+    const status = !tracked ? 'none' : (kA && jA) ? 'complete' : (kA || jA) ? 'partial' : 'estimated';
+    return { date: s.date, sales: s.sales, kitchen: s.kitchen, juice: s.juice, kest: !!s.kitchen_est, jest: !!s.juice_est, kA, jA, status, note: s.note, spend: sp, net: s.sales - sp, staff: staff[s.date] || 0, cum: run };
   });
   const weeks = d3.rollups(daily, v => ({ days: v.length, sales: d3.sum(v, d => d.sales), spend: d3.sum(v, d => d.spend) }), d => d3.utcFormat('%Y-%m-%d')(d3.utcMonday.floor(P(d.date))))
     .map(([week, v]) => ({ week, ...v, net: v.sales - v.spend })).sort((a, b) => a.week < b.week ? -1 : 1);
-  const S = d3.sum(daily, d => d.sales);
+  const S = d3.sum(daily, d => d.sales), E = d3.sum(daily, d => d.spend);
   const cats = d3.rollups(j.expenses, v => d3.sum(v, e => e.amount), e => CAT_LABEL(e.category)).map(([c, a]) => ({ c, a, share: a / S })).sort((a, b) => b.a - a.a);
-  const L = j.investment_ledger;
-  const ownerCosts = L.filter(r => OWNER_COST.includes(r.classification));
-  const tasting = d3.sum(j.preopening || [], x => x.amount);
-  return { ...j, daily, weeks, cats, L, ownerCosts, tasting };
+  const L = j.investment_ledger, ownerCosts = L.filter(r => OWNER_COST.includes(r.classification));
+  const tasting = d3.sum(j.preopening || [], x => x.amount), OC = d3.sum(ownerCosts, r => r.amount_inr);
+  const fundTotal = d3.sum(L, r => r.amount_inr), adv = d3.sum(j.cash_advances, a => a.amount), stockOwner = j.funding_classes['Owner-funded stock'] || 0;
+  return { ...j, daily, weeks, cats, L, ownerCosts, tasting, S, E, T: S - E, OC, OP: S - E - OC, CUM: S - E - OC - tasting, fundTotal, adv, stockOwner, direct: OC + stockOwner };
+}
+function win(k) { const d = D.daily, n = d.length, cur = d.slice(-k), prev = d.slice(Math.max(0, n - 2 * k), n - k); return { cur: d3.sum(cur, x => x.net), prev: d3.sum(prev, x => x.net), pn: prev.length, cn: cur.length, cs: d3.sum(cur, x => x.sales) }; }
+
+/* ================= OVERVIEW ================= */
+function overview() {
+  const n = D.daily.length;
+  setVal('o-sales', D.S); $('o-sales-c').textContent = n + ' trading days · ' + inr(D.S / n) + ' a day';
+  setVal('o-spend', D.E); $('o-spend-c').textContent = 'Daily ledger · ' + inr(D.E / n) + ' a day';
+  setVal('o-trade', D.T, true); setVal('o-cum', D.CUM, true);
+  const w7 = win(7), w30 = win(30);
+  setVal('o-7', w7.cur, true); $('o-7d').replaceChildren(delta(w7.cur, w7.prev, 'previous 7 days')); $('o-7c').textContent = 'Sales ' + inr(w7.cs) + ' · ' + inr(w7.cs / w7.cn) + ' a day';
+  setVal('o-30', w30.cur, true); $('o-30d').replaceChildren(delta(w30.cur / w30.cn * 7, w30.pn ? w30.prev / w30.pn * 7 : 0, 'the ' + w30.pn + ' days before', ' a week'));
+  $('o-30c').textContent = 'Sales ' + inr(w30.cs) + ' · ' + inr(w30.cs / w30.cn) + ' a day';
+  mixSummary($('o-mix'), true);
+  setVal('o-fund', D.fundTotal); $('o-fund-c').textContent = D.L.length + ' transactions · includes ' + inr(D.deposit) + ' refundable deposit';
+  setVal('o-fund-ex', D.fundTotal - D.deposit);
+  const fc = D.funding_classes, parts = [
+    ['Pre-opening, excl. deposit', fc['Pre-opening investment'] - D.deposit, 'var(--gold)'], ['Refundable deposit', D.deposit, 'var(--beige)'],
+    ['Cash advances', fc['Operational cash advance'], 'var(--kraft)'], ['October costs', D.OC, 'var(--c-juice)'], ['Owner stock', D.stockOwner, 'var(--c-stock)']];
+  stack($('o-fund-bar'), parts.map(p => [p[1], p[2]]), D.fundTotal);
+  $('o-fund-leg').replaceChildren(...parts.map(([l, v, c]) => { const s = el('span'), i = el('i'); i.style.background = c; s.append(i, l + ' ' + inr(v)); return s; }));
+  recoveryStatus($('o-rec'));
+  setVal('o-adv', D.adv); setVal('o-direct', D.direct);
+  cashStatus($('o-cash'));
+}
+function recoveryStatus(box) {
+  const d = D.daily, r30 = d3.sum(d.slice(-30), x => x.net), r14 = d3.sum(d.slice(-14), x => x.net);
+  if (r30 > 0) { box.className = 'status good'; box.replaceChildren(el('b', null, 'Generating surplus'), el('span', null, 'Last 30 days ' + inr(r30) + '. Recovery counts once cash is returned to the owners. Returned so far: ₹0.')); }
+  else { box.className = 'status'; box.replaceChildren(el('b', null, 'Not currently on track for payback'), el('span', null, 'Last 30 days ' + inr(r30) + ', last 14 days ' + inr(r14) + '. No payback date is shown until there is a sustained surplus. Returned to owners so far: ₹0.')); }
+}
+function cashStatus(box) {
+  const book = D.cashbook || []; box.className = 'status';
+  if (!book.length) box.replaceChildren(el('b', null, 'Manager cash: Not yet reconcilable'), el('span', null, 'Cash sales, till payments, deposits and the opening balance have not been recorded yet, so no balance is shown.'));
+  else box.replaceChildren(el('b', null, 'Cashbook started'), el('span', null, book.length + ' days recorded. See Cash Reconciliation.'));
 }
 
-/* ---------------- Operations ---------------- */
+/* ================= SALES MIX ================= */
+function mixData() {
+  const d = D.daily.filter(x => x.status !== 'none');
+  return { d, complete: d.filter(x => x.status === 'complete'), partial: d.filter(x => x.status === 'partial'), est: d.filter(x => x.status === 'estimated'), none: D.daily.filter(x => x.status === 'none'), kDays: D.daily.filter(x => x.kA) };
+}
+function mixSummary(box, compact) {
+  const m = mixData(); box.replaceChildren();
+  if (!m.d.length) { box.append(el('p', 'note', 'Category reporting has not started yet.')); return; }
+  box.append(el('h3', null, compact ? 'Revenue by café section' : 'Sales mix from reported data'));
+  if (m.complete.length) {
+    const ks = d3.sum(m.complete, x => x.kitchen), js = d3.sum(m.complete, x => x.juice), ts = d3.sum(m.complete, x => x.sales), cs = ts - ks - js, pc = pct100([ks, js, cs]);
+    box.append(el('p', 'note', 'From ' + m.complete.length + ' complete reporting ' + (m.complete.length === 1 ? 'day' : 'days') + ' (' + m.complete.map(x => fd(x.date)).join(', ') + '), when the manager reported both kitchen and juice sales. Shares add to 100%.'));
+    const bar = el('div', 'stack'); stack(bar, [[ks, SECT[0][1]], [js, SECT[1][1]], [cs, SECT[2][1]]], ts); box.appendChild(bar);
+    const sp = el('div', 'split'); [ks, js, cs].forEach((v, i) => splitRow(sp, SECT[i][1], SECT[i][0], inr(v), pc[i] + '% · ' + SECT[i][2])); box.appendChild(sp);
+  } else box.append(el('p', 'note', 'No complete reporting day yet.'));
+  if (m.kDays.length > m.complete.length) {
+    const kt = d3.sum(m.kDays, x => x.kitchen), st = d3.sum(m.kDays, x => x.sales);
+    box.append(el('p', 'note', 'Main Kitchen alone, across all ' + m.kDays.length + ' days it was reported: ' + inr(kt) + ', or ' + Math.round(kt / st * 100) + '% of those days\' sales.'));
+  }
+  const cov = el('div', 'legend');
+  [['ok', m.complete.length + ' complete'], ['', m.partial.length + ' partial'], ['muted', m.est.length + ' estimated'], ['muted', m.none.length + ' not tracked']].forEach(([c, t]) => cov.appendChild(el('span', 'pill ' + c, t)));
+  box.appendChild(cov);
+  const need = Math.max(0, 7 - m.complete.length);
+  box.append(el('p', 'note', 'Reporting from ' + fd(m.d[0].date) + '. ' + (need ? 'Daily trends and 7-day comparisons appear after ' + need + ' more complete reporting ' + (need === 1 ? 'day' : 'days') + '. Estimates are never used to fill in history.' : 'Enough complete days for weekly comparison.')));
+}
+function mixDays() {
+  const box = $('mix-days'), st = { complete: ['ok', 'Complete'], partial: ['', 'Partial'], estimated: ['muted', 'Estimated'] }, frag = document.createDocumentFragment();
+  D.daily.filter(x => x.status !== 'none').slice().reverse().forEach(x => {
+    const r = el('div', 'd'), top = el('div', 'top'), left = el('span', 'dt', d3.utcFormat('%a %-d %b')(P(x.date)));
+    left.appendChild(el('span', 'pill ' + st[x.status][0], st[x.status][1])); top.append(left, el('span', null, inr(x.sales)));
+    const vals = el('div', 'vals');
+    const cell = (name, v, actual, note) => { const s = el('span', actual ? '' : 'est'); s.append(el('small', null, name), v == null ? 'not split' : inr(v) + (actual ? '' : ' est.')); if (note) s.appendChild(el('small', null, note)); vals.appendChild(s); };
+    cell('Main Kitchen', x.kitchen, x.kA, x.note && x.kitchen === 0 ? 'closed' : null);
+    if (x.juice == null) { cell('Juice & Shakes', null, true); cell('Main Counter', x.sales - (x.kitchen || 0), x.kA, 'incl. juice'); }
+    else { cell('Juice & Shakes', x.juice, x.jA); cell('Main Counter', x.sales - x.kitchen - x.juice, x.kA && x.jA); }
+    r.append(top, vals); frag.appendChild(r);
+  });
+  box.replaceChildren(frag);
+}
+
+/* ================= OPERATIONS ================= */
 function operations() {
-  const d = D.daily, n = d.length, S = d3.sum(d, x => x.sales), E = d3.sum(d, x => x.spend), T = S - E;
-  const OC = d3.sum(D.ownerCosts, r => r.amount_inr), OP = T - OC, CUM = OP - D.tasting;
-  const pre = D.preopening || [];
-  $('range').textContent = 'Trading ' + fd(d[0].date) + ' to ' + fd(d[n - 1].date) + ' 2026 (' + n + ' days)' + (pre.length ? ' · Launch tasting ' + fd(pre[0].date) + ' to ' + fd(pre[pre.length - 1].date) : '') + ' · all amounts in ₹';
-  const l7 = d3.sum(d.slice(-7), x => x.net), p7 = d3.sum(d.slice(-14, -7), x => x.net);
-  const staffPct = Math.round(d3.sum(d, x => x.staff) / S * 100);
-  $('takeaway').textContent = 'Last 7 days: ' + inr(l7) + ' from the daily ledger, ' + (n > 7 ? (l7 >= p7 ? 'better' : 'worse') + ' than the 7 days before (' + inr(p7) + '). ' : '') + 'Daily staff wages are ' + staffPct + '% of sales, the biggest cost to watch. Cumulative cash-flow ' + (CUM < 0 ? 'shortfall' : 'surplus') + ' after October owner-paid costs and the launch tasting: ' + inr(CUM) + '.';
-  const Lt = d[n - 1], avg = S / n;
-  $('lt-label').textContent = d3.utcFormat('%A, %-d %B')(P(Lt.date)) + ' (ledger date)';
-  $('lt-sales').textContent = inr(Lt.sales);
-  $('lt-vs').textContent = (Lt.sales >= avg ? '+' : '-') + '₹' + Math.round(Math.abs(Lt.sales - avg)).toLocaleString('en-IN') + ' vs daily average' + (Lt.kitchen != null ? ' · kitchen ' + inr(Lt.kitchen) : '') + (Lt.juice != null ? ' · juice & shakes ' + inr(Lt.juice) : '') + (Lt.est ? ' (estimated split)' : '') + (Lt.note ? ' · ' + Lt.note.toLowerCase() : '');
-  $('lt-spend').textContent = inr(Lt.spend);
-  $('lt-net').textContent = inr(Lt.net); $('lt-net').className = 'big ' + (Lt.net >= 0 ? 'pos' : 'neg');
-  $('lt-kind').textContent = (Lt.net >= 0 ? 'Surplus' : 'Shortfall') + ': sales minus recorded spend';
-  $('lt-staff').textContent = inr(Lt.staff); $('lt-staffpct').textContent = Math.round(Lt.staff / Lt.sales * 100) + '% of sales';
-  $('t-sales').textContent = inr(S); $('t-avgs').textContent = inr(S / n) + ' a day on average';
-  $('t-spend').textContent = inr(E); $('t-avge').textContent = inr(E / n) + ' a day, from the daily ledger';
-  $('t-trade').textContent = inr(T); $('t-trade').className = 'big ' + (T >= 0 ? 'pos' : 'neg'); $('t-days').textContent = 'Sales minus recorded spend, ' + n + ' days';
-  $('t-prof').textContent = d.filter(x => x.net > 0).length + ' of ' + n;
-  const best = d.reduce((a, b) => b.sales > a.sales ? b : a);
-  $('t-best').textContent = 'Best sales day: ' + fd(best.date) + ', ' + inr(best.sales);
-
-  // bridge
-  const br = $('bridge'); br.innerHTML = '';
-  row(br, 'Sales', n + ' trading days', inr(S));
-  row(br, 'Recorded daily spend', 'from the manager\'s pages', inr(-E));
-  row(br, 'Trading result', 'sales minus recorded spend', inr(T), 'tot ' + (T >= 0 ? 'pos' : 'neg'));
+  const d = D.daily, n = d.length, pre = D.preopening || [];
+  $('range').textContent = 'Trading ' + fd(d[0].date) + ' to ' + fd(d[n - 1].date) + ' 2026 · ' + n + ' days' + (pre.length ? ' · Launch tasting ' + fd(pre[0].date) + '–' + fd(pre[pre.length - 1].date) : '');
+  const Lt = d[n - 1], avg = D.S / n;
+  $('lt-label').textContent = d3.utcFormat('%A, %-d %B')(P(Lt.date)) + ' · ledger date';
+  setVal('lt-sales', Lt.sales); $('lt-vs').textContent = sgn(Math.round(Lt.sales - avg)) + ' vs daily average';
+  setVal('lt-spend', Lt.spend); setVal('lt-net', Lt.net, true); $('lt-kind').textContent = Lt.net >= 0 ? 'Surplus' : 'Shortfall';
+  setVal('lt-staff', Lt.staff); $('lt-staffpct').textContent = Math.round(Lt.staff / Lt.sales * 100) + '% of sales';
+  const br = $('bridge'); br.replaceChildren();
   const WHO = { 'LSI-143': 'Firoz, operations salary', 'LSI-144': 'GKU, management salary', 'LSI-145': 'Electricity' };
-  D.ownerCosts.forEach(r => row(br, (WHO[r.transaction_id] || r.original_description) + ', October', r.classification === 'October electricity' ? 'owner-paid, October only, date not confirmed' : 'management salary, owner-paid, date not confirmed', inr(-r.amount_inr)));
-  row(br, 'Operating result', 'after October management salaries and electricity', inr(OP), 'tot ' + (OP >= 0 ? 'pos' : 'neg'));
-  row(br, 'Launch tasting, 26 to 27 Sep', 'before opening', inr(-D.tasting), '', { text: 'Pending reconciliation' });
-  row(br, 'Cumulative cash-flow ' + (CUM < 0 ? 'shortfall' : 'surplus'), 'since opening, cash view', inr(CUM), 'sum');
-
-  // periods
-  const pb = $('periods'); pb.innerHTML = '';
-  const win = (k) => { const cur = d.slice(-k), prev = d.slice(Math.max(0, n - 2 * k), n - k); return { cur: d3.sum(cur, x => x.net), prev: d3.sum(prev, x => x.net), pn: prev.length, cs: d3.sum(cur, x => x.sales), ps: d3.sum(prev, x => x.sales) }; };
-  [[7, 'Last 7 days'], [30, 'Last 30 days']].forEach(([k, lab]) => {
-    const w = win(k), t = el('div', 'tile');
-    t.append(el('span', 'lbl', lab), el('span', 'big ' + (w.cur >= 0 ? 'pos' : 'neg'), inr(w.cur)),
-      el('span', 'sm', 'Sales ' + inr(w.cs) + (w.pn ? ' · previous ' + (w.pn === k ? k : w.pn) + ' days: ' + inr(w.prev) : '')));
-    pb.appendChild(t);
-  });
-
-  // months
+  row(br, 'Sales', n + ' trading days', inr(D.S));
+  row(br, 'Recorded daily expenses', 'incl. daily staff wages', inr(-D.E));
+  row(br, 'Trading result', '', inr(D.T), 'tot ' + (D.T >= 0 ? 'pos' : 'neg'));
+  D.ownerCosts.forEach(r => row(br, (WHO[r.transaction_id] || r.original_description) + ', October', r.classification === 'October electricity' ? 'owner-paid, October only' : 'management salary, owner-paid', inr(-r.amount_inr)));
+  row(br, 'Operating result', '', inr(D.OP), 'tot ' + (D.OP >= 0 ? 'pos' : 'neg'));
+  row(br, 'Launch tasting', '26–27 Sep, before opening', inr(-D.tasting), '', { text: 'Pending' });
+  row(br, 'Cumulative cash-flow ' + (D.CUM < 0 ? 'shortfall' : 'surplus'), 'since opening, cash view', inr(D.CUM), 'sum');
+  $('periods').replaceChildren(...[[7, 'Last 7 days'], [30, 'Last 30 days']].map(([k, lab]) => { const w = win(k), t = el('div', 'kpi sm-val');
+    t.append(el('span', 'lbl', lab + ' result'), el('span', 'val ' + (w.cur >= 0 ? 'pos' : 'neg'), inr(w.cur)), delta(w.cur / w.cn * 7, w.pn ? w.prev / w.pn * 7 : 0, k === 7 ? 'previous 7 days' : 'the ' + w.pn + ' days before', k === 7 ? '' : ' a week'), el('span', 'ctx', 'Sales ' + inr(w.cs) + ' · ' + inr(w.cs / w.cn) + ' a day')); return t; }));
   const months = d3.rollups(d, v => ({ days: v.length, sales: d3.sum(v, x => x.sales), spend: d3.sum(v, x => x.spend) }), x => x.date.slice(0, 7)).sort((a, b) => a[0] < b[0] ? -1 : 1);
-  const tm = $('tb-month'); tm.innerHTML = '';
-  months.forEach(([m, v]) => {
-    const oc = d3.sum(D.ownerCosts.filter(r => r.expense_period === m), r => r.amount_inr), res = v.sales - v.spend - oc;
-    const tr = tm.insertRow();
-    [d3.utcFormat('%B %Y')(P(m + '-01')), v.days, inr(v.sales), inr(v.spend), oc ? inr(oc) : '—', inr(res)].forEach((x, i) => { const c = tr.insertCell(); c.textContent = x; if (i === 0) c.className = 'l'; if (i === 5) c.className = res >= 0 ? 'pos' : 'neg'; });
-  });
-
-  salesMix();
-
-  // launch tasting
-  const pt = $('pre-items'); pt.innerHTML = '';
+  $('months').replaceChildren(...months.map(([m, v]) => { const oc = d3.sum(D.ownerCosts.filter(r => r.expense_period === m), r => r.amount_inr), res = v.sales - v.spend - oc, t = el('div', 'kpi sm-val');
+    t.append(el('span', 'lbl', d3.utcFormat('%B %Y')(P(m + '-01')) + ' · ' + v.days + ' days'), el('span', 'val ' + (res >= 0 ? 'pos' : 'neg'), inr(res)),
+      el('span', 'ctx', 'Sales ' + inr(v.sales) + ' (' + inr(v.sales / v.days) + ' a day) · expenses ' + inr(v.spend) + (oc ? ' · owner-paid ' + inr(oc) : ''))); return t; }));
+  mixSummary($('mix-main'), false); mixDays();
+  const pt = $('pre-items'); pt.replaceChildren();
   pre.forEach(x => row(pt, d3.utcFormat('%a %-d %b')(P(x.date)), x.item, inr(x.amount)));
   row(pt, 'Total', '', inr(D.tasting), 'tot');
-  $('pre-card').style.display = D.tasting ? '' : 'none';
 }
-
-function salesMix() {
-  const d = D.daily, both = d.filter(x => x.kitchen != null && x.juice != null);
-  if (!both.length) return;
-  $('mix-card').style.display = '';
-  const ts = d3.sum(both, x => x.sales), ks = d3.sum(both, x => x.kitchen), js = d3.sum(both, x => x.juice), cs = ts - ks - js;
-  // shares that always add to 100 (largest remainder)
-  const raw = [ks, js, cs].map(v => v / ts * 100), fl = raw.map(Math.floor); let left = 100 - d3.sum(fl);
-  raw.map((v, i) => [v - fl[i], i]).sort((a, b) => b[0] - a[0]).forEach(([, i]) => { if (left > 0) { fl[i]++; left--; } });
-  $('mix-note').textContent = 'One 100% split across the ' + both.length + ' days since ' + fd(both[0].date) + ', when kitchen and juice sales started being separated. Total sales on those days: ' + inr(ts) + '.';
-  const bar = $('mix-bar'); bar.innerHTML = '';
-  [[ks, 'var(--gold)'], [js, 'var(--spend)'], [cs, 'var(--muted-bar)']].forEach(([v, c]) => { const s = el('div'); s.style.width = (v / ts * 100) + '%'; s.style.background = c; bar.appendChild(s); });
-  $('mix-k').textContent = inr(ks); $('mix-kp').textContent = fl[0] + '% of sales';
-  $('mix-j').textContent = inr(js); $('mix-jp').textContent = fl[1] + '% of sales';
-  $('mix-c').textContent = inr(cs); $('mix-cp').textContent = fl[2] + '% of sales';
-  const full = both.filter(x => !x.kest && !x.jest).length, none = both.filter(x => x.kest && x.jest).length, part = both.length - full - none;
-  $('mix-quality').textContent = 'Of these ' + both.length + ' days: ' + full + ' reported by the manager, ' + part + ' partly reported, ' + none + ' estimated (kitchen ' + Math.round(+D.settings.kitchen_pct * 100) + '%, juice ' + Math.round(+D.settings.juice_pct * 100) + '% of sales, or the share you set for that day). Estimated days are labelled in the day breakdown.';
-  const ko = d.filter(x => x.kitchen != null && x.juice == null);
-  $('mix-history').textContent = ko.length ? 'Earlier, ' + fd(ko[0].date) + ' to ' + fd(ko[ko.length - 1].date) + ': kitchen reported on its own, ' + inr(d3.sum(ko, x => x.kitchen)) + ' or ' + Math.round(d3.sum(ko, x => x.kitchen) / d3.sum(ko, x => x.sales) * 100) + '% of sales. Juice was not separated then, so those days are not in the split above.' : '';
-}
-
-/* ---------------- Investment ---------------- */
-function investment() {
-  const L = D.L, tot = d3.sum(L, r => r.amount_inr), dep = D.deposit, ex = tot - dep;
-  $('f-total').textContent = inr(tot); $('f-rows').textContent = L.length + ' transactions';
-  $('f-dep').textContent = inr(dep); $('f-ex').textContent = inr(ex);
-  const order = ['Pre-opening investment', 'Operational cash advance', 'October management salaries', 'October electricity', 'Owner-funded stock'];
-  const sub = { 'Pre-opening investment': 'includes ' + inr(dep) + ' refundable deposit', 'Operational cash advance': 'working capital, not an expense', 'October management salaries': 'GKU manager and Firoz operations, owner-paid', 'October electricity': 'confirmed October payment only', 'Owner-funded stock': 'cool drinks, beverages, owner\'s personal funds' };
-  const fr = $('f-recon'); fr.innerHTML = '';
-  order.forEach(k => row(fr, k, sub[k], inr(D.funding_classes[k] || 0)));
-  row(fr, 'Total owner funding and spending', '', inr(tot), 'sum');
-  const ok = tot === 1145908 && L.length === 145;
-  $('f-check').innerHTML = ''; $('f-check').append(el('span', null, 'Checked against the ledger every time the dashboard is updated.'), el('span', 'flag ' + (ok ? 'ok' : ''), ok ? 'Reconciles: 145 rows, ' + inr(tot) : 'Does not reconcile'));
-
-  // recovery
-  const d = D.daily, n = d.length, r30 = d3.sum(d.slice(-30), x => x.net), r14 = d3.sum(d.slice(-14), x => x.net);
-  const returned = 0, st = $('rc-status'); st.innerHTML = '';
-  $('rc-target').textContent = inr(ex); $('rc-ret').textContent = inr(returned);
-  if (r30 > 0) {
-    st.className = 'status good';
-    st.append(el('b', null, 'Generating surplus'), el('span', null, 'The last 30 days produced ' + inr(r30) + ' from the daily ledger. Recovery only counts once cash is handed back to the owners.'));
-  } else {
-    st.className = 'status';
-    st.append(el('b', null, 'Not currently on track for payback'), el('span', null, 'The daily ledger shows ' + inr(r30) + ' over the last 30 days and ' + inr(r14) + ' over the last 14. Recovery needs a sustained monthly surplus first, so no payback date is shown.'));
-  }
-  $('rc-note').textContent = 'How recovery is measured: cash the cafe returns to the owners, against funding excluding the refundable deposit. Operating losses are not subtracted from the funding again, because the cash advances already paid for them. The 30-day figure excludes the undated October owner-paid costs.';
-
-  // pre-opening categories
-  const preRows = L.filter(r => r.classification === 'Pre-opening investment');
-  const pc = d3.rollups(preRows, v => d3.sum(v, r => r.amount_inr), r => r.category).sort((a, b) => b[1] - a[1]);
-  const preTot = d3.sum(preRows, r => r.amount_inr), mx = pc[0][1], cb = $('pre-cats'); cb.innerHTML = '';
-  $('pre-cat-note').textContent = preRows.length + ' transactions, ' + inr(preTot) + ' in all. Tap a category to see its transactions in the ledger below.';
-  pc.forEach(([c, a], i) => {
-    const e = el('div', 'cat click'), lab = el('span', null, c);
-    if (c === 'Shop security deposit') lab.appendChild(el('span', 'flag ok', 'Refundable'));
-    const amt = el('span', 'amt', inr(a) + ' · ' + Math.round(a / preTot * 100) + '%');
-    const tr = el('div', 'track'), f = el('div'); f.style.width = a / mx * 100 + '%'; f.style.background = i === 0 ? 'var(--gold)' : 'var(--muted-bar)';
-    tr.appendChild(f); e.append(lab, amt, tr);
-    e.onclick = () => { $('lg-cat').value = c; $('lg-flag').checked = false; $('lg-q').value = ''; ledgerTable(); $('ledger-card').scrollIntoView({ behavior: 'smooth' }); };
-    cb.appendChild(e);
-  });
-
-  // post-opening
-  const pa = $('post-adv'); pa.innerHTML = '';
-  D.cash_advances.forEach(a => row(pa, a.given_to, a.source_transaction + ' · date not confirmed', inr(a.amount)));
-  row(pa, 'Total cash advances', '', inr(d3.sum(D.cash_advances, a => a.amount)), 'tot');
-  const po = $('post-oct'); po.innerHTML = '';
-  const who = { 'LSI-143': 'Firoz, operations salary', 'LSI-144': 'GKU, management salary', 'LSI-145': 'Electricity, October only' };
-  D.ownerCosts.forEach(r => row(po, who[r.transaction_id] || r.original_description, r.transaction_id + ' · October 2026', inr(r.amount_inr)));
-  row(po, 'Total October owner-paid costs', '', inr(d3.sum(D.ownerCosts, r => r.amount_inr)), 'tot');
-  const ps = $('post-stock'); ps.innerHTML = '';
-  L.filter(r => r.classification === 'Owner-funded stock').forEach(r => row(ps, 'Cool Drinks', r.transaction_id + ' · ' + r.stock_type + ' · in daily expenses: ' + r.included_in_daily_expenses, inr(r.amount_inr)));
-
-  // ledger table controls
-  const cats = Array.from(new Set(L.map(r => r.category))).sort();
-  const sel = $('lg-cat'); sel.innerHTML = ''; sel.appendChild(new Option('All categories', ''));
-  cats.forEach(c => sel.appendChild(new Option(c, c)));
-  const xs = $('lg-exp'); xs.innerHTML = ''; xs.appendChild(new Option('All expense categories', ''));
-  ['Stock', 'Salaries', 'Utilities', 'Equipment', 'Other', 'Working capital', 'Deposit'].forEach(c => xs.appendChild(new Option(c, c)));
-  ['lg-q', 'lg-cat', 'lg-exp', 'lg-src', 'lg-stk', 'lg-per', 'lg-flag'].forEach(id => $(id).oninput = ledgerTable);
-  ledgerTable();
-  stockSetup();
-}
-
-function ledgerTable() {
-  const q = $('lg-q').value.trim().toLowerCase(), c = $('lg-cat').value, fl = $('lg-flag').checked, ex = $('lg-exp').value, src = $('lg-src').value, stk = $('lg-stk').value, per = $('lg-per').value;
-  const rows = D.L.filter(r => (!c || r.category === c) && (!ex || r.expense_category === ex) && (!src || r.funding_source === src) && (!stk || r.stock_type === stk) && (!per || r.period === per) && (!fl || r.potential_duplicate) && (!q || (r.transaction_id + ' ' + r.original_description).toLowerCase().includes(q)));
-  const tb = $('tb-ledger'); tb.innerHTML = '';
-  rows.forEach(r => {
-    const tr = tb.insertRow(), a = tr.insertCell(), b = tr.insertCell(), cc = tr.insertCell(), dd = tr.insertCell();
-    a.className = 'l mono'; a.textContent = r.transaction_id;
-    b.className = 'l'; b.textContent = r.original_description;
-    if (r.potential_duplicate) b.appendChild(el('span', 'flag', 'Check duplicate'));
-    if (r.category === 'Shop security deposit') b.appendChild(el('span', 'flag ok', 'Refundable'));
-    if (/provisional|Tentatively/i.test(r.notes || '')) b.appendChild(el('span', 'flag muted', 'Provisional category'));
-    cc.className = 'l hide-sm'; cc.textContent = r.category; dd.textContent = inr(r.amount_inr);
-  });
-  $('lg-count').textContent = rows.length + ' of ' + D.L.length + ' transactions · ' + inr(d3.sum(rows, r => r.amount_inr)) + ($('lg-src').value === 'Manager operating cash' ? '. Every investment ledger entry was paid by the owner; manager-cash purchases are in the daily ledger and the stock card above.' : '');
-}
-
-function stockSetup() {
-  const rows = [];
-  D.L.filter(r => r.expense_category === 'Stock').forEach(r => rows.push({ when: '9999', label: r.period, item: r.original_description.replace(/ Rai$/, ''), type: r.stock_type || 'Other', src: r.funding_source, per: r.period, amt: r.amount_inr }));
-  D.expenses.forEach(e => {
-    let t = STOCK_TYPE[e.category];
-    if (!t && /^water$/i.test(e.item)) t = 'Beverages';
-    if (t) rows.push({ when: e.date, label: fd(e.date), item: e.item, type: t, src: 'Manager operating cash', per: 'Post-opening', amt: e.amount });
-  });
-  rows.sort((a, b) => a.when < b.when ? 1 : -1);
-  D.stockRows = rows;
-  ['st-src', 'st-type', 'st-per'].forEach(id => $(id).oninput = stockTable);
-  stockTable();
-}
-function stockTable() {
-  const src = $('st-src').value, ty = $('st-type').value, per = $('st-per').value;
-  const rows = D.stockRows.filter(r => (!src || r.src === src) && (!ty || r.type === ty) && (!per || r.per === per));
-  const t = $('st-tiles'); t.innerHTML = '';
-  ['Owner paid', 'Manager operating cash'].forEach(k => { const v = d3.sum(rows.filter(r => r.src === k), r => r.amt), e = el('div', 'tile'); e.append(el('span', 'lbl', k), el('span', 'big', inr(v)), el('span', 'sm', k === 'Owner paid' ? 'in owner funding, not daily expenses' : 'already in recorded daily spend')); t.appendChild(e); });
-  const tb = $('tb-stock'); tb.innerHTML = '';
-  rows.slice(0, 600).forEach(r => { const tr = tb.insertRow(), a = tr.insertCell(), b = tr.insertCell(), c = tr.insertCell(), d = tr.insertCell();
-    a.className = 'l'; a.textContent = r.label; b.className = 'l'; b.textContent = r.item; b.appendChild(el('span', 'flag ' + (r.src === 'Owner paid' ? 'ok' : 'muted'), r.src === 'Owner paid' ? 'Owner paid' : 'Manager cash'));
-    c.className = 'l hide-sm'; c.textContent = r.type; d.textContent = inr(r.amt); });
-  $('st-count').textContent = rows.length + ' stock purchases · ' + inr(d3.sum(rows, r => r.amt)) + '. Stock types for daily purchases follow their ledger category.';
-}
-
-/* ---------------- Cash ---------------- */
-function cashTab() {
-  const adv = d3.sum(D.cash_advances, a => a.amount), book = D.cashbook || [];
-  const has = k => book.length && book.every(r => (r[k] || '').trim() !== '');
-  const NYR = 'Not yet reconcilable';
-  const st = $('cash-status'); st.innerHTML = ''; st.className = 'status';
-  const opening = book.length && (book[0].opening_cash || '').trim() !== '' ? +book[0].opening_cash : null;
-  const sum = k => d3.sum(book, r => +r[k] || 0);
-  const complete = opening != null && ['cash_sales', 'cash_expenses', 'bank_deposit', 'returned_to_owner'].every(has) && D.cash_advances.every(a => a.date);
-  let expected = null;
-  if (complete) expected = opening + adv + sum('cash_sales') - sum('cash_expenses') - sum('bank_deposit') - sum('returned_to_owner');
-  if (expected == null) st.append(el('b', null, NYR), el('span', null, 'Owner cash advances of ' + inr(adv) + ' are confirmed. The cash sales, till payments, deposits and opening balance needed to work out what the manager should be holding have not been recorded yet, so no balance is shown.'));
-  else { st.className = 'status good'; st.append(el('b', null, 'Expected cash with manager: ' + inr(expected)), el('span', null, 'Calculated from the cashbook. Compare with a physical count.')); }
-  const box = $('cash-recon'); box.innerHTML = '';
-  const line = (label, sub, val) => { const v = row(box, label, sub, val == null ? NYR : val); if (val == null) v.className = 'nyr'; };
-  line('Opening cash with manager', 'first trading day', opening == null ? null : inr(opening));
-  line('Owner cash advances', D.cash_advances.length + ' transfers, dates not confirmed', '+' + inr(adv));
-  line('Cash sales collected', 'cash only, not UPI or card', has('cash_sales') ? '+' + inr(sum('cash_sales')) : null);
-  line('UPI, card and digital sales', 'shown for reference, not cash in hand', has('digital_sales') ? inr(sum('digital_sales')) : null);
-  line('Expenses paid from operational cash', 'payment method not recorded', has('cash_expenses') ? inr(-sum('cash_expenses')) : null);
-  line('Cash deposited in the bank', '', has('bank_deposit') ? inr(-sum('bank_deposit')) : null);
-  line('Cash returned to the owner', '', has('returned_to_owner') ? inr(-sum('returned_to_owner')) : null);
-  const exr = row(box, 'Expected cash balance', 'opening + advances + cash sales − cash paid out', expected == null ? NYR : inr(expected), 'tot'); if (expected == null) exr.className = 'nyr';
-  const counted = has('counted_cash') ? +book[book.length - 1].counted_cash : null;
-  line('Actual cash counted', 'latest physical count', counted == null ? null : inr(counted));
-  line('Cash variance', 'counted minus expected', counted != null && expected != null ? inr(counted - expected) : null);
-  const fr = row(box, 'Additional funding required', 'only once expected cash and upcoming bills are known', 'Cannot be determined yet', 'sum'); fr.className = 'nyr';
-
-  const ar = $('adv-reg'); ar.innerHTML = '';
-  D.cash_advances.forEach(a => row(ar, a.given_to, a.advance_id + ' · ' + (a.date ? fd(a.date) : 'date not confirmed'), inr(a.amount)));
-  row(ar, 'Total', '', inr(adv), 'tot');
-  const od = $('owner-direct'); od.innerHTML = '';
-  const who = { 'LSI-143': 'Firoz, October management salary', 'LSI-144': 'GKU, October management salary', 'LSI-145': 'October electricity' };
-  D.ownerCosts.forEach(r => row(od, who[r.transaction_id] || r.original_description, r.transaction_id, inr(r.amount_inr)));
-  D.L.filter(r => r.classification === 'Owner-funded stock').forEach(r => row(od, 'Cool Drinks, owner-funded stock', r.transaction_id, inr(r.amount_inr)));
-  row(od, 'Total paid directly', '', inr(d3.sum(D.ownerCosts, r => r.amount_inr) + (D.funding_classes['Owner-funded stock'] || 0)), 'tot');
-}
-
-/* ---------------- Records ---------------- */
-function records() {
-  const defs = [
-    ['Sales', 'The income written on the manager\'s daily page.'],
-    ['Recorded spend', 'Every expense line on the manager\'s daily pages: purchases, stock, daily wages, rent, gas and so on.'],
-    ['Day result and trading result', 'Sales minus recorded spend. This is a cash view: stock is counted on the day it is bought, not when it is sold, so a big purchase can make one day look worse than the business really is. It is not an accounting profit.'],
-    ['Daily staff wages', 'Regular cafe staff paid daily: front desk, kitchen, cooks and other daily workers. Already in the daily ledger and unchanged.'],
-    ['Management salaries', 'Monthly salaries for GKU (manager) and Firoz (operations), paid separately by the owner. Kept apart from daily staff wages and never treated as duplicates of them.'],
-    ['Owner-paid October costs', 'October management salaries (₹20,000) and October electricity (₹15,000), paid directly by the owner and not on the daily pages. Added once, to October, with no invented dates. Electricity is not assumed to repeat.'],
-    ['Operating result', 'Trading result minus owner-paid operating costs.'],
-    ['Cumulative cash-flow shortfall', 'Operating result minus the launch tasting. The total shortfall since opening on a cash basis. Daily spend includes stock purchases and other cash spending, so this is not a fully reconciled accounting profit or loss.'],
-    ['Owner-Funded Stock', 'Stock bought with the owner\'s personal funds and supplied to the cafe. Counted in owner funding, not in daily expenses, and not treated as an immediate expense or cost of goods sold.'],
-    ['Owner funding', 'All money the owners have put in: pre-opening spending and the deposit, operational cash advances, owner-paid costs and owner-supplied stock. Money put in is not the same as money lost.'],
-    ['Operational cash advance', 'Working capital handed to the cafe to pay day-to-day costs. Those costs are already in recorded spend, so advances are never counted as expenses.'],
-    ['Refundable deposit', 'The ₹1,50,000 shop advance. Part of owner funding, but treated as recoverable, so it is left out of the recovery target.'],
-    ['Recovery target', 'Owner funding excluding the refundable deposit. Recovery is measured by cash returned to the owners.'],
-    ['Sales mix', 'Kitchen, juice and counter shares on one common base that adds to 100%, using only days where both kitchen and juice are separated. Estimated days are marked.'],
-    ['Ledger date', 'The date written on the manager\'s page. Expenses are usually written a day after they happen. Actual expense dates are not recorded.'],
-  ];
-  const dl = $('defs'); dl.innerHTML = '';
-  defs.forEach(([t, x]) => { dl.append(el('dt', null, t), el('dd', null, x)); });
-
-  const dup = D.L.filter(r => r.potential_duplicate).length, prov = D.L.filter(r => /provisional|Tentatively/i.test(r.notes || '')).length;
-  const est = D.daily.filter(x => x.est).length;
-  const flags = [
-    'Launch tasting ' + inr(D.tasting) + ': funding source not verified. Pending reconciliation; not added to owner funding.',
-    dup + ' investment ledger transactions look like possible duplicates. All are kept as genuine until checked.',
-    prov + ' investment ledger categories are provisional because the original description is unclear.',
-    'No investment ledger transaction has a confirmed date or a verified receipt yet.',
-    'October management salaries and electricity (' + inr(d3.sum(D.ownerCosts, r => r.amount_inr)) + ') have no confirmed payment dates. Electricity is a confirmed October payment only and is not assumed to repeat.',
-    'Cash advance dates are not confirmed, and payment method (cash, UPI, bank) is not recorded for any expense.',
-    est + ' trading days use an estimated kitchen and juice split.',
-    'Expenses are written on the ledger one day after they happen; actual dates are not recorded.',
-    '29 Oct: the manager\'s subtotal was ₹720 lower than the lines he wrote. The dashboard uses the lines.',
-  ];
-  const ul = $('flags'); ul.innerHTML = ''; flags.forEach(f => ul.appendChild(el('li', null, f)));
-
-  // all records
-  const all = [];
-  D.expenses.forEach(e => all.push({ when: e.date, label: fd(e.date), desc: e.item, cat: CAT_LABEL(e.category), src: 'Daily ledger', amt: -e.amount }));
-  D.sales.forEach(s => all.push({ when: s.date, label: fd(s.date), desc: 'Sales', cat: 'Sales', src: 'Daily ledger', amt: s.sales }));
-  (D.preopening || []).forEach(p => all.push({ when: p.date, label: fd(p.date), desc: p.item, cat: 'Launch tasting', src: 'Launch tasting', amt: -p.amount }));
-  D.L.forEach(r => all.push({ when: r.expense_period ? r.expense_period + '-99' : (r.period === 'Pre-opening' ? '0000' : '9999'), label: r.expense_period ? 'Oct 2026' : (r.period === 'Pre-opening' ? 'Pre-opening' : 'Post-opening'), desc: r.transaction_id + ' · ' + r.original_description, cat: r.classification, src: 'Investment ledger', amt: r.amount_inr, dup: !!r.potential_duplicate }));
-  all.sort((a, b) => a.when < b.when ? 1 : a.when > b.when ? -1 : 0);
-  D.allRecords = all;
-  const s = $('ar-src'); s.innerHTML = ''; s.appendChild(new Option('All sources', ''));
-  ['Daily ledger', 'Launch tasting', 'Investment ledger'].forEach(x => s.appendChild(new Option(x, x)));
-  $('ar-q').oninput = allTable; s.oninput = allTable; allTable();
-}
-
-function allTable() {
-  const q = $('ar-q').value.trim().toLowerCase(), src = $('ar-src').value;
-  const rows = D.allRecords.filter(r => (!src || r.src === src) && (!q || (r.desc + ' ' + r.cat + ' ' + r.label).toLowerCase().includes(q)));
-  const tb = $('tb-all'); tb.innerHTML = '';
-  rows.slice(0, 800).forEach(r => {
-    const tr = tb.insertRow(), a = tr.insertCell(), b = tr.insertCell(), c = tr.insertCell(), d = tr.insertCell();
-    a.className = 'l'; a.textContent = r.label;
-    b.className = 'l'; b.textContent = r.desc; b.appendChild(el('small', null, ' ' + r.cat)); if (r.dup) b.appendChild(el('span', 'flag', 'Check duplicate'));
-    c.className = 'l hide-sm'; c.textContent = r.src; d.textContent = r.src === 'Investment ledger' ? inr(r.amt) : (r.amt >= 0 ? '+' : '') + inr(r.amt);
-  });
-  $('ar-count').textContent = rows.length + ' records' + (src === 'Investment ledger' || src === '' ? '. Investment ledger amounts are money put in, shown without a sign.' : '');
-}
-
-/* ---------------- Charts (unchanged logic, clearer labels) ---------------- */
-function tip(box) { let t = box.querySelector('.tip'); if (!t) { t = document.createElement('div'); t.className = 'tip'; box.appendChild(t); } return t; }
-function showTip(box, t, x, lines) {
-  t.innerHTML = ''; lines.forEach((l, i) => { const s = document.createElement('div'); if (!i) s.className = 'd'; s.textContent = l; t.appendChild(s); });
-  t.style.display = 'block'; t.style.left = Math.max(0, Math.min(box.clientWidth - t.offsetWidth, x - t.offsetWidth / 2)) + 'px';
-}
-function xLabels(svg, rows, xf, W, H) {
-  const step = Math.ceil(rows.length / Math.max(2, Math.floor(W / 70)));
-  const lastX = xf(rows[rows.length - 1]);
-  rows.forEach((d, i) => { if ((i % step === 0 && (i === 0 || lastX - xf(d) > 56)) || i === rows.length - 1) svg.append('text').attr('x', xf(d)).attr('y', H - 6).attr('text-anchor', i === 0 ? 'start' : i === rows.length - 1 ? 'end' : 'middle').attr('fill', css('--muted')).attr('font-size', 11).text(fd(d.date)); });
-}
-function drawTrend() {
-  const rows = D.daily, box = $('ch-trend'); if (!box.clientWidth) return;
-  const W = Math.max(box.clientWidth, 260), H = 220, top = 30, bot = 24;
-  d3.select(box).selectAll('svg').remove();
-  const svg = d3.select(box).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`);
-  const y = d3.scaleLinear([0, d3.max(rows, d => Math.max(d.sales, d.spend)) * 1.08], [H - bot, top]);
-  const x = d3.scalePoint(rows.map(d => d.date), [6, W - 6]);
-  y.ticks(4).forEach(t => { svg.append('line').attr('x1', 0).attr('x2', W).attr('y1', y(t)).attr('y2', y(t)).attr('stroke', css('--grid')); svg.append('text').attr('y', y(t) - 4).attr('fill', css('--muted')).attr('font-size', 11).text('₹' + short(t)); });
-  xLabels(svg, rows, d => x(d.date), W, H);
-  [['sales', '--sales'], ['spend', '--spend']].forEach(([k, c]) => svg.append('path').datum(rows).attr('fill', 'none').attr('stroke', css(c)).attr('stroke-width', 2.2).attr('stroke-linejoin', 'round').attr('stroke-linecap', 'round').attr('d', d3.line(d => x(d.date), d => y(d[k]))));
-  const rule = svg.append('line').attr('y1', top).attr('y2', H - bot).attr('stroke', css('--muted')).attr('opacity', .5).style('display', 'none');
-  const dots = ['--sales', '--spend'].map(c => svg.append('circle').attr('r', 4).attr('fill', css(c)).style('display', 'none'));
-  const t = tip(box);
-  svg.append('rect').attr('width', W).attr('height', H).attr('fill', 'transparent').on('pointermove pointerdown', ev => {
-    const [px] = d3.pointer(ev), i = d3.minIndex(rows, d => Math.abs(x(d.date) - px)), d = rows[i], cx = x(d.date);
-    rule.attr('x1', cx).attr('x2', cx).style('display', null);
-    dots[0].attr('cx', cx).attr('cy', y(d.sales)).style('display', null); dots[1].attr('cx', cx).attr('cy', y(d.spend)).style('display', null);
-    showTip(box, t, cx / W * box.clientWidth, [d3.utcFormat('%a %-d %b')(P(d.date)), 'Sales ' + inr(d.sales), 'Recorded spend ' + inr(d.spend), 'Result ' + inr(d.net)]);
-  }).on('pointerleave', () => { t.style.display = 'none'; rule.style('display', 'none'); dots.forEach(c => c.style('display', 'none')); });
-}
-function drawNet() {
-  const rows = D.daily, box = $('ch-net'); if (!box.clientWidth) return;
-  const W = Math.max(box.clientWidth, 260), H = 220, top = 30, bot = 24;
-  d3.select(box).selectAll('svg').remove();
-  const svg = d3.select(box).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`);
-  const ext = d3.max(rows, d => Math.abs(d.net)) * 1.1, y = d3.scaleLinear([-ext, ext], [H - bot, top]);
-  const x = d3.scaleBand(rows.map(d => d.date), [0, W]).padding(.25);
-  [-ext / 2, ext / 2].forEach(v => { svg.append('line').attr('x1', 0).attr('x2', W).attr('y1', y(v)).attr('y2', y(v)).attr('stroke', css('--grid')); svg.append('text').attr('y', y(v) - 4).attr('fill', css('--muted')).attr('font-size', 11).text((v > 0 ? '+₹' : '-₹') + short(Math.abs(v))); });
-  const bars = svg.selectAll('rect.b').data(rows).join('rect').attr('class', 'b').attr('x', d => x(d.date)).attr('width', Math.min(32, x.bandwidth())).attr('rx', 3)
-    .attr('y', d => y(Math.max(0, d.net))).attr('height', d => Math.max(1, Math.abs(y(d.net) - y(0)))).attr('fill', d => css(d.net >= 0 ? '--ok' : '--bad')).attr('opacity', .85);
-  svg.append('line').attr('x1', 0).attr('x2', W).attr('y1', y(0)).attr('y2', y(0)).attr('stroke', css('--muted'));
-  xLabels(svg, rows, d => x(d.date) + x.bandwidth() / 2, W, H);
-  const t = tip(box);
-  svg.append('rect').attr('width', W).attr('height', H).attr('fill', 'transparent').on('pointermove pointerdown', ev => {
-    const [px] = d3.pointer(ev), i = d3.minIndex(rows, d => Math.abs(x(d.date) + x.bandwidth() / 2 - px)), d = rows[i];
-    bars.attr('opacity', (b, j) => j === i ? 1 : .4);
-    showTip(box, t, (x(d.date) + x.bandwidth() / 2) / W * box.clientWidth, [d3.utcFormat('%a %-d %b')(P(d.date)), (d.net >= 0 ? 'Surplus ' : 'Shortfall ') + inr(Math.abs(d.net)), 'Running trading total ' + inr(d.cum)]);
-  }).on('pointerleave', () => { t.style.display = 'none'; bars.attr('opacity', .85); });
-}
-
 function tables() {
-  const tw = $('tb-week'); tw.innerHTML = '';
-  D.weeks.slice().reverse().forEach(r => { const tr = tw.insertRow(); [fd(r.week), r.days, inr(r.sales), inr(r.spend), inr(r.net)].forEach((v, i) => { const c = tr.insertCell(); c.textContent = v; if (i === 4) c.className = r.net >= 0 ? 'pos' : 'neg'; }); });
-  const cb = $('cats'); cb.innerHTML = ''; const mx = D.cats[0].a;
-  D.cats.forEach((r, i) => { const e = el('div', 'cat');
-    const a = el('span', null, r.c), b = el('span', 'amt', inr(r.a) + ' · ' + Math.round(r.share * 100) + '% of sales');
-    const tr = el('div', 'track'), f = el('div'); f.style.width = r.a / mx * 100 + '%'; f.style.background = i === 0 ? 'var(--gold)' : 'var(--muted-bar)';
-    tr.appendChild(f); e.append(a, b, tr); cb.appendChild(e); });
-  const td = $('tb-day'); td.innerHTML = '';
+  const tw = $('tb-week'); tw.replaceChildren();
+  D.weeks.slice().reverse().forEach(r => { const tr = tw.insertRow(); [fd(r.week), r.days, inr(r.sales), inr(r.spend), inr(r.net)].forEach((v, i) => { const c = tr.insertCell(); c.textContent = v; if (i === 1) c.className = 'hide-sm'; if (i === 4) c.className = r.net >= 0 ? 'pos' : 'neg'; }); });
+  const mx = D.cats[0].a;
+  $('cats').replaceChildren(...D.cats.map((r, i) => { const e = el('div', 'cat'), b = el('span', 'amt', inr(r.a)); b.appendChild(el('small', null, ' · ' + Math.round(r.share * 100) + '%'));
+    const tr = el('div', 'track'), f = el('div'); f.style.width = r.a / mx * 100 + '%'; f.style.background = i === 0 ? 'var(--gold)' : 'var(--kraft)'; tr.appendChild(f); e.append(el('span', null, r.c), b, tr); return e; }));
+  const td = $('tb-day'); td.replaceChildren();
   logRows().slice().reverse().forEach(r => { const tr = td.insertRow(); tr.dataset.key = r.date;
-    [d3.utcFormat('%a %-d %b')(P(r.date)) + (r.pre ? ' · Launch tasting' : ''), inr(r.sales), inr(r.spend), inr(r.net)].forEach((v, i) => { const c = tr.insertCell(); c.textContent = v; if (i === 3) c.className = r.net >= 0 ? 'pos' : 'neg'; });
-    tr.onclick = () => { picked = r.date; dayView(); $('day').scrollIntoView({ behavior: 'smooth' }); }; });
-  const sel = $('day-pick'); sel.innerHTML = '';
-  logRows().slice().reverse().forEach(r => sel.appendChild(new Option(d3.utcFormat('%A, %-d %B')(P(r.date)) + (r.pre ? ' (launch tasting)' : ''), r.date)));
+    const c0 = tr.insertCell(); c0.textContent = d3.utcFormat('%a %-d %b')(P(r.date)); if (r.pre) c0.appendChild(el('small', null, 'Launch tasting'));
+    [inr(r.sales), inr(r.spend), inr(r.net)].forEach((v, i) => { const c = tr.insertCell(); c.textContent = v; if (i === 2) c.className = r.net >= 0 ? 'pos' : 'neg'; });
+    tr.onclick = () => { picked = r.date; dayView(); $('day').scrollIntoView({ behavior: 'smooth', block: 'start' }); }; });
+  const sel = $('day-pick'); sel.replaceChildren(...logRows().slice().reverse().map(r => new Option(d3.utcFormat('%A, %-d %B')(P(r.date)) + (r.pre ? ' (launch tasting)' : ''), r.date)));
   sel.onchange = e => { picked = e.target.value; dayView(); };
 }
 function logRows() {
@@ -774,42 +584,262 @@ function logRows() {
 }
 function dayView() {
   $('day-pick').value = picked;
-  const box = $('day-items'); box.innerHTML = '';
-  const day = logRows().find(d => d.date === picked);
-  const add = (l, s, v, cls) => row(box, l, s, v, cls);
+  const box = $('day-items'); box.replaceChildren();
+  const day = logRows().find(d => d.date === picked), add = (l, s, v, cls, f) => row(box, l, s, v, cls, f);
   add('Sales', day.pre ? 'Pre-opening, no sales' : '', inr(day.sales), 'tot');
-  if (day.kitchen != null) { add('Kitchen main dishes', day.note && day.kitchen === 0 ? day.note : day.kest ? 'Estimate, ' + Math.round(day.kitchen / day.sales * 100) + '% of sales' : 'Reported: dosa, puttu, porotta', inr(day.kitchen)); if (day.juice != null) add('Juice and shakes', day.jest ? 'Estimate, ' + Math.round(day.juice / day.sales * 100) + '% of sales' : 'Reported', inr(day.juice)); add('Counter and other', 'Tea, snacks', inr(day.sales - day.kitchen - (day.juice || 0))); }
+  if (day.kitchen != null) {
+    add('Main Kitchen', day.note && day.kitchen === 0 ? day.note : day.kest ? 'estimate, ' + Math.round(day.kitchen / day.sales * 100) + '% of sales' : 'reported', inr(day.kitchen), '', day.kest ? { text: 'Est.', cls: 'muted' } : null);
+    if (day.juice != null) add('Juice & Shakes', day.jest ? 'estimate, ' + Math.round(day.juice / day.sales * 100) + '% of sales' : 'reported', inr(day.juice), '', day.jest ? { text: 'Est.', cls: 'muted' } : null);
+    const cAct = day.kA && (day.jA || day.juice == null);
+    add('Main Counter', day.juice == null ? 'includes juice, not separated yet' : cAct ? 'sales minus reported sections' : 'derived from estimates', inr(day.sales - day.kitchen - (day.juice || 0)), '', cAct ? null : { text: 'Est.', cls: 'muted' });
+  }
   if (day.pre) (D.preopening || []).filter(e => e.date === picked).forEach(e => add(e.item, 'Launch tasting', inr(e.amount)));
   D.expenses.filter(e => e.date === picked).forEach(e => add(e.item, CAT_LABEL(e.category), inr(e.amount)));
-  add('Total recorded spend', '', inr(day.spend), 'tot');
+  add('Total recorded expenses', '', inr(day.spend), 'tot');
   add('Day result', day.net >= 0 ? 'surplus' : 'shortfall', inr(day.net), 'tot ' + (day.net >= 0 ? 'pos' : 'neg'));
   document.querySelectorAll('#tb-day tr').forEach(tr => tr.classList.toggle('sel', tr.dataset.key === picked));
 }
-function charts() { drawTrend(); drawNet(); }
 
-/* ---------------- Tabs ---------------- */
-function showTab(id, push) {
-  document.querySelectorAll('section.tab').forEach(s => s.hidden = s.id !== id);
-  $('subnav').hidden = id !== 'ops';
-  document.querySelectorAll('nav.tabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === id));
-  if (push) history.replaceState(null, '', '#' + id);
-  if (id === 'ops') charts();
+/* ================= INVESTMENT ================= */
+function investment() {
+  const L = D.L, tot = D.fundTotal, dep = D.deposit;
+  setVal('f-total', tot); $('f-rows').textContent = L.length + ' transactions'; setVal('f-dep', dep); setVal('f-ex', tot - dep);
+  const pre = D.funding_classes['Pre-opening investment'], post = tot - pre;
+  stack($('f-pp-bar'), [[pre, 'var(--gold)'], [post, 'var(--kraft)']], tot);
+  const pp = $('f-pp'); pp.replaceChildren();
+  splitRow(pp, 'var(--gold)', 'Pre-opening', inr(pre), Math.round(pre / tot * 100) + '% · fit-out, equipment, deposit, set-up');
+  splitRow(pp, 'var(--kraft)', 'Post-opening', inr(post), Math.round(post / tot * 100) + '% · cash advances, October costs, owner stock');
+  const order = ['Pre-opening investment', 'Operational cash advance', 'October management salaries', 'October electricity', 'Owner-funded stock'];
+  const sub = { 'Pre-opening investment': 'includes ' + inr(dep) + ' refundable deposit', 'Operational cash advance': 'working capital, not an expense', 'October management salaries': 'GKU and Firoz, owner-paid', 'October electricity': 'October only', 'Owner-funded stock': 'cool drinks, owner\'s personal funds' };
+  const fr = $('f-recon'); fr.replaceChildren();
+  order.forEach(k => row(fr, k, sub[k], inr(D.funding_classes[k] || 0)));
+  row(fr, 'Total owner funding and spending', '', inr(tot), 'sum');
+  const ok = tot === 1145908 && L.length === 145;
+  $('f-check').replaceChildren(el('span', null, 'Checked against the ledger on every update. '), el('span', 'flag ' + (ok ? 'ok' : ''), ok ? 'Reconciles · 145 rows' : 'Does not reconcile'));
+  recoveryStatus($('rc-status')); setVal('rc-target', tot - dep); setVal('rc-ret', 0);
+  const preRows = L.filter(r => r.classification === 'Pre-opening investment');
+  const pc = d3.rollups(preRows, v => d3.sum(v, r => r.amount_inr), r => r.category).sort((a, b) => b[1] - a[1]), preTot = d3.sum(preRows, r => r.amount_inr), mx = pc[0][1];
+  $('pre-cat-note').textContent = preRows.length + ' transactions, ' + inr(preTot) + '. Tap a category to see its transactions.';
+  $('pre-cats').replaceChildren(...pc.map(([c, a], i) => { const e = el('div', 'cat click'), lab = el('span', null, c);
+    if (c === 'Shop security deposit') lab.appendChild(el('span', 'flag ok', 'Refundable'));
+    const amt = el('span', 'amt', inr(a)); amt.appendChild(el('small', null, ' · ' + Math.round(a / preTot * 100) + '%'));
+    const tr = el('div', 'track'), f = el('div'); f.style.width = a / mx * 100 + '%'; f.style.background = c === 'Shop security deposit' ? 'var(--beige)' : i === 0 ? 'var(--gold)' : 'var(--kraft)'; tr.appendChild(f); e.append(lab, amt, tr);
+    e.onclick = () => { ['lg-q', 'lg-exp', 'lg-src', 'lg-stk', 'lg-per'].forEach(id => $(id).value = ''); $('lg-cat').value = c; $('lg-flag').checked = false; ledgerTable(); $('ledger-card').scrollIntoView({ behavior: 'smooth', block: 'start' }); };
+    return e; }));
+  const pa = $('post-adv'); pa.replaceChildren();
+  D.cash_advances.forEach(a => row(pa, a.given_to, a.source_transaction + ' · date not confirmed', inr(a.amount)));
+  row(pa, 'Total cash advances', '', inr(D.adv), 'tot');
+  const po = $('post-oct'); po.replaceChildren(); const who = { 'LSI-143': 'Firoz, operations salary', 'LSI-144': 'GKU, management salary', 'LSI-145': 'Electricity, October only' };
+  D.ownerCosts.forEach(r => row(po, who[r.transaction_id] || r.original_description, r.transaction_id + ' · October 2026', inr(r.amount_inr)));
+  row(po, 'Total October owner-paid costs', '', inr(D.OC), 'tot');
+  const ps = $('post-stock'); ps.replaceChildren();
+  L.filter(r => r.classification === 'Owner-funded stock').forEach(r => row(ps, 'Cool Drinks', r.transaction_id + ' · ' + r.stock_type + ' · owner\'s personal funds · not in daily expenses', inr(r.amount_inr)));
+  const sel = $('lg-cat'); sel.replaceChildren(new Option('All categories', ''), ...Array.from(new Set(L.map(r => r.category))).sort().map(c => new Option(c, c)));
+  $('lg-exp').replaceChildren(new Option('All expense categories', ''), ...['Stock', 'Salaries', 'Utilities', 'Equipment', 'Other', 'Working capital', 'Deposit'].map(c => new Option(c, c)));
+  ['lg-q', 'lg-cat', 'lg-exp', 'lg-src', 'lg-stk', 'lg-per', 'lg-flag'].forEach(id => $(id).oninput = ledgerTable);
+  ledgerTable(); stockSetup();
 }
+function ledgerTable() {
+  const q = $('lg-q').value.trim().toLowerCase(), c = $('lg-cat').value, fl = $('lg-flag').checked, ex = $('lg-exp').value, src = $('lg-src').value, stk = $('lg-stk').value, per = $('lg-per').value;
+  const rows = D.L.filter(r => (!c || r.category === c) && (!ex || r.expense_category === ex) && (!src || r.funding_source === src) && (!stk || r.stock_type === stk) && (!per || r.period === per) && (!fl || r.potential_duplicate) && (!q || (r.transaction_id + ' ' + r.original_description).toLowerCase().includes(q)));
+  const frag = document.createDocumentFragment();
+  rows.forEach(r => { const tr = document.createElement('tr'), b = el('td', 'l', r.original_description);
+    if (r.potential_duplicate) b.appendChild(el('span', 'flag', 'Check'));
+    if (r.category === 'Shop security deposit') b.appendChild(el('span', 'flag ok', 'Refundable'));
+    if (/provisional|Tentatively/i.test(r.notes || '')) b.appendChild(el('span', 'flag muted', 'Provisional'));
+    b.appendChild(el('small', null, r.expense_category + (r.stock_type ? ' · ' + r.stock_type : '') + ' · ' + r.period));
+    tr.append(el('td', 'l', r.transaction_id), b, el('td', 'l hide-sm', r.category), el('td', null, inr(r.amount_inr))); frag.appendChild(tr); });
+  $('tb-ledger').replaceChildren(frag);
+  $('lg-count').textContent = rows.length + ' of ' + D.L.length + ' transactions · ' + inr(d3.sum(rows, r => r.amount_inr)) + (src === 'Not yet verified' ? '. Every investment ledger entry was paid by the owner. Unverified stock purchases are in the daily ledger, shown in the stock card above.' : '');
+}
+function stockSetup() {
+  const rows = [];
+  D.L.filter(r => r.expense_category === 'Stock').forEach(r => rows.push({ when: '9999', label: r.period, item: 'Cool Drinks', type: r.stock_type || 'Other', src: 'Owner paid (verified)', per: r.period, amt: r.amount_inr }));
+  D.expenses.forEach(e => { let t = STOCK_TYPE[e.category]; if (!t && /^water$/i.test(e.item)) t = 'Beverages';
+    if (t) rows.push({ when: e.date, label: fd(e.date), item: e.item, type: t, src: 'Not yet verified', per: 'Post-opening', amt: e.amount }); });
+  rows.sort((a, b) => a.when < b.when ? 1 : -1); D.stockRows = rows;
+  ['st-src', 'st-type', 'st-per'].forEach(id => $(id).oninput = stockTable); stockTable();
+}
+function stockTable() {
+  const src = $('st-src').value, ty = $('st-type').value, per = $('st-per').value;
+  const rows = D.stockRows.filter(r => (!src || r.src === src) && (!ty || r.type === ty) && (!per || r.per === per));
+  $('st-tiles').replaceChildren(...[['Owner paid (verified)', 'Owner-Funded Stock · in owner funding'], ['Not yet verified', 'Daily ledger stock purchases · funding source not yet verified']].map(([k, s]) => { const e = el('div', 'kpi sm-val'); e.append(el('span', 'lbl', k), el('span', 'val', inr(d3.sum(rows.filter(r => r.src === k), r => r.amt))), el('span', 'ctx', s)); return e; }));
+  const frag = document.createDocumentFragment();
+  rows.slice(0, 400).forEach(r => { const tr = document.createElement('tr'), b = el('td', 'l', r.item);
+    b.appendChild(el('span', 'flag ' + (r.src.startsWith('Owner') ? 'ok' : 'muted'), r.src.startsWith('Owner') ? 'Owner paid' : 'Unverified'));
+    tr.append(el('td', 'l', r.label), b, el('td', 'l hide-sm', r.type), el('td', null, inr(r.amt))); frag.appendChild(tr); });
+  $('tb-stock').replaceChildren(frag);
+  $('st-count').textContent = rows.length + ' purchases · ' + inr(d3.sum(rows, r => r.amt)) + (rows.length > 400 ? ' · showing the latest 400' : '');
+}
+
+/* ================= CASH ================= */
+function cashTab() {
+  const adv = D.adv, book = D.cashbook || [], NYR = 'Not yet reconcilable';
+  cashStatus($('cash-status')); setVal('c-adv', adv); setVal('c-direct', D.direct);
+  stack($('c-bar'), [[adv, 'var(--kraft)'], [D.OC, 'var(--c-juice)'], [D.stockOwner, 'var(--c-stock)']], adv + D.direct);
+  const cs = $('c-split'); cs.replaceChildren();
+  splitRow(cs, 'var(--kraft)', 'Cash advances to manager', inr(adv), 'GKU, Ukku, Nauman');
+  splitRow(cs, 'var(--c-juice)', 'October costs paid by owner', inr(D.OC), 'management salaries and electricity');
+  splitRow(cs, 'var(--c-stock)', 'Owner-Funded Stock', inr(D.stockOwner), 'cool drinks');
+  const has = k => book.length && book.every(r => (r[k] || '').trim() !== ''), sum = k => d3.sum(book, r => +r[k] || 0);
+  const opening = book.length && (book[0].opening_cash || '').trim() !== '' ? +book[0].opening_cash : null;
+  const complete = opening != null && ['cash_sales', 'cash_expenses', 'bank_deposit', 'returned_to_owner'].every(has) && D.cash_advances.every(a => a.date);
+  const expected = complete ? opening + adv + sum('cash_sales') - sum('cash_expenses') - sum('bank_deposit') - sum('returned_to_owner') : null;
+  const box = $('cash-recon'); box.replaceChildren();
+  const line = (label, sub, val, cls) => { const v = row(box, label, sub, val == null ? NYR : val, cls); if (val == null) v.className = 'nyr'; };
+  line('Opening cash with manager', 'first trading day', opening == null ? null : inr(opening));
+  line('Owner cash advances', D.cash_advances.length + ' transfers, dates not confirmed', '+' + inr(adv));
+  line('Cash sales collected', 'cash only', has('cash_sales') ? '+' + inr(sum('cash_sales')) : null);
+  line('UPI, card and digital sales', 'reference only, not cash in hand', has('digital_sales') ? inr(sum('digital_sales')) : null);
+  line('Expenses paid from operational cash', 'payment method not recorded', has('cash_expenses') ? inr(-sum('cash_expenses')) : null);
+  line('Cash deposited in the bank', '', has('bank_deposit') ? inr(-sum('bank_deposit')) : null);
+  line('Cash returned to the owner', '', has('returned_to_owner') ? inr(-sum('returned_to_owner')) : null);
+  line('Expected cash balance', 'opening + advances + cash sales − cash paid out', expected == null ? null : inr(expected), 'tot');
+  const counted = has('counted_cash') ? +book[book.length - 1].counted_cash : null;
+  line('Actual cash counted', 'latest physical count', counted == null ? null : inr(counted));
+  line('Cash variance', 'counted minus expected', counted != null && expected != null ? inr(counted - expected) : null);
+  const fr = row(box, 'Additional funding required', 'once expected cash and upcoming bills are known', 'Cannot be determined yet', 'sum'); fr.className = 'nyr';
+  const ar = $('adv-reg'); ar.replaceChildren();
+  D.cash_advances.forEach(a => row(ar, a.given_to, a.advance_id + ' · ' + (a.date ? fd(a.date) : 'date not confirmed'), inr(a.amount)));
+  row(ar, 'Total', '', inr(adv), 'tot');
+  const od = $('owner-direct'); od.replaceChildren();
+  const who = { 'LSI-143': 'Firoz, October management salary', 'LSI-144': 'GKU, October management salary', 'LSI-145': 'October electricity' };
+  D.ownerCosts.forEach(r => row(od, who[r.transaction_id] || r.original_description, r.transaction_id, inr(r.amount_inr)));
+  D.L.filter(r => r.classification === 'Owner-funded stock').forEach(r => row(od, 'Cool Drinks, Owner-Funded Stock', r.transaction_id, inr(r.amount_inr)));
+  row(od, 'Total paid directly', '', inr(D.direct), 'tot');
+}
+
+/* ================= RECORDS ================= */
+function records() {
+  const defs = [
+    ['Sales', 'Income written on the manager\'s daily page.'],
+    ['Recorded operating expenses', 'Every expense line on the daily pages: stock, daily staff wages, rent, gas and so on. Payment method is not recorded.'],
+    ['Trading result', 'Sales minus recorded operating expenses. A cash view: stock counts on the day it is bought, not when sold.'],
+    ['Daily staff wages', 'Regular cafe staff paid daily: front desk, kitchen, cooks and daily workers. Already in the daily ledger, unchanged.'],
+    ['Management salaries', 'Monthly salaries for GKU (manager) and Firoz (operations), paid separately by the owner. Kept apart from daily staff wages.'],
+    ['Owner-paid October costs', 'October management salaries ₹20,000 and October electricity ₹15,000, outside the daily pages. Added once, to October, with no invented dates. Electricity is not assumed to repeat.'],
+    ['Operating result', 'Trading result minus owner-paid operating costs.'],
+    ['Cumulative cash-flow shortfall', 'Operating result minus the launch tasting. A cash-based view, not fully reconciled accounting profit or loss.'],
+    ['Owner funding', 'All money the owners have put in: pre-opening spending, the deposit, cash advances, owner-paid costs and Owner-Funded Stock. Money put in is not money lost.'],
+    ['Operational cash advance', 'Working capital handed over to pay day-to-day costs. Those costs are already in recorded expenses, so advances are never counted as expenses.'],
+    ['Owner-Funded Stock', 'Stock bought with the owner\'s personal funds. In owner funding, not in daily expenses, not an immediate cost.'],
+    ['Daily ledger stock purchases', 'Stock lines on the daily pages. Their funding source has not been verified, so they are not assumed to come from manager cash.'],
+    ['Refundable deposit', 'The ₹1,50,000 shop advance. Part of owner funding, left out of the recovery target.'],
+    ['Recovery', 'Cash returned to the owners, against funding excluding the refundable deposit.'],
+    ['Sales mix', 'Main Kitchen, Juice & Shakes and Main Counter shares from complete reporting days only, adding to 100%. Partial and estimated days are shown separately and never counted as actual performance.'],
+    ['Ledger date', 'The date on the manager\'s page. Expenses are usually written a day after they happen.'],
+  ];
+  $('defs').replaceChildren(...defs.flatMap(([t, x]) => [el('dt', null, t), el('dd', null, x)]));
+  const m = mixData(), dup = D.L.filter(r => r.potential_duplicate).length, prov = D.L.filter(r => /provisional|Tentatively/i.test(r.notes || '')).length;
+  const unv = d3.sum(D.stockRows || [], r => r.src === 'Not yet verified' ? r.amt : 0);
+  $('flags').replaceChildren(...[
+    'Launch tasting ' + inr(D.tasting) + ': funding source not verified. Not added to owner funding.',
+    dup + ' investment ledger transactions look like possible duplicates. All kept as genuine until checked.',
+    prov + ' investment ledger categories are provisional because the description is unclear.',
+    'No investment ledger transaction has a confirmed date or receipt yet.',
+    'October management salaries and electricity (' + inr(D.OC) + ') have no confirmed payment dates.',
+    'Daily ledger stock purchases (' + inr(unv) + '): funding source not yet verified.',
+    'Cash advance dates are not confirmed, and payment method is not recorded for any expense.',
+    'Sales mix: ' + m.complete.length + ' complete, ' + m.partial.length + ' partial and ' + m.est.length + ' estimated reporting days so far.',
+    'Expenses are written on the ledger one day after they happen; actual dates are not recorded.',
+    '29 Oct: the manager\'s subtotal was ₹720 lower than the lines written. The dashboard uses the lines.',
+  ].map(f => el('li', null, f)));
+  const all = [];
+  D.expenses.forEach(e => all.push({ when: e.date, label: fd(e.date), desc: e.item, cat: CAT_LABEL(e.category), src: 'Daily ledger', amt: -e.amount }));
+  D.sales.forEach(s => all.push({ when: s.date, label: fd(s.date), desc: 'Sales', cat: 'Sales', src: 'Daily ledger', amt: s.sales }));
+  (D.preopening || []).forEach(p => all.push({ when: p.date, label: fd(p.date), desc: p.item, cat: 'Launch tasting', src: 'Launch tasting', amt: -p.amount }));
+  D.L.forEach(r => all.push({ when: r.expense_period ? r.expense_period + '-99' : (r.period === 'Pre-opening' ? '0000' : '9999'), label: r.expense_period ? 'Oct 2026' : r.period, desc: r.transaction_id + ' · ' + r.original_description, cat: r.classification, src: 'Investment ledger', amt: r.amount_inr, dup: !!r.potential_duplicate }));
+  all.sort((a, b) => a.when < b.when ? 1 : a.when > b.when ? -1 : 0); D.allRecords = all;
+  $('ar-src').replaceChildren(new Option('All sources', ''), ...['Daily ledger', 'Launch tasting', 'Investment ledger'].map(x => new Option(x, x)));
+  let tmr; $('ar-q').oninput = () => { clearTimeout(tmr); tmr = setTimeout(allTable, 120); }; $('ar-src').oninput = allTable; allTable();
+}
+function allTable() {
+  const q = $('ar-q').value.trim().toLowerCase(), src = $('ar-src').value;
+  const rows = D.allRecords.filter(r => (!src || r.src === src) && (!q || (r.desc + ' ' + r.cat + ' ' + r.label).toLowerCase().includes(q)));
+  const frag = document.createDocumentFragment();
+  rows.slice(0, 500).forEach(r => { const tr = document.createElement('tr'), b = el('td', 'l', r.desc); b.appendChild(el('small', null, r.cat)); if (r.dup) b.appendChild(el('span', 'flag', 'Check'));
+    tr.append(el('td', 'l', r.label), b, el('td', 'l hide-sm', r.src), el('td', null, r.src === 'Investment ledger' ? inr(r.amt) : (r.amt >= 0 ? '+' : '') + inr(r.amt))); frag.appendChild(tr); });
+  $('tb-all').replaceChildren(frag);
+  $('ar-count').textContent = rows.length + ' records' + (rows.length > 500 ? ' · showing 500, search to narrow' : '') + '. Investment ledger amounts are money put in.';
+}
+
+/* ================= CHARTS ================= */
+function tip(box) { let t = box.querySelector('.tip'); if (!t) { t = el('div', 'tip'); box.appendChild(t); } return t; }
+function showTip(box, t, x, lines) { t.replaceChildren(...lines.map((l, i) => el('div', i ? null : 'd', l))); t.style.display = 'block'; t.style.left = Math.max(0, Math.min(box.clientWidth - t.offsetWidth, x - t.offsetWidth / 2)) + 'px'; }
+function xLabels(svg, rows, xf, W, H) {
+  const step = Math.ceil(rows.length / Math.max(2, Math.floor(W / 76))), lastX = xf(rows[rows.length - 1]);
+  rows.forEach((d, i) => { if ((i % step === 0 && (i === 0 || lastX - xf(d) > 60)) || i === rows.length - 1) svg.append('text').attr('x', xf(d)).attr('y', H - 6).attr('text-anchor', i === 0 ? 'start' : i === rows.length - 1 ? 'end' : 'middle').attr('fill', css('--muted')).attr('font-size', 12).text(fd(d.date)); });
+}
+function drawTrend(boxId, rows, H) {
+  const box = $(boxId); if (!box || !box.clientWidth) return;
+  const W = Math.max(box.clientWidth, 260), top = 28, bot = 26;
+  d3.select(box).selectAll('svg').remove();
+  const svg = d3.select(box).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Sales and recorded expenses by day');
+  const y = d3.scaleLinear([0, d3.max(rows, d => Math.max(d.sales, d.spend)) * 1.08], [H - bot, top]), x = d3.scalePoint(rows.map(d => d.date), [46, W - 6]);
+  y.ticks(4).forEach(t => { svg.append('line').attr('x1', 44).attr('x2', W).attr('y1', y(t)).attr('y2', y(t)).attr('stroke', css('--grid')); svg.append('text').attr('x', 0).attr('y', y(t) + 4).attr('fill', css('--muted')).attr('font-size', 12).text('₹' + short(t)); });
+  xLabels(svg, rows, d => x(d.date), W, H);
+  [['sales', '--sales'], ['spend', '--spend']].forEach(([k, c]) => svg.append('path').datum(rows).attr('fill', 'none').attr('stroke', css(c)).attr('stroke-width', 2.5).attr('stroke-linejoin', 'round').attr('stroke-linecap', 'round').attr('d', d3.line(d => x(d.date), d => y(d[k]))));
+  const rule = svg.append('line').attr('y1', top).attr('y2', H - bot).attr('stroke', css('--muted')).attr('opacity', .5).style('display', 'none');
+  const dots = ['--sales', '--spend'].map(c => svg.append('circle').attr('r', 5).attr('fill', css(c)).style('display', 'none'));
+  const t = tip(box);
+  svg.append('rect').attr('width', W).attr('height', H).attr('fill', 'transparent').on('pointermove pointerdown', ev => {
+    const [px] = d3.pointer(ev), i = d3.minIndex(rows, d => Math.abs(x(d.date) - px)), d = rows[i], cx = x(d.date);
+    rule.attr('x1', cx).attr('x2', cx).style('display', null); dots[0].attr('cx', cx).attr('cy', y(d.sales)).style('display', null); dots[1].attr('cx', cx).attr('cy', y(d.spend)).style('display', null);
+    showTip(box, t, cx / W * box.clientWidth, [d3.utcFormat('%a %-d %b')(P(d.date)), 'Sales ' + inr(d.sales), 'Expenses ' + inr(d.spend), 'Result ' + inr(d.net)]);
+  }).on('pointerleave', () => { t.style.display = 'none'; rule.style('display', 'none'); dots.forEach(c => c.style('display', 'none')); });
+}
+function drawNet() {
+  const rows = D.daily, box = $('ch-net'); if (!box.clientWidth) return;
+  const W = Math.max(box.clientWidth, 260), H = 240, top = 28, bot = 26;
+  d3.select(box).selectAll('svg').remove();
+  const svg = d3.select(box).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Daily result');
+  const ext = d3.max(rows, d => Math.abs(d.net)) * 1.1, y = d3.scaleLinear([-ext, ext], [H - bot, top]), x = d3.scaleBand(rows.map(d => d.date), [0, W]).padding(.25);
+  [-ext / 2, ext / 2].forEach(v => { svg.append('line').attr('x1', 0).attr('x2', W).attr('y1', y(v)).attr('y2', y(v)).attr('stroke', css('--grid')); svg.append('text').attr('y', y(v) - 5).attr('fill', css('--muted')).attr('font-size', 12).text((v > 0 ? '+₹' : '-₹') + short(Math.abs(v))); });
+  const bars = svg.selectAll('rect.b').data(rows).join('rect').attr('class', 'b').attr('x', d => x(d.date)).attr('width', Math.min(32, x.bandwidth())).attr('rx', 3)
+    .attr('y', d => y(Math.max(0, d.net))).attr('height', d => Math.max(1, Math.abs(y(d.net) - y(0)))).attr('fill', d => css(d.net >= 0 ? '--ok' : '--bad')).attr('opacity', .9);
+  svg.append('line').attr('x1', 0).attr('x2', W).attr('y1', y(0)).attr('y2', y(0)).attr('stroke', css('--muted'));
+  xLabels(svg, rows, d => x(d.date) + x.bandwidth() / 2, W, H);
+  const t = tip(box);
+  svg.append('rect').attr('width', W).attr('height', H).attr('fill', 'transparent').on('pointermove pointerdown', ev => {
+    const [px] = d3.pointer(ev), i = d3.minIndex(rows, d => Math.abs(x(d.date) + x.bandwidth() / 2 - px)), d = rows[i];
+    bars.attr('opacity', (b, j) => j === i ? 1 : .4);
+    showTip(box, t, (x(d.date) + x.bandwidth() / 2) / W * box.clientWidth, [d3.utcFormat('%a %-d %b')(P(d.date)), (d.net >= 0 ? 'Surplus ' : 'Shortfall ') + inr(Math.abs(d.net)), 'Running trading total ' + inr(d.cum)]);
+  }).on('pointerleave', () => { t.style.display = 'none'; bars.attr('opacity', .9); });
+}
+function charts(id) {
+  if (id === 'ovw') drawTrend('ch-o-trend', D.daily.slice(-30), 200);
+  if (id === 'ops') { drawTrend('ch-trend', D.daily, 240); drawNet(); }
+}
+
+/* ================= TABS ================= */
+const TABS = ['ovw', 'ops', 'inv', 'cash', 'rec'];
+let current = 'ovw';
+function showTab(id, push) {
+  current = id;
+  document.querySelectorAll('section.tab').forEach(s => s.hidden = s.id !== id);
+  document.querySelectorAll('.tabrow button').forEach(b => { const on = b.dataset.tab === id; b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1; if (on) b.scrollIntoView({ inline: 'nearest', block: 'nearest' }); });
+  $('subnav').hidden = id !== 'ops';
+  if (push) history.replaceState(null, '', '#' + id);
+  if (D) charts(id);
+}
+document.querySelectorAll('.tabrow button').forEach(b => b.onclick = () => { showTab(b.dataset.tab, true); window.scrollTo({ top: Math.max(0, document.querySelector('nav.tabs').offsetTop - 2) }); });
+document.querySelector('.tabrow').addEventListener('keydown', e => { if (!['ArrowLeft', 'ArrowRight'].includes(e.key)) return; const i = TABS.indexOf(current), n = TABS[(i + (e.key === 'ArrowRight' ? 1 : TABS.length - 1)) % TABS.length]; showTab(n, true); $('t-' + n).focus(); });
 document.querySelectorAll('#subnav a').forEach(a => a.onclick = ev => {
   ev.preventDefault(); const g = $(a.dataset.jump), nav = document.querySelector('nav.tabs');
   window.scrollTo({ top: g.getBoundingClientRect().top + scrollY - nav.offsetHeight - 8, behavior: 'smooth' });
   document.querySelectorAll('#subnav a').forEach(x => x.classList.toggle('on', x === a));
 });
-document.querySelectorAll('nav.tabs button').forEach(b => b.onclick = () => { showTab(b.dataset.tab, true); window.scrollTo({ top: document.querySelector('nav.tabs').offsetTop - 4 }); });
+addEventListener('hashchange', () => { const t = location.hash.slice(1); if (TABS.includes(t)) showTab(t, false); });
+const h0 = location.hash.slice(1); showTab(TABS.includes(h0) ? h0 : 'ovw', false);
 
-fetch('data/ledger.json?v=' + Date.now(), { cache: 'no-store' }).then(r => r.json()).then(j => {
+fetch('data/ledger.json', { cache: 'no-cache' }).then(r => r.json()).then(j => {
   D = model(j); picked = D.daily[D.daily.length - 1].date;
-  operations(); tables(); dayView(); investment(); cashTab(); records();
+  overview(); operations(); tables(); dayView(); investment(); cashTab(); records();
   $('foot').textContent = 'Le Shay Cafe · Thalassery · updated ' + d3.timeFormat('%-d %b %Y, %H:%M')(new Date(D.updated));
-  const h = location.hash.slice(1); showTab(['ops', 'inv', 'cash', 'rec'].includes(h) ? h : 'ops', false);
-  addEventListener('hashchange', () => { const t = location.hash.slice(1); if (['ops', 'inv', 'cash', 'rec'].includes(t)) showTab(t, false); });
-  let w = innerWidth; addEventListener('resize', () => { if (innerWidth !== w) { w = innerWidth; charts(); } });
-}).catch(e => { console.error(e); $('app').innerHTML = '<div class="err">Couldn\'t load the latest numbers. Please refresh in a moment.</div>'; });
+  charts(current);
+  let w = innerWidth; addEventListener('resize', () => { if (innerWidth !== w) { w = innerWidth; charts(current); } });
+}).catch(e => { console.error(e); $('app').appendChild(el('div', 'err', 'Couldn\'t load the latest numbers. Please refresh in a moment.')); });
+});
 </script>
 </body>
 </html>
