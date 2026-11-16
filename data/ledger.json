@@ -1,5 +1,5 @@
 {
-"updated": "2026-11-16T21:10+00:00",
+"updated": "2026-11-16T21:14+00:00",
 "sales": [
 {
 "date": "2026-09-28",
@@ -224,6 +224,12 @@
 "sales": 21273,
 "kitchen": 4980,
 "juice": 1600
+},
+{
+"date": "2026-11-15",
+"sales": 20515,
+"kitchen": 7220,
+"juice": 2400
 }
 ],
 "expenses": [
@@ -3352,6 +3358,96 @@
 "item": "Salary (8)",
 "category": "Staff",
 "amount": 5600
+},
+{
+"date": "2026-11-15",
+"item": "Ice cream",
+"category": "Snacks & ice cream",
+"amount": 870
+},
+{
+"date": "2026-11-15",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 2387
+},
+{
+"date": "2026-11-15",
+"item": "Supermarket",
+"category": "Groceries",
+"amount": 1290
+},
+{
+"date": "2026-11-15",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 460
+},
+{
+"date": "2026-11-15",
+"item": "Egg",
+"category": "Meat, fish & eggs",
+"amount": 460
+},
+{
+"date": "2026-11-15",
+"item": "Chicken",
+"category": "Meat, fish & eggs",
+"amount": 1640
+},
+{
+"date": "2026-11-15",
+"item": "Milk",
+"category": "Milk",
+"amount": 1125
+},
+{
+"date": "2026-11-15",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 100
+},
+{
+"date": "2026-11-15",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-11-15",
+"item": "Vegetable",
+"category": "Produce & batter",
+"amount": 2632
+},
+{
+"date": "2026-11-15",
+"item": "Beef",
+"category": "Meat, fish & eggs",
+"amount": 2650
+},
+{
+"date": "2026-11-15",
+"item": "Milk (4 packets)",
+"category": "Milk",
+"amount": 120
+},
+{
+"date": "2026-11-15",
+"item": "Salary (8)",
+"category": "Staff",
+"amount": 4500
+},
+{
+"date": "2026-11-15",
+"item": "Samosa",
+"category": "Snacks & ice cream",
+"amount": 660
+},
+{
+"date": "2026-11-15",
+"item": "Milk",
+"category": "Milk",
+"amount": 650
 }
 ],
 "preopening": [
