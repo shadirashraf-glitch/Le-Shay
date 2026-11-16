@@ -80,6 +80,7 @@ section.tab[hidden] { display: none; }
 .status span { font-size: 14px; color: var(--beige); }
 .nyr { color: var(--warn); font-weight: 600; }
 .cashcard { border-color: rgba(212,175,55,.35); }
+.duecard { border-color: rgba(255,138,115,.35); }
 .cc-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
 .cc-head .lbl { display: block; color: var(--beige); font-size: 13px; font-weight: 600; }
 .cc-head .val { display: block; font-family: var(--serif); font-weight: 700; font-size: clamp(32px, 10vw, 44px); line-height: 1.1; font-variant-numeric: tabular-nums lining-nums; white-space: nowrap; }
@@ -173,6 +174,11 @@ footer { color: var(--muted); font-size: 12px; text-align: center; letter-spacin
         <div class="cc-head"><div><span class="lbl">Operating cash available</span><span class="val" id="o-oc">—</span></div><span class="pill" id="o-oc-pill">Estimate</span></div>
         <div class="items" id="o-oc-rows"></div>
         <p class="note" id="o-oc-note"></p>
+      </div>
+      <div class="card duecard" id="o-due">
+        <div class="cc-head"><div><span class="lbl">Unpaid supplier dues to 15 Nov</span><span class="val neg" id="o-due-total">—</span></div><span class="pill" id="o-due-pill">Unpaid · owner to settle</span></div>
+        <div class="items" id="o-due-rows"></div>
+        <p class="note" id="o-due-note"></p>
       </div>
     </div>
 
@@ -375,6 +381,11 @@ footer { color: var(--muted); font-size: 12px; text-align: center; letter-spacin
       <div class="items" id="c-oc-rows"></div>
       <p class="note" id="c-oc-note"></p>
     </div>
+      <div class="card duecard" id="c-due">
+        <div class="cc-head"><div><span class="lbl">Unpaid supplier dues to 15 Nov</span><span class="val neg" id="c-due-total">—</span></div><span class="pill" id="c-due-pill">Unpaid · owner to settle</span></div>
+        <div class="items" id="c-due-rows"></div>
+        <p class="note" id="c-due-note"></p>
+      </div>
     <div class="kpis two">
       <div class="kpi"><span class="lbl">Operational cash advances</span><span class="val" id="c-adv">—</span><span class="ctx">Handed over to run the cafe</span></div>
       <div class="kpi"><span class="lbl">Paid directly by owner</span><span class="val" id="c-direct">—</span><span class="ctx">Never passed through manager cash</span></div>
@@ -472,8 +483,9 @@ function model(j) {
   const L = j.investment_ledger, ownerCosts = L.filter(r => OWNER_COST.includes(r.classification));
   const tasting = d3.sum(j.preopening || [], x => x.amount), OC = d3.sum(ownerCosts, r => r.amount_inr);
   const fundTotal = d3.sum(L, r => r.amount_inr), adv = d3.sum(j.cash_advances, a => a.amount), stockOwner = j.funding_classes['Owner-funded stock'] || 0;
+  const payables = j.payables || [], DUES = d3.sum(payables.filter(x => x.status !== 'Paid'), x => x.amount);
   const tastingFromAdv = (j.pending || []).some(p => /launch tasting/i.test(p.item) && /advance/i.test(p.funded_from || ''));
-  return { ...j, tastingFromAdv, daily, weeks, cats, L, ownerCosts, tasting, S, E, T: S - E, OC, OP: S - E - OC, CUM: S - E - OC - tasting, fundTotal, adv, stockOwner, direct: OC + stockOwner };
+  return { ...j, payables, DUES, tastingFromAdv, daily, weeks, cats, L, ownerCosts, tasting, S, E, T: S - E, OC, OP: S - E - OC, CUM: S - E - OC - tasting, fundTotal, adv, stockOwner, direct: OC + stockOwner };
 }
 function win(k) { const d = D.daily, n = d.length, cur = d.slice(-k), prev = d.slice(Math.max(0, n - 2 * k), n - k); return { cur: d3.sum(cur, x => x.net), prev: d3.sum(prev, x => x.net), pn: prev.length, cn: cur.length, cs: d3.sum(cur, x => x.sales) }; }
 
@@ -484,6 +496,7 @@ function overview() {
   setVal('o-spend', D.E); $('o-spend-c').textContent = 'Daily ledger · ' + inr(D.E / n) + ' a day';
   setVal('o-trade', D.T, true); setVal('o-cum', D.CUM, true);
   operatingCash($('o-oc'), $('o-oc-rows'), $('o-oc-note'), $('o-oc-pill'));
+  duesCard('o-due');
   const w7 = win(7), w30 = win(30);
   setVal('o-7', w7.cur, true); $('o-7d').replaceChildren(delta(w7.cur, w7.prev, 'previous 7 days')); $('o-7c').textContent = 'Sales ' + inr(w7.cs) + ' · ' + inr(w7.cs / w7.cn) + ' a day';
   setVal('o-30', w30.cur, true); $('o-30d').replaceChildren(delta(w30.cur / w30.cn * 7, w30.pn ? w30.prev / w30.pn * 7 : 0, 'the ' + w30.pn + ' days before', ' a week'));
@@ -511,6 +524,16 @@ function operatingCash(valEl, rowsEl, noteEl, pillEl) {
   noteEl.textContent = (cash <= 0 ? 'The ' + inr(D.adv) + ' in advances has been fully used, so the cafe is now running on daily sales, and each shortfall day needs new cash. ' : 'Estimated cash still with the manager from the advances. ')
     + 'Assumes the manager collected all sales and paid all recorded expenses. October costs paid directly by the owner are not included. Confirm with a physical cash count.';
   if (pillEl) pillEl.textContent = 'Estimate';
+}
+function duesCard(id) {
+  const card = $(id), unpaid = D.payables.filter(x => x.status !== 'Paid');
+  if (!D.payables.length) { card.hidden = true; return; }
+  $(id + '-total').textContent = inr(-D.DUES);
+  $(id + '-pill').textContent = unpaid.length ? 'Unpaid · owner to settle' : 'Settled';
+  const rows = $(id + '-rows'); rows.replaceChildren();
+  D.payables.slice().sort((a, b) => b.amount - a.amount).forEach(x => row(rows, x.item, x.status === 'Paid' ? 'paid ' + (x.paid_date ? fd(x.paid_date) : '') : 'unpaid', inr(x.amount)));
+  row(rows, 'Shortfall including unpaid dues', 'cumulative cash-flow shortfall plus dues', inr(D.CUM - D.DUES), 'sum');
+  $(id + '-note').textContent = 'Supplier bills built up to ' + fd(D.period_closed) + ' and not yet paid. The owner will settle them, so they do not come out of the manager\'s operating cash. They are not in the daily ledger, the trading result or owner funding until paid.';
 }
 function recoveryStatus(box) {
   const d = D.daily, r30 = d3.sum(d.slice(-30), x => x.net), r14 = d3.sum(d.slice(-14), x => x.net);
@@ -566,7 +589,7 @@ function mixDays() {
 /* ================= OPERATIONS ================= */
 function operations() {
   const d = D.daily, n = d.length, pre = D.preopening || [];
-  $('range').textContent = 'Trading ' + fd(d[0].date) + ' to ' + fd(d[n - 1].date) + ' 2026 · ' + n + ' days' + (pre.length ? ' · Launch tasting ' + fd(pre[0].date) + '–' + fd(pre[pre.length - 1].date) : '');
+  $('range').textContent = 'Trading ' + fd(d[0].date) + ' to ' + fd(d[n - 1].date) + ' 2026 · ' + n + ' days' + (pre.length ? ' · Launch tasting ' + fd(pre[0].date) + '–' + fd(pre[pre.length - 1].date) : '') + (D.period_closed ? ' · Period closed ' + fd(D.period_closed) : '');
   const Lt = d[n - 1], avg = D.S / n;
   $('lt-label').textContent = d3.utcFormat('%A, %-d %B')(P(Lt.date)) + ' · ledger date';
   setVal('lt-sales', Lt.sales); $('lt-vs').textContent = sgn(Math.round(Lt.sales - avg)) + ' vs daily average';
@@ -581,6 +604,7 @@ function operations() {
   row(br, 'Operating result', '', inr(D.OP), 'tot ' + (D.OP >= 0 ? 'pos' : 'neg'));
   row(br, 'Launch tasting', '26–27 Sep, paid from cash advances', inr(-D.tasting));
   row(br, 'Cumulative cash-flow ' + (D.CUM < 0 ? 'shortfall' : 'surplus'), 'since opening, cash view', inr(D.CUM), 'sum');
+  if (D.DUES) { row(br, 'Unpaid supplier dues to ' + fd(D.period_closed), 'owner to settle, not yet paid', inr(-D.DUES), '', { text: 'Unpaid' }); row(br, 'Shortfall including unpaid dues', '', inr(D.CUM - D.DUES), 'sum'); }
   $('periods').replaceChildren(...[[7, 'Last 7 days'], [30, 'Last 30 days']].map(([k, lab]) => { const w = win(k), t = el('div', 'kpi sm-val');
     t.append(el('span', 'lbl', lab + ' result'), el('span', 'val ' + (w.cur >= 0 ? 'pos' : 'neg'), inr(w.cur)), delta(w.cur / w.cn * 7, w.pn ? w.prev / w.pn * 7 : 0, k === 7 ? 'previous 7 days' : 'the ' + w.pn + ' days before', k === 7 ? '' : ' a week'), el('span', 'ctx', 'Sales ' + inr(w.cs) + ' · ' + inr(w.cs / w.cn) + ' a day')); return t; }));
   const months = d3.rollups(d, v => ({ days: v.length, sales: d3.sum(v, x => x.sales), spend: d3.sum(v, x => x.spend) }), x => x.date.slice(0, 7)).sort((a, b) => a[0] < b[0] ? -1 : 1);
@@ -642,6 +666,7 @@ function investment() {
   const fr = $('f-recon'); fr.replaceChildren();
   order.forEach(k => row(fr, k, sub[k], inr(D.funding_classes[k] || 0)));
   row(fr, 'Total owner funding and spending', '', inr(tot), 'sum');
+  if (D.DUES) row(fr, 'Pending: supplier dues to ' + fd(D.period_closed), 'owner to settle; added to owner funding once paid', inr(D.DUES), '', { text: 'Not in total' });
   const ok = tot === 1145908 && L.length === 145;
   $('f-check').replaceChildren(el('span', null, 'Checked against the ledger on every update. '), el('span', 'flag ' + (ok ? 'ok' : ''), ok ? 'Reconciles · 145 rows' : 'Does not reconcile'));
   recoveryStatus($('rc-status')); setVal('rc-target', tot - dep); setVal('rc-ret', 0);
@@ -705,6 +730,7 @@ function cashTab() {
   const adv = D.adv, book = D.cashbook || [], NYR = 'Not yet reconcilable';
   cashStatus($('cash-status')); setVal('c-adv', adv); setVal('c-direct', D.direct);
   operatingCash($('c-oc'), $('c-oc-rows'), $('c-oc-note'), $('c-oc-pill'));
+  duesCard('c-due');
   stack($('c-bar'), [[adv, 'var(--kraft)'], [D.OC, 'var(--c-juice)'], [D.stockOwner, 'var(--c-stock)']], adv + D.direct);
   const cs = $('c-split'); cs.replaceChildren();
   splitRow(cs, 'var(--kraft)', 'Cash advances to manager', inr(adv), 'GKU, Ukku, Nauman');
@@ -759,6 +785,7 @@ function records() {
     ['Ledger date', 'The date on the manager\'s page. Expenses are usually written a day after they happen.'],
     ['Operating cash available', 'Cash given for operations (₹1,06,149) plus the trading result, minus the launch tasting, which was paid from the advances. An estimate of what is left from the advances, assuming the manager collected all sales and paid all recorded expenses. October costs paid directly by the owner are excluded. A negative figure means the advances are used up.'],
     ['Launch tasting', 'Sample food before opening (₹43,564), paid from the operational cash advances. Not additional owner funding.'],
+    ['Unpaid supplier dues', 'Supplier bills built up to 15 Nov that have not been paid (₹31,019). The owner will settle them directly. Shown separately as money owed; once paid they become owner-paid costs and owner funding.'],
   ];
   $('defs').replaceChildren(...defs.flatMap(([t, x]) => [el('dt', null, t), el('dd', null, x)]));
   const m = mixData(), dup = D.L.filter(r => r.potential_duplicate).length, prov = D.L.filter(r => /provisional|Tentatively/i.test(r.notes || '')).length;
@@ -769,6 +796,8 @@ function records() {
     'No investment ledger transaction has a confirmed date or receipt yet.',
     'October management salaries and electricity (' + inr(D.OC) + ') have no confirmed payment dates.',
     'Daily ledger stock purchases (' + inr(unv) + '): funding source not yet verified.',
+    'Supplier dues to ' + fd(D.period_closed) + ' (' + inr(D.DUES) + '): unpaid, owner to settle. Payment date to be confirmed.',
+    'Period up to ' + fd(D.period_closed) + ' is closed. From ' + fd(d3.utcFormat('%Y-%m-%d')(d3.utcDay.offset(P(D.period_closed), 1))) + ' the manager uses the new daily template.',
     'Cash advance dates are not confirmed, and payment method is not recorded for any expense.',
     'Sales mix: ' + m.complete.length + ' complete, ' + m.partial.length + ' partial and ' + m.est.length + ' estimated reporting days so far.',
     'Expenses are written on the ledger one day after they happen; actual dates are not recorded.',
@@ -777,10 +806,11 @@ function records() {
   const all = [];
   D.expenses.forEach(e => all.push({ when: e.date, label: fd(e.date), desc: e.item, cat: CAT_LABEL(e.category), src: 'Daily ledger', amt: -e.amount }));
   D.sales.forEach(s => all.push({ when: s.date, label: fd(s.date), desc: 'Sales', cat: 'Sales', src: 'Daily ledger', amt: s.sales }));
+  D.payables.forEach(x => all.push({ when: x.as_of, label: fd(x.as_of), desc: x.due_id + ' · ' + x.item, cat: 'Supplier due · ' + x.status, src: 'Supplier dues', amt: -x.amount }));
   (D.preopening || []).forEach(p => all.push({ when: p.date, label: fd(p.date), desc: p.item, cat: 'Launch tasting', src: 'Launch tasting', amt: -p.amount }));
   D.L.forEach(r => all.push({ when: r.expense_period ? r.expense_period + '-99' : (r.period === 'Pre-opening' ? '0000' : '9999'), label: r.expense_period ? 'Oct 2026' : r.period, desc: r.transaction_id + ' · ' + r.original_description, cat: r.classification, src: 'Investment ledger', amt: r.amount_inr, dup: !!r.potential_duplicate }));
   all.sort((a, b) => a.when < b.when ? 1 : a.when > b.when ? -1 : 0); D.allRecords = all;
-  $('ar-src').replaceChildren(new Option('All sources', ''), ...['Daily ledger', 'Launch tasting', 'Investment ledger'].map(x => new Option(x, x)));
+  $('ar-src').replaceChildren(new Option('All sources', ''), ...['Daily ledger', 'Launch tasting', 'Supplier dues', 'Investment ledger'].map(x => new Option(x, x)));
   let tmr; $('ar-q').oninput = () => { clearTimeout(tmr); tmr = setTimeout(allTable, 120); }; $('ar-src').oninput = allTable; allTable();
 }
 function allTable() {

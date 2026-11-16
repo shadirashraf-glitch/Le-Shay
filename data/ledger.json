@@ -1,5 +1,5 @@
 {
-"updated": "2026-11-16T21:14+00:00",
+"updated": "2026-11-16T21:17+00:00",
 "sales": [
 {
 "date": "2026-09-28",
@@ -6267,5 +6267,88 @@
 "funded_from": "Operational cash advances",
 "notes": "OWNER CONFIRMED 14 Nov: paid from the manager's operational cash advances. Not additional owner funding, so not added to the 11,45,908 total."
 }
-]
+],
+"payables": [
+{
+"due_id": "DUE-001",
+"as_of": "2026-11-15",
+"item": "Chicken",
+"amount": 13925,
+"status": "Unpaid",
+"paid_date": "",
+"paid_by": "",
+"notes": "Supplier credit built up over several days to 15 Nov. Owner to settle."
+},
+{
+"due_id": "DUE-002",
+"as_of": "2026-11-15",
+"item": "Beef",
+"amount": 2500,
+"status": "Unpaid",
+"paid_date": "",
+"paid_by": "",
+"notes": "Owner to settle."
+},
+{
+"due_id": "DUE-003",
+"as_of": "2026-11-15",
+"item": "Vegetable",
+"amount": 2500,
+"status": "Unpaid",
+"paid_date": "",
+"paid_by": "",
+"notes": "Owner to settle."
+},
+{
+"due_id": "DUE-004",
+"as_of": "2026-11-15",
+"item": "Gas",
+"amount": 5140,
+"status": "Unpaid",
+"paid_date": "",
+"paid_by": "",
+"notes": "Owner to settle."
+},
+{
+"due_id": "DUE-005",
+"as_of": "2026-11-15",
+"item": "Ice cream",
+"amount": 2320,
+"status": "Unpaid",
+"paid_date": "",
+"paid_by": "",
+"notes": "Owner to settle."
+},
+{
+"due_id": "DUE-006",
+"as_of": "2026-11-15",
+"item": "Snack",
+"amount": 1110,
+"status": "Unpaid",
+"paid_date": "",
+"paid_by": "",
+"notes": "Corrected on the note from 1090 to 1110. Owner to settle."
+},
+{
+"due_id": "DUE-007",
+"as_of": "2026-11-15",
+"item": "Kalimakkai",
+"amount": 1964,
+"status": "Unpaid",
+"paid_date": "",
+"paid_by": "",
+"notes": "Owner to settle."
+},
+{
+"due_id": "DUE-008",
+"as_of": "2026-11-15",
+"item": "Abu (supplier)",
+"amount": 1560,
+"status": "Unpaid",
+"paid_date": "",
+"paid_by": "",
+"notes": "Name partly crossed out on the note. Owner to settle."
+}
+],
+"period_closed": "2026-11-15"
 }

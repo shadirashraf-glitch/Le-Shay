@@ -1,0 +1,9 @@
+due_id,as_of,item,amount,status,paid_date,paid_by,notes
+DUE-001,2026-11-15,Chicken,13925,Unpaid,,,Supplier credit built up over several days to 15 Nov. Owner to settle.
+DUE-002,2026-11-15,Beef,2500,Unpaid,,,Owner to settle.
+DUE-003,2026-11-15,Vegetable,2500,Unpaid,,,Owner to settle.
+DUE-004,2026-11-15,Gas,5140,Unpaid,,,Owner to settle.
+DUE-005,2026-11-15,Ice cream,2320,Unpaid,,,Owner to settle.
+DUE-006,2026-11-15,Snack,1110,Unpaid,,,Corrected on the note from 1090 to 1110. Owner to settle.
+DUE-007,2026-11-15,Kalimakkai,1964,Unpaid,,,Owner to settle.
+DUE-008,2026-11-15,Abu (supplier),1560,Unpaid,,,Name partly crossed out on the note. Owner to settle.

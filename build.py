@@ -30,6 +30,8 @@ for r in inv: r["amount_inr"] = int(r["amount_inr"])
 adv = [dict(r, amount=int(r["amount"])) for r in rd("cash_advances.csv")]
 cash = rd("cashbook.csv")
 pending = [dict(r, amount=int(r["amount"])) for r in rd("pending.csv")]
+pay = [dict(r, amount=int(r["amount"])) for r in rd("payables.csv")]
+if sum(x["amount"] for x in pay if x["as_of"] == "2026-11-15") != 31019: sys.exit("RECONCILIATION FAILED: dues to 15 Nov != 31019")
 
 EXPECT = {"Pre-opening investment": 1000359, "Operational cash advance": 106149, "October management salaries": 20000,
           "October electricity": 15000, "Owner-funded stock": 4400}
@@ -48,6 +50,6 @@ if problems: sys.exit("RECONCILIATION FAILED: " + "; ".join(problems))
 out = {"updated": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="minutes"),
        "sales": sales, "expenses": exp, "preopening": pre, "settings": cfg,
        "investment_ledger": inv, "funding_classes": cls, "deposit": dep,
-       "cash_advances": adv, "cashbook": cash, "pending": pending}
+       "cash_advances": adv, "cashbook": cash, "pending": pending, "payables": pay, "period_closed": "2026-11-15"}
 json.dump(out, open(root / "ledger.json", "w", encoding="utf-8"), ensure_ascii=False, indent=0)
 print(len(sales), "days,", len(exp), "expense lines | funding reconciled:", sum(cls.values()), cls)
