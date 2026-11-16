@@ -1,5 +1,5 @@
 {
-"updated": "2026-11-14T17:36+00:00",
+"updated": "2026-11-16T21:10+00:00",
 "sales": [
 {
 "date": "2026-09-28",
@@ -218,6 +218,12 @@
 "kitchen_est": true,
 "juice": 1489,
 "juice_est": true
+},
+{
+"date": "2026-11-14",
+"sales": 21273,
+"kitchen": 4980,
+"juice": 1600
 }
 ],
 "expenses": [
@@ -3256,6 +3262,96 @@
 "item": "Salary (7)",
 "category": "Staff",
 "amount": 4200
+},
+{
+"date": "2026-11-14",
+"item": "Gas",
+"category": "Gas",
+"amount": 2570
+},
+{
+"date": "2026-11-14",
+"item": "Banana",
+"category": "Produce & batter",
+"amount": 100
+},
+{
+"date": "2026-11-14",
+"item": "Egg",
+"category": "Meat, fish & eggs",
+"amount": 200
+},
+{
+"date": "2026-11-14",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 950
+},
+{
+"date": "2026-11-14",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1234
+},
+{
+"date": "2026-11-14",
+"item": "Fruits",
+"category": "Produce & batter",
+"amount": 200
+},
+{
+"date": "2026-11-14",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1500
+},
+{
+"date": "2026-11-14",
+"item": "Dosa maav",
+"category": "Produce & batter",
+"amount": 200
+},
+{
+"date": "2026-11-14",
+"item": "Waste",
+"category": "Utilities & misc",
+"amount": 200
+},
+{
+"date": "2026-11-14",
+"item": "Milk",
+"category": "Milk",
+"amount": 800
+},
+{
+"date": "2026-11-14",
+"item": "Kalimakkai (snack)",
+"category": "Snacks & ice cream",
+"amount": 1700
+},
+{
+"date": "2026-11-14",
+"item": "Rent",
+"category": "Rent",
+"amount": 800
+},
+{
+"date": "2026-11-14",
+"item": "Electric bill balance",
+"category": "Utilities & misc",
+"amount": 550
+},
+{
+"date": "2026-11-14",
+"item": "Snack",
+"category": "Snacks & ice cream",
+"amount": 2000
+},
+{
+"date": "2026-11-14",
+"item": "Salary (8)",
+"category": "Staff",
+"amount": 5600
 }
 ],
 "preopening": [
