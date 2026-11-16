@@ -175,8 +175,13 @@ footer { color: var(--muted); font-size: 12px; text-align: center; letter-spacin
         <div class="items" id="o-oc-rows"></div>
         <p class="note" id="o-oc-note"></p>
       </div>
+      <div class="card" id="o-hist">
+        <div class="cc-head"><div><span class="lbl">Historical position to 15 Nov</span><span class="val neg" id="o-hist-total">—</span></div><span class="pill">Period closed</span></div>
+        <div class="items" id="o-hist-rows"></div>
+        <p class="note" id="o-hist-note"></p>
+      </div>
       <div class="card duecard" id="o-due">
-        <div class="cc-head"><div><span class="lbl">Unpaid supplier dues to 15 Nov</span><span class="val neg" id="o-due-total">—</span></div><span class="pill" id="o-due-pill">Unpaid · owner to settle</span></div>
+        <div class="cc-head"><div><span class="lbl">Historical supplier outstanding</span><span class="val neg" id="o-due-total">—</span></div><span class="pill" id="o-due-pill">Unpaid · owner to settle</span></div>
         <div class="items" id="o-due-rows"></div>
         <p class="note" id="o-due-note"></p>
       </div>
@@ -203,7 +208,7 @@ footer { color: var(--muted); font-size: 12px; text-align: center; letter-spacin
     <div class="grp">
       <div class="sec-h"><span class="n">04</span><h2>Investment</h2><span class="q">What the owners have put in</span></div>
       <div class="kpis two">
-        <div class="kpi hero"><span class="lbl">Total owner funding</span><span class="val" id="o-fund">—</span><span class="ctx" id="o-fund-c"></span></div>
+        <div class="kpi hero"><span class="lbl">Owner funding actually paid</span><span class="val" id="o-fund">—</span><span class="ctx" id="o-fund-c"></span></div>
         <div class="kpi"><span class="lbl">Funding excluding refundable deposit</span><span class="val" id="o-fund-ex">—</span><span class="ctx">Recovery target</span></div>
       </div>
       <div class="card">
@@ -304,7 +309,7 @@ footer { color: var(--muted); font-size: 12px; text-align: center; letter-spacin
   <!-- ================= INVESTMENT ================= -->
   <section class="tab" id="inv" role="tabpanel" aria-labelledby="t-inv" hidden>
     <div class="kpis three">
-      <div class="kpi hero"><span class="lbl">Total owner funding</span><span class="val" id="f-total">—</span><span class="ctx" id="f-rows"></span></div>
+      <div class="kpi hero"><span class="lbl">Owner funding actually paid</span><span class="val" id="f-total">—</span><span class="ctx" id="f-rows"></span></div>
       <div class="kpi"><span class="lbl">Refundable shop deposit</span><span class="val" id="f-dep">—</span><span class="ctx">Asset, assumed fully refundable</span></div>
       <div class="kpi"><span class="lbl">Funding excluding deposit</span><span class="val" id="f-ex">—</span><span class="ctx">Recovery target</span></div>
     </div>
@@ -382,7 +387,7 @@ footer { color: var(--muted); font-size: 12px; text-align: center; letter-spacin
       <p class="note" id="c-oc-note"></p>
     </div>
       <div class="card duecard" id="c-due">
-        <div class="cc-head"><div><span class="lbl">Unpaid supplier dues to 15 Nov</span><span class="val neg" id="c-due-total">—</span></div><span class="pill" id="c-due-pill">Unpaid · owner to settle</span></div>
+        <div class="cc-head"><div><span class="lbl">Historical supplier outstanding</span><span class="val neg" id="c-due-total">—</span></div><span class="pill" id="c-due-pill">Unpaid · owner to settle</span></div>
         <div class="items" id="c-due-rows"></div>
         <p class="note" id="c-due-note"></p>
       </div>
@@ -483,9 +488,12 @@ function model(j) {
   const L = j.investment_ledger, ownerCosts = L.filter(r => OWNER_COST.includes(r.classification));
   const tasting = d3.sum(j.preopening || [], x => x.amount), OC = d3.sum(ownerCosts, r => r.amount_inr);
   const fundTotal = d3.sum(L, r => r.amount_inr), adv = d3.sum(j.cash_advances, a => a.amount), stockOwner = j.funding_classes['Owner-funded stock'] || 0;
-  const payables = j.payables || [], DUES = d3.sum(payables.filter(x => x.status !== 'Paid'), x => x.amount);
+  const payables = j.payables || [], settlements = j.settlements || [], hist = payables.filter(x => /^Historical/.test(x.period));
+  const HD = d3.sum(hist, x => x.amount), SET = d3.sum(hist, x => x.settled), DUES = HD - SET;
+  const hd = daily.filter(x => x.date <= j.period_closed), HS = d3.sum(hd, x => x.sales), HE = d3.sum(hd, x => x.spend);
+  const HCUM = HS - HE - OC - tasting, H = { days: hd.length, S: HS, E: HE, CUM: HCUM, ECON: HCUM - HD };
   const tastingFromAdv = (j.pending || []).some(p => /launch tasting/i.test(p.item) && /advance/i.test(p.funded_from || ''));
-  return { ...j, payables, DUES, tastingFromAdv, daily, weeks, cats, L, ownerCosts, tasting, S, E, T: S - E, OC, OP: S - E - OC, CUM: S - E - OC - tasting, fundTotal, adv, stockOwner, direct: OC + stockOwner };
+  return { ...j, payables, settlements, hist, HD, SET, DUES, H, fundPaid: fundTotal + SET, tastingFromAdv, daily, weeks, cats, L, ownerCosts, tasting, S, E, T: S - E, OC, OP: S - E - OC, CUM: S - E - OC - tasting, fundTotal, adv, stockOwner, direct: OC + stockOwner };
 }
 function win(k) { const d = D.daily, n = d.length, cur = d.slice(-k), prev = d.slice(Math.max(0, n - 2 * k), n - k); return { cur: d3.sum(cur, x => x.net), prev: d3.sum(prev, x => x.net), pn: prev.length, cn: cur.length, cs: d3.sum(cur, x => x.sales) }; }
 
@@ -496,18 +504,20 @@ function overview() {
   setVal('o-spend', D.E); $('o-spend-c').textContent = 'Daily ledger · ' + inr(D.E / n) + ' a day';
   setVal('o-trade', D.T, true); setVal('o-cum', D.CUM, true);
   operatingCash($('o-oc'), $('o-oc-rows'), $('o-oc-note'), $('o-oc-pill'));
+  histPosition();
   duesCard('o-due');
   const w7 = win(7), w30 = win(30);
   setVal('o-7', w7.cur, true); $('o-7d').replaceChildren(delta(w7.cur, w7.prev, 'previous 7 days')); $('o-7c').textContent = 'Sales ' + inr(w7.cs) + ' · ' + inr(w7.cs / w7.cn) + ' a day';
   setVal('o-30', w30.cur, true); $('o-30d').replaceChildren(delta(w30.cur / w30.cn * 7, w30.pn ? w30.prev / w30.pn * 7 : 0, 'the ' + w30.pn + ' days before', ' a week'));
   $('o-30c').textContent = 'Sales ' + inr(w30.cs) + ' · ' + inr(w30.cs / w30.cn) + ' a day';
   mixSummary($('o-mix'), true);
-  setVal('o-fund', D.fundTotal); $('o-fund-c').textContent = D.L.length + ' transactions · includes ' + inr(D.deposit) + ' refundable deposit';
-  setVal('o-fund-ex', D.fundTotal - D.deposit);
+  setVal('o-fund', D.fundPaid); $('o-fund-c').textContent = D.L.length + ' transactions' + (D.SET ? ' + ' + inr(D.SET) + ' supplier settlements' : '') + ' · includes ' + inr(D.deposit) + ' refundable deposit';
+  setVal('o-fund-ex', D.fundPaid - D.deposit);
   const fc = D.funding_classes, parts = [
     ['Pre-opening, excl. deposit', fc['Pre-opening investment'] - D.deposit, 'var(--gold)'], ['Refundable deposit', D.deposit, 'var(--beige)'],
     ['Cash advances', fc['Operational cash advance'], 'var(--kraft)'], ['October costs', D.OC, 'var(--c-juice)'], ['Owner stock', D.stockOwner, 'var(--c-stock)']];
-  stack($('o-fund-bar'), parts.map(p => [p[1], p[2]]), D.fundTotal);
+  if (D.SET) parts.push(['Supplier settlements', D.SET, 'var(--spend)']);
+  stack($('o-fund-bar'), parts.map(p => [p[1], p[2]]), D.fundPaid);
   $('o-fund-leg').replaceChildren(...parts.map(([l, v, c]) => { const s = el('span'), i = el('i'); i.style.background = c; s.append(i, l + ' ' + inr(v)); return s; }));
   recoveryStatus($('o-rec'));
   setVal('o-adv', D.adv); setVal('o-direct', D.direct);
@@ -525,15 +535,31 @@ function operatingCash(valEl, rowsEl, noteEl, pillEl) {
     + 'Assumes the manager collected all sales and paid all recorded expenses. October costs paid directly by the owner are not included. Confirm with a physical cash count.';
   if (pillEl) pillEl.textContent = 'Estimate';
 }
+function histPosition() {
+  const H = D.H, rows = $('o-hist-rows'); rows.replaceChildren();
+  $('o-hist-total').textContent = inr(H.ECON);
+  row(rows, 'Historical cash-flow shortfall', H.days + ' days to ' + fd(D.period_closed) + ', cash actually paid', inr(H.CUM), H.CUM < 0 ? 'neg' : 'pos');
+  row(rows, D.SET ? 'Historical supplier liabilities' : 'Historical unpaid supplier liabilities', 'bought before 16 Nov, not paid from operations' + (D.SET ? ', full amount incurred' : ''), inr(-D.HD), 'neg');
+  row(rows, 'Total historical operating shortfall', 'including unpaid liabilities', inr(H.ECON), 'sum');
+  row(rows, 'Of the liabilities: settled by owner', D.SET ? 'owner-funded settlements' : 'none yet', inr(D.SET));
+  row(rows, 'Of the liabilities: still outstanding', 'owner to settle', inr(D.DUES), D.DUES ? 'neg' : 'pos');
+  row(rows, 'Owner funding actually paid', 'to date', inr(D.fundPaid), 'tot');
+  $('o-hist-note').textContent = 'The liabilities belong to the period before 16 Nov, so they count in the total historical operating shortfall. When the owner settles them, outstanding falls and owner funding rises by the same amount. The cash-flow shortfall and the total operating shortfall do not change, so nothing is counted twice.';
+}
 function duesCard(id) {
-  const card = $(id), unpaid = D.payables.filter(x => x.status !== 'Paid');
-  if (!D.payables.length) { card.hidden = true; return; }
+  const card = $(id);
+  if (!D.hist.length) { card.hidden = true; return; }
   $(id + '-total').textContent = inr(-D.DUES);
-  $(id + '-pill').textContent = unpaid.length ? 'Unpaid · owner to settle' : 'Settled';
+  const t = $(id + '-total'); t.classList.toggle('neg', D.DUES > 0); t.classList.toggle('pos', !D.DUES);
+  $(id + '-pill').textContent = !D.SET ? 'Unpaid · owner to settle' : D.DUES ? 'Part settled' : 'Fully settled';
   const rows = $(id + '-rows'); rows.replaceChildren();
-  D.payables.slice().sort((a, b) => b.amount - a.amount).forEach(x => row(rows, x.item, x.status === 'Paid' ? 'paid ' + (x.paid_date ? fd(x.paid_date) : '') : 'unpaid', inr(x.amount)));
-  row(rows, 'Shortfall including unpaid dues', 'cumulative cash-flow shortfall plus dues', inr(D.CUM - D.DUES), 'sum');
-  $(id + '-note').textContent = 'Supplier bills built up to ' + fd(D.period_closed) + ' and not yet paid. The owner will settle them, so they do not come out of the manager\'s operating cash. They are not in the daily ledger, the trading result or owner funding until paid.';
+  D.hist.slice().sort((a, b) => b.amount - a.amount).forEach(x => row(rows, x.item,
+    x.status === 'Settled' ? 'settled ' + fd(x.last_paid) + ' · ' + inr(x.amount) : x.status === 'Part settled' ? 'part settled ' + inr(x.settled) + ' of ' + inr(x.amount) : 'unpaid',
+    inr(x.outstanding), x.outstanding ? '' : 'pos'));
+  row(rows, 'Historical liability to ' + fd(D.period_closed), '8 supplier balances', inr(D.HD), 'tot');
+  if (D.SET) row(rows, 'Settled by owner', 'owner-funded', inr(-D.SET));
+  row(rows, 'Outstanding', '', inr(D.DUES), 'sum');
+  $(id + '-note').textContent = 'Supplier bills from before 16 Nov, confirmed genuine by operations and not duplicated in the daily expenses. The owner settles them directly, so they never come out of the manager\'s operating cash. Purchases and supplier payments from 16 Nov are tracked separately.';
 }
 function recoveryStatus(box) {
   const d = D.daily, r30 = d3.sum(d.slice(-30), x => x.net), r14 = d3.sum(d.slice(-14), x => x.net);
@@ -604,7 +630,7 @@ function operations() {
   row(br, 'Operating result', '', inr(D.OP), 'tot ' + (D.OP >= 0 ? 'pos' : 'neg'));
   row(br, 'Launch tasting', '26–27 Sep, paid from cash advances', inr(-D.tasting));
   row(br, 'Cumulative cash-flow ' + (D.CUM < 0 ? 'shortfall' : 'surplus'), 'since opening, cash view', inr(D.CUM), 'sum');
-  if (D.DUES) { row(br, 'Unpaid supplier dues to ' + fd(D.period_closed), 'owner to settle, not yet paid', inr(-D.DUES), '', { text: 'Unpaid' }); row(br, 'Shortfall including unpaid dues', '', inr(D.CUM - D.DUES), 'sum'); }
+  if (D.HD) { row(br, 'Historical supplier liabilities to ' + fd(D.period_closed), D.DUES ? inr(D.DUES) + ' still outstanding' : 'settled by owner', inr(-D.HD), '', { text: D.DUES ? 'Unpaid' : 'Settled' }); row(br, 'Total operating shortfall incl. liabilities', '', inr(D.CUM - D.HD), 'sum'); }
   $('periods').replaceChildren(...[[7, 'Last 7 days'], [30, 'Last 30 days']].map(([k, lab]) => { const w = win(k), t = el('div', 'kpi sm-val');
     t.append(el('span', 'lbl', lab + ' result'), el('span', 'val ' + (w.cur >= 0 ? 'pos' : 'neg'), inr(w.cur)), delta(w.cur / w.cn * 7, w.pn ? w.prev / w.pn * 7 : 0, k === 7 ? 'previous 7 days' : 'the ' + w.pn + ' days before', k === 7 ? '' : ' a week'), el('span', 'ctx', 'Sales ' + inr(w.cs) + ' · ' + inr(w.cs / w.cn) + ' a day')); return t; }));
   const months = d3.rollups(d, v => ({ days: v.length, sales: d3.sum(v, x => x.sales), spend: d3.sum(v, x => x.spend) }), x => x.date.slice(0, 7)).sort((a, b) => a[0] < b[0] ? -1 : 1);
@@ -654,7 +680,7 @@ function dayView() {
 
 /* ================= INVESTMENT ================= */
 function investment() {
-  const L = D.L, tot = D.fundTotal, dep = D.deposit;
+  const L = D.L, tot = D.fundPaid, dep = D.deposit;
   setVal('f-total', tot); $('f-rows').textContent = L.length + ' transactions'; setVal('f-dep', dep); setVal('f-ex', tot - dep);
   const pre = D.funding_classes['Pre-opening investment'], post = tot - pre;
   stack($('f-pp-bar'), [[pre, 'var(--gold)'], [post, 'var(--kraft)']], tot);
@@ -665,9 +691,11 @@ function investment() {
   const sub = { 'Pre-opening investment': 'includes ' + inr(dep) + ' refundable deposit', 'Operational cash advance': 'working capital, not an expense', 'October management salaries': 'GKU and Firoz, owner-paid', 'October electricity': 'October only', 'Owner-funded stock': 'cool drinks, owner\'s personal funds' };
   const fr = $('f-recon'); fr.replaceChildren();
   order.forEach(k => row(fr, k, sub[k], inr(D.funding_classes[k] || 0)));
-  row(fr, 'Total owner funding and spending', '', inr(tot), 'sum');
-  if (D.DUES) row(fr, 'Pending: supplier dues to ' + fd(D.period_closed), 'owner to settle; added to owner funding once paid', inr(D.DUES), '', { text: 'Not in total' });
-  const ok = tot === 1145908 && L.length === 145;
+  row(fr, 'Investment ledger total', L.length + ' transactions', inr(D.fundTotal), 'tot');
+  row(fr, 'Historical supplier settlements', D.SET ? 'owner-funded, against the ' + inr(D.HD) + ' liability' : 'none yet', inr(D.SET));
+  row(fr, 'Owner funding actually paid', '', inr(tot), 'sum');
+  if (D.DUES) row(fr, 'Historical supplier outstanding', 'owner to settle; moves into funding as each payment is made', inr(D.DUES), '', { text: 'Not in total' });
+  const ok = D.fundTotal === 1145908 && L.length === 145;
   $('f-check').replaceChildren(el('span', null, 'Checked against the ledger on every update. '), el('span', 'flag ' + (ok ? 'ok' : ''), ok ? 'Reconciles · 145 rows' : 'Does not reconcile'));
   recoveryStatus($('rc-status')); setVal('rc-target', tot - dep); setVal('rc-ret', 0);
   const preRows = L.filter(r => r.classification === 'Pre-opening investment');
@@ -785,7 +813,9 @@ function records() {
     ['Ledger date', 'The date on the manager\'s page. Expenses are usually written a day after they happen.'],
     ['Operating cash available', 'Cash given for operations (₹1,06,149) plus the trading result, minus the launch tasting, which was paid from the advances. An estimate of what is left from the advances, assuming the manager collected all sales and paid all recorded expenses. October costs paid directly by the owner are excluded. A negative figure means the advances are used up.'],
     ['Launch tasting', 'Sample food before opening (₹43,564), paid from the operational cash advances. Not additional owner funding.'],
-    ['Unpaid supplier dues', 'Supplier bills built up to 15 Nov that have not been paid (₹31,019). The owner will settle them directly. Shown separately as money owed; once paid they become owner-paid costs and owner funding.'],
+    ['Historical supplier liabilities', 'Eight supplier balances (₹31,019) for purchases made before 16 Nov and not yet paid. They belong to the historical period, so they count in the total historical operating shortfall, but not in the cash-flow shortfall, the manager\'s operating cash or owner funding.'],
+    ['Owner-funded settlement', 'A payment by the owner against a historical supplier balance. It reduces the outstanding balance and adds to owner funding actually paid. It is not counted again as an expense.'],
+    ['Owner funding actually paid', 'The 145-transaction investment ledger plus owner-funded settlements of historical supplier balances. Unpaid balances are never included.'],
   ];
   $('defs').replaceChildren(...defs.flatMap(([t, x]) => [el('dt', null, t), el('dd', null, x)]));
   const m = mixData(), dup = D.L.filter(r => r.potential_duplicate).length, prov = D.L.filter(r => /provisional|Tentatively/i.test(r.notes || '')).length;
@@ -796,7 +826,7 @@ function records() {
     'No investment ledger transaction has a confirmed date or receipt yet.',
     'October management salaries and electricity (' + inr(D.OC) + ') have no confirmed payment dates.',
     'Daily ledger stock purchases (' + inr(unv) + '): funding source not yet verified.',
-    'Supplier dues to ' + fd(D.period_closed) + ' (' + inr(D.DUES) + '): unpaid, owner to settle. Payment date to be confirmed.',
+    'Historical supplier outstanding to ' + fd(D.period_closed) + ': ' + inr(D.DUES) + ' of ' + inr(D.HD) + ' unpaid, owner to settle. Confirmed genuine by operations, no duplication with daily expenses.',
     'Period up to ' + fd(D.period_closed) + ' is closed. From ' + fd(d3.utcFormat('%Y-%m-%d')(d3.utcDay.offset(P(D.period_closed), 1))) + ' the manager uses the new daily template.',
     'Cash advance dates are not confirmed, and payment method is not recorded for any expense.',
     'Sales mix: ' + m.complete.length + ' complete, ' + m.partial.length + ' partial and ' + m.est.length + ' estimated reporting days so far.',
@@ -806,7 +836,8 @@ function records() {
   const all = [];
   D.expenses.forEach(e => all.push({ when: e.date, label: fd(e.date), desc: e.item, cat: CAT_LABEL(e.category), src: 'Daily ledger', amt: -e.amount }));
   D.sales.forEach(s => all.push({ when: s.date, label: fd(s.date), desc: 'Sales', cat: 'Sales', src: 'Daily ledger', amt: s.sales }));
-  D.payables.forEach(x => all.push({ when: x.as_of, label: fd(x.as_of), desc: x.due_id + ' · ' + x.item, cat: 'Supplier due · ' + x.status, src: 'Supplier dues', amt: -x.amount }));
+  D.payables.forEach(x => all.push({ when: x.as_of, label: fd(x.as_of), desc: x.due_id + ' · ' + x.item, cat: 'Historical supplier liability · ' + x.status, src: 'Supplier dues', amt: -x.amount }));
+  D.settlements.forEach(x => all.push({ when: x.date, label: fd(x.date), desc: x.settlement_id + ' · ' + x.due_id + (x.paid_by ? ' · ' + x.paid_by : ''), cat: 'Owner-funded settlement', src: 'Supplier dues', amt: x.amount }));
   (D.preopening || []).forEach(p => all.push({ when: p.date, label: fd(p.date), desc: p.item, cat: 'Launch tasting', src: 'Launch tasting', amt: -p.amount }));
   D.L.forEach(r => all.push({ when: r.expense_period ? r.expense_period + '-99' : (r.period === 'Pre-opening' ? '0000' : '9999'), label: r.expense_period ? 'Oct 2026' : r.period, desc: r.transaction_id + ' · ' + r.original_description, cat: r.classification, src: 'Investment ledger', amt: r.amount_inr, dup: !!r.potential_duplicate }));
   all.sort((a, b) => a.when < b.when ? 1 : a.when > b.when ? -1 : 0); D.allRecords = all;

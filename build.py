@@ -30,8 +30,21 @@ for r in inv: r["amount_inr"] = int(r["amount_inr"])
 adv = [dict(r, amount=int(r["amount"])) for r in rd("cash_advances.csv")]
 cash = rd("cashbook.csv")
 pending = [dict(r, amount=int(r["amount"])) for r in rd("pending.csv")]
+# Historical supplier outstanding to 15 Nov (fixed register) and owner settlements against it
 pay = [dict(r, amount=int(r["amount"])) for r in rd("payables.csv")]
-if sum(x["amount"] for x in pay if x["as_of"] == "2026-11-15") != 31019: sys.exit("RECONCILIATION FAILED: dues to 15 Nov != 31019")
+hist = [x for x in pay if x["period"].startswith("Historical")]
+if len(hist) != 8 or sum(x["amount"] for x in hist) != 31019: sys.exit("RECONCILIATION FAILED: historical supplier outstanding != 8 balances / 31019")
+setl = [dict(r, amount=int(r["amount"])) for r in rd("supplier_settlements.csv")]
+ids = {x["due_id"] for x in pay}
+for s_ in setl:
+    if s_["due_id"] not in ids: sys.exit(f"RECONCILIATION FAILED: settlement {s_['settlement_id']} references unknown due {s_['due_id']}")
+for x in pay:
+    paid = [s_ for s_ in setl if s_["due_id"] == x["due_id"]]
+    x["settled"] = sum(s_["amount"] for s_ in paid)
+    if x["settled"] > x["amount"]: sys.exit(f"RECONCILIATION FAILED: {x['due_id']} settled {x['settled']} > {x['amount']}")
+    x["outstanding"] = x["amount"] - x["settled"]
+    x["status"] = "Settled" if x["outstanding"] == 0 else ("Part settled" if x["settled"] else "Unpaid")
+    x["last_paid"] = max((s_["date"] for s_ in paid), default="")
 
 EXPECT = {"Pre-opening investment": 1000359, "Operational cash advance": 106149, "October management salaries": 20000,
           "October electricity": 15000, "Owner-funded stock": 4400}
@@ -50,6 +63,6 @@ if problems: sys.exit("RECONCILIATION FAILED: " + "; ".join(problems))
 out = {"updated": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="minutes"),
        "sales": sales, "expenses": exp, "preopening": pre, "settings": cfg,
        "investment_ledger": inv, "funding_classes": cls, "deposit": dep,
-       "cash_advances": adv, "cashbook": cash, "pending": pending, "payables": pay, "period_closed": "2026-11-15"}
+       "cash_advances": adv, "cashbook": cash, "pending": pending, "payables": pay, "settlements": setl, "period_closed": "2026-11-15"}
 json.dump(out, open(root / "ledger.json", "w", encoding="utf-8"), ensure_ascii=False, indent=0)
 print(len(sales), "days,", len(exp), "expense lines | funding reconciled:", sum(cls.values()), cls)
