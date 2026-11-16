@@ -556,7 +556,7 @@ function duesCard(id) {
   D.hist.slice().sort((a, b) => b.amount - a.amount).forEach(x => row(rows, x.item,
     x.status === 'Settled' ? 'settled ' + fd(x.last_paid) + ' · ' + inr(x.amount) : x.status === 'Part settled' ? 'part settled ' + inr(x.settled) + ' of ' + inr(x.amount) : 'unpaid',
     inr(x.outstanding), x.outstanding ? '' : 'pos'));
-  row(rows, 'Historical liability to ' + fd(D.period_closed), '8 supplier balances', inr(D.HD), 'tot');
+  row(rows, 'Historical liability to ' + fd(D.period_closed), D.hist.length + ' supplier balances', inr(D.HD), 'tot');
   if (D.SET) row(rows, 'Settled by owner', 'owner-funded', inr(-D.SET));
   row(rows, 'Outstanding', '', inr(D.DUES), 'sum');
   $(id + '-note').textContent = 'Supplier bills from before 16 Nov, confirmed genuine by operations and not duplicated in the daily expenses. The owner settles them directly, so they never come out of the manager\'s operating cash. Purchases and supplier payments from 16 Nov are tracked separately.';
@@ -813,7 +813,7 @@ function records() {
     ['Ledger date', 'The date on the manager\'s page. Expenses are usually written a day after they happen.'],
     ['Operating cash available', 'Cash given for operations (₹1,06,149) plus the trading result, minus the launch tasting, which was paid from the advances. An estimate of what is left from the advances, assuming the manager collected all sales and paid all recorded expenses. October costs paid directly by the owner are excluded. A negative figure means the advances are used up.'],
     ['Launch tasting', 'Sample food before opening (₹43,564), paid from the operational cash advances. Not additional owner funding.'],
-    ['Historical supplier liabilities', 'Eight supplier balances (₹31,019) for purchases made before 16 Nov and not yet paid. They belong to the historical period, so they count in the total historical operating shortfall, but not in the cash-flow shortfall, the manager\'s operating cash or owner funding.'],
+    ['Historical supplier liabilities', 'Supplier balances (' + inr(D.HD) + ') for purchases made before 16 Nov and not yet paid. They belong to the historical period, so they count in the total historical operating shortfall, but not in the cash-flow shortfall, the manager\'s operating cash or owner funding.'],
     ['Owner-funded settlement', 'A payment by the owner against a historical supplier balance. It reduces the outstanding balance and adds to owner funding actually paid. It is not counted again as an expense.'],
     ['Owner funding actually paid', 'The 145-transaction investment ledger plus owner-funded settlements of historical supplier balances. Unpaid balances are never included.'],
   ];

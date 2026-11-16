@@ -1,5 +1,5 @@
 {
-"updated": "2026-11-16T21:28+00:00",
+"updated": "2026-11-16T22:13+00:00",
 "sales": [
 {
 "date": "2026-09-28",
@@ -6362,6 +6362,18 @@
 "notes": "Name partly crossed out on the note. Confirmed genuine by operations, no duplication with daily expenses.",
 "settled": 0,
 "outstanding": 1560,
+"status": "Unpaid",
+"last_paid": ""
+},
+{
+"due_id": "DUE-009",
+"period": "Historical to 15 Nov 2026",
+"as_of": "2026-11-15",
+"item": "Water",
+"amount": 780,
+"notes": "Added 17 Nov by owner. Confirmed genuine, no duplication with daily expenses.",
+"settled": 0,
+"outstanding": 780,
 "status": "Unpaid",
 "last_paid": ""
 }

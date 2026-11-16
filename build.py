@@ -33,7 +33,7 @@ pending = [dict(r, amount=int(r["amount"])) for r in rd("pending.csv")]
 # Historical supplier outstanding to 15 Nov (fixed register) and owner settlements against it
 pay = [dict(r, amount=int(r["amount"])) for r in rd("payables.csv")]
 hist = [x for x in pay if x["period"].startswith("Historical")]
-if len(hist) != 8 or sum(x["amount"] for x in hist) != 31019: sys.exit("RECONCILIATION FAILED: historical supplier outstanding != 8 balances / 31019")
+if len(hist) != 9 or sum(x["amount"] for x in hist) != 31799: sys.exit("RECONCILIATION FAILED: historical supplier outstanding != 9 balances / 31799")
 setl = [dict(r, amount=int(r["amount"])) for r in rd("supplier_settlements.csv")]
 ids = {x["due_id"] for x in pay}
 for s_ in setl:
