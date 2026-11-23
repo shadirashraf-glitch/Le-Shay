@@ -31,8 +31,11 @@ if any(x["date"] >= CUR_FROM for x in sales) or any(e["date"] >= CUR_FROM for e 
 fmt = lambda d: str(int(d[8:])) + " " + datetime.date(2000, int(d[5:7]), 1).strftime("%b")
 I = lambda v: int(v) if str(v).strip() != "" else 0
 closing = [dict(r) for r in rd("daily_closing.csv")]
-purch = [dict(r, bill=I(r["bill"]), paid=I(r["paid"]), due=I(r["due"])) for r in rd("purchases.csv")]
-duepay = [dict(r, amount=I(r["amount"])) for r in rd("due_payments.csv")]
+# One name per supplier account (raw sheet wording stays in the CSV as written)
+SUPPLIER = {"Fish": "Fish / Water", "Banana": "Banana / Ice cream"}
+canon = lambda n: SUPPLIER.get(n.strip(), n.strip())
+purch = [dict(r, supplier=canon(r["supplier"]), sheet_name=r["supplier"], bill=I(r["bill"]), paid=I(r["paid"]), due=I(r["due"])) for r in rd("purchases.csv")]
+duepay = [dict(r, supplier=canon(r["supplier"]), amount=I(r["amount"])) for r in rd("due_payments.csv")]
 STAFF = [("staff_wages", "Daily staff wages", "Staff"), ("shop_rent", "Shop rent", "Rent"), ("gku_salary", "GKU salary", "GKU salary"),
          ("room_rent", "Room rent", "Room rent"), ("electricity", "Electricity", "Utilities & misc"), ("firoz_salary", "Firoz salary", "Firoz salary")]
 problems, warnings, grand, sup_due = [], [], 0, {}

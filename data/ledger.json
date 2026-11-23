@@ -1,5 +1,5 @@
 {
-"updated": "2026-11-23T22:03+00:00",
+"updated": "2026-11-23T22:15+00:00",
 "sales": [
 {
 "date": "2026-09-28",
@@ -3528,7 +3528,7 @@
 },
 {
 "date": "2026-11-16",
-"item": "Fish",
+"item": "Fish / Water",
 "category": "Meat, fish & eggs",
 "amount": 980,
 "period": "current"
@@ -3633,7 +3633,7 @@
 },
 {
 "date": "2026-11-17",
-"item": "Fish",
+"item": "Fish / Water",
 "category": "Meat, fish & eggs",
 "amount": 335,
 "period": "current"
@@ -3675,7 +3675,7 @@
 },
 {
 "date": "2026-11-17",
-"item": "Banana",
+"item": "Banana / Ice cream",
 "category": "Produce & batter",
 "amount": 100,
 "period": "current"
@@ -3738,7 +3738,7 @@
 },
 {
 "date": "2026-11-18",
-"item": "Fish",
+"item": "Fish / Water",
 "category": "Meat, fish & eggs",
 "amount": 980,
 "period": "current"
@@ -3780,7 +3780,7 @@
 },
 {
 "date": "2026-11-18",
-"item": "Banana",
+"item": "Banana / Ice cream",
 "category": "Produce & batter",
 "amount": 220,
 "period": "current"
@@ -3899,7 +3899,7 @@
 },
 {
 "date": "2026-11-19",
-"item": "Banana",
+"item": "Banana / Ice cream",
 "category": "Produce & batter",
 "amount": 100,
 "period": "current"
@@ -7440,7 +7440,8 @@
 "bill": 220,
 "paid": 0,
 "due": 220,
-"bill_no": "220"
+"bill_no": "220",
+"sheet_name": "Samoosa"
 },
 {
 "date": "2026-11-16",
@@ -7449,7 +7450,8 @@
 "bill": 2900,
 "paid": 2900,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Anadhi"
 },
 {
 "date": "2026-11-16",
@@ -7458,7 +7460,8 @@
 "bill": 495,
 "paid": 495,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Egg / Disposable / Handwash"
 },
 {
 "date": "2026-11-16",
@@ -7467,16 +7470,18 @@
 "bill": 200,
 "paid": 200,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Dosa mavu"
 },
 {
 "date": "2026-11-16",
-"supplier": "Fish",
+"supplier": "Fish / Water",
 "category": "Meat, fish & eggs",
 "bill": 980,
 "paid": 980,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Fish"
 },
 {
 "date": "2026-11-16",
@@ -7485,7 +7490,8 @@
 "bill": 500,
 "paid": 500,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Room agreement / Waste"
 },
 {
 "date": "2026-11-16",
@@ -7494,7 +7500,8 @@
 "bill": 950,
 "paid": 0,
 "due": 950,
-"bill_no": "950"
+"bill_no": "950",
+"sheet_name": "Milk"
 },
 {
 "date": "2026-11-16",
@@ -7503,7 +7510,8 @@
 "bill": 985,
 "paid": 0,
 "due": 985,
-"bill_no": "985"
+"bill_no": "985",
+"sheet_name": "Vegetable"
 },
 {
 "date": "2026-11-16",
@@ -7512,7 +7520,8 @@
 "bill": 1080,
 "paid": 0,
 "due": 1080,
-"bill_no": "1080"
+"bill_no": "1080",
+"sheet_name": "Chicken"
 },
 {
 "date": "2026-11-16",
@@ -7521,7 +7530,8 @@
 "bill": 935,
 "paid": 0,
 "due": 935,
-"bill_no": "935"
+"bill_no": "935",
+"sheet_name": "Snack"
 },
 {
 "date": "2026-11-16",
@@ -7530,7 +7540,8 @@
 "bill": 1376,
 "paid": 0,
 "due": 1376,
-"bill_no": "1376"
+"bill_no": "1376",
+"sheet_name": "Kallumakkai"
 },
 {
 "date": "2026-11-16",
@@ -7539,7 +7550,8 @@
 "bill": 2570,
 "paid": 0,
 "due": 2570,
-"bill_no": "2570"
+"bill_no": "2570",
+"sheet_name": "Gas"
 },
 {
 "date": "2026-11-17",
@@ -7548,7 +7560,8 @@
 "bill": 220,
 "paid": 220,
 "due": 0,
-"bill_no": "220"
+"bill_no": "220",
+"sheet_name": "Samoosa"
 },
 {
 "date": "2026-11-17",
@@ -7557,7 +7570,8 @@
 "bill": 1676,
 "paid": 1676,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Anadhi"
 },
 {
 "date": "2026-11-17",
@@ -7566,7 +7580,8 @@
 "bill": 536,
 "paid": 536,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Egg / Disposable / Handwash"
 },
 {
 "date": "2026-11-17",
@@ -7575,16 +7590,18 @@
 "bill": 150,
 "paid": 150,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Dosa mavu"
 },
 {
 "date": "2026-11-17",
-"supplier": "Fish",
+"supplier": "Fish / Water",
 "category": "Meat, fish & eggs",
 "bill": 335,
 "paid": 335,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Fish"
 },
 {
 "date": "2026-11-17",
@@ -7593,7 +7610,8 @@
 "bill": 780,
 "paid": 0,
 "due": 780,
-"bill_no": "780"
+"bill_no": "780",
+"sheet_name": "Milk"
 },
 {
 "date": "2026-11-17",
@@ -7602,7 +7620,8 @@
 "bill": 578,
 "paid": 0,
 "due": 578,
-"bill_no": "1563"
+"bill_no": "1563",
+"sheet_name": "Vegetable"
 },
 {
 "date": "2026-11-17",
@@ -7611,7 +7630,8 @@
 "bill": 995,
 "paid": 565,
 "due": 430,
-"bill_no": "430"
+"bill_no": "430",
+"sheet_name": "Snack"
 },
 {
 "date": "2026-11-17",
@@ -7620,7 +7640,8 @@
 "bill": 996,
 "paid": 996,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Kallumakkai"
 },
 {
 "date": "2026-11-17",
@@ -7629,16 +7650,18 @@
 "bill": 100,
 "paid": 100,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Petrol / Fruits"
 },
 {
 "date": "2026-11-17",
-"supplier": "Banana",
+"supplier": "Banana / Ice cream",
 "category": "Produce & batter",
 "bill": 100,
 "paid": 100,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Banana"
 },
 {
 "date": "2026-11-17",
@@ -7647,7 +7670,8 @@
 "bill": 1080,
 "paid": 0,
 "due": 1080,
-"bill_no": "1080"
+"bill_no": "1080",
+"sheet_name": "Beef"
 },
 {
 "date": "2026-11-18",
@@ -7656,7 +7680,8 @@
 "bill": 220,
 "paid": 0,
 "due": 220,
-"bill_no": "440"
+"bill_no": "440",
+"sheet_name": "Samoosa"
 },
 {
 "date": "2026-11-18",
@@ -7665,7 +7690,8 @@
 "bill": 2446,
 "paid": 2446,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Anadhi"
 },
 {
 "date": "2026-11-18",
@@ -7674,7 +7700,8 @@
 "bill": 614,
 "paid": 614,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Egg / Disposable / Handwash"
 },
 {
 "date": "2026-11-18",
@@ -7683,16 +7710,18 @@
 "bill": 100,
 "paid": 100,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Dosa mavu"
 },
 {
 "date": "2026-11-18",
-"supplier": "Fish",
+"supplier": "Fish / Water",
 "category": "Meat, fish & eggs",
 "bill": 980,
 "paid": 980,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Fish"
 },
 {
 "date": "2026-11-18",
@@ -7701,7 +7730,8 @@
 "bill": 780,
 "paid": 780,
 "due": 0,
-"bill_no": "780"
+"bill_no": "780",
+"sheet_name": "Milk"
 },
 {
 "date": "2026-11-18",
@@ -7710,7 +7740,8 @@
 "bill": 430,
 "paid": 0,
 "due": 430,
-"bill_no": "1993"
+"bill_no": "1993",
+"sheet_name": "Vegetable"
 },
 {
 "date": "2026-11-18",
@@ -7719,7 +7750,8 @@
 "bill": 970,
 "paid": 0,
 "due": 970,
-"bill_no": "2050"
+"bill_no": "2050",
+"sheet_name": "Chicken"
 },
 {
 "date": "2026-11-18",
@@ -7728,7 +7760,8 @@
 "bill": 1165,
 "paid": 0,
 "due": 1165,
-"bill_no": "1595"
+"bill_no": "1595",
+"sheet_name": "Snack"
 },
 {
 "date": "2026-11-18",
@@ -7737,16 +7770,18 @@
 "bill": 1096,
 "paid": 0,
 "due": 1096,
-"bill_no": "1096"
+"bill_no": "1096",
+"sheet_name": "Kallumakkai"
 },
 {
 "date": "2026-11-18",
-"supplier": "Banana",
+"supplier": "Banana / Ice cream",
 "category": "Produce & batter",
 "bill": 220,
 "paid": 220,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Banana"
 },
 {
 "date": "2026-11-18",
@@ -7755,7 +7790,8 @@
 "bill": 50,
 "paid": 50,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Auto"
 },
 {
 "date": "2026-11-18",
@@ -7764,7 +7800,8 @@
 "bill": 1080,
 "paid": 0,
 "due": 1080,
-"bill_no": "2160"
+"bill_no": "2160",
+"sheet_name": "Beef"
 },
 {
 "date": "2026-11-19",
@@ -7773,7 +7810,8 @@
 "bill": 660,
 "paid": 320,
 "due": 340,
-"bill_no": "780"
+"bill_no": "780",
+"sheet_name": "Samoosa"
 },
 {
 "date": "2026-11-19",
@@ -7782,7 +7820,8 @@
 "bill": 1765,
 "paid": 1765,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Anadhi"
 },
 {
 "date": "2026-11-19",
@@ -7791,7 +7830,8 @@
 "bill": 190,
 "paid": 190,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Egg / Disposable / Handwash"
 },
 {
 "date": "2026-11-19",
@@ -7800,7 +7840,8 @@
 "bill": 100,
 "paid": 100,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Room agreement / Waste"
 },
 {
 "date": "2026-11-19",
@@ -7809,7 +7850,8 @@
 "bill": 650,
 "paid": 345,
 "due": 305,
-"bill_no": "305"
+"bill_no": "305",
+"sheet_name": "Milk"
 },
 {
 "date": "2026-11-19",
@@ -7818,7 +7860,8 @@
 "bill": 881,
 "paid": 0,
 "due": 881,
-"bill_no": "2874"
+"bill_no": "2874",
+"sheet_name": "Vegetable"
 },
 {
 "date": "2026-11-19",
@@ -7827,7 +7870,8 @@
 "bill": 740,
 "paid": 0,
 "due": 740,
-"bill_no": "2790"
+"bill_no": "2790",
+"sheet_name": "Chicken"
 },
 {
 "date": "2026-11-19",
@@ -7836,7 +7880,8 @@
 "bill": 1044,
 "paid": 0,
 "due": 1044,
-"bill_no": "2140"
+"bill_no": "2140",
+"sheet_name": "Kallumakkai"
 },
 {
 "date": "2026-11-19",
@@ -7845,7 +7890,8 @@
 "bill": 2570,
 "paid": 2570,
 "due": 0,
-"bill_no": "2570"
+"bill_no": "2570",
+"sheet_name": "Gas"
 },
 {
 "date": "2026-11-19",
@@ -7854,16 +7900,18 @@
 "bill": 410,
 "paid": 0,
 "due": 410,
-"bill_no": "410"
+"bill_no": "410",
+"sheet_name": "Petrol / Fruits"
 },
 {
 "date": "2026-11-19",
-"supplier": "Banana",
+"supplier": "Banana / Ice cream",
 "category": "Produce & batter",
 "bill": 100,
 "paid": 100,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Banana"
 },
 {
 "date": "2026-11-19",
@@ -7872,7 +7920,8 @@
 "bill": 1080,
 "paid": 0,
 "due": 1080,
-"bill_no": "3240"
+"bill_no": "3240",
+"sheet_name": "Beef"
 },
 {
 "date": "2026-11-20",
@@ -7881,7 +7930,8 @@
 "bill": 220,
 "paid": 220,
 "due": 0,
-"bill_no": "660"
+"bill_no": "660",
+"sheet_name": "Samoosa"
 },
 {
 "date": "2026-11-20",
@@ -7890,7 +7940,8 @@
 "bill": 1383,
 "paid": 1383,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Anadhi"
 },
 {
 "date": "2026-11-20",
@@ -7899,7 +7950,8 @@
 "bill": 430,
 "paid": 430,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Egg / Disposable / Handwash"
 },
 {
 "date": "2026-11-20",
@@ -7908,7 +7960,8 @@
 "bill": 150,
 "paid": 150,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Dosa mavu"
 },
 {
 "date": "2026-11-20",
@@ -7917,7 +7970,8 @@
 "bill": 1050,
 "paid": 1050,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Fish / Water"
 },
 {
 "date": "2026-11-20",
@@ -7926,7 +7980,8 @@
 "bill": 800,
 "paid": 650,
 "due": 150,
-"bill_no": "455"
+"bill_no": "455",
+"sheet_name": "Milk"
 },
 {
 "date": "2026-11-20",
@@ -7935,7 +7990,8 @@
 "bill": 546,
 "paid": 0,
 "due": 546,
-"bill_no": "3420"
+"bill_no": "3420",
+"sheet_name": "Vegetable"
 },
 {
 "date": "2026-11-20",
@@ -7944,7 +8000,8 @@
 "bill": 855,
 "paid": 0,
 "due": 855,
-"bill_no": "2450"
+"bill_no": "2450",
+"sheet_name": "Snack"
 },
 {
 "date": "2026-11-20",
@@ -7953,7 +8010,8 @@
 "bill": 1080,
 "paid": 1080,
 "due": 0,
-"bill_no": "2120"
+"bill_no": "2120",
+"sheet_name": "Kallumakkai"
 },
 {
 "date": "2026-11-20",
@@ -7962,7 +8020,8 @@
 "bill": 970,
 "paid": 970,
 "due": 0,
-"bill_no": "-80"
+"bill_no": "-80",
+"sheet_name": "Banana / Ice cream"
 },
 {
 "date": "2026-11-20",
@@ -7971,7 +8030,8 @@
 "bill": 1080,
 "paid": 0,
 "due": 1080,
-"bill_no": "4320"
+"bill_no": "4320",
+"sheet_name": "Beef"
 },
 {
 "date": "2026-11-21",
@@ -7980,7 +8040,8 @@
 "bill": 220,
 "paid": 0,
 "due": 220,
-"bill_no": "880"
+"bill_no": "880",
+"sheet_name": "Samoosa"
 },
 {
 "date": "2026-11-21",
@@ -7989,7 +8050,8 @@
 "bill": 1579,
 "paid": 1579,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Anadhi"
 },
 {
 "date": "2026-11-21",
@@ -7998,7 +8060,8 @@
 "bill": 275,
 "paid": 275,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Egg / Disposable / Handwash"
 },
 {
 "date": "2026-11-21",
@@ -8007,7 +8070,8 @@
 "bill": 520,
 "paid": 520,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Dosa mavu"
 },
 {
 "date": "2026-11-21",
@@ -8016,7 +8080,8 @@
 "bill": 780,
 "paid": 780,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Fish / Water"
 },
 {
 "date": "2026-11-21",
@@ -8025,7 +8090,8 @@
 "bill": 100,
 "paid": 100,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Room agreement / Waste"
 },
 {
 "date": "2026-11-21",
@@ -8034,7 +8100,8 @@
 "bill": 930,
 "paid": 800,
 "due": 130,
-"bill_no": "585"
+"bill_no": "585",
+"sheet_name": "Milk"
 },
 {
 "date": "2026-11-21",
@@ -8043,7 +8110,8 @@
 "bill": 1183,
 "paid": 0,
 "due": 1183,
-"bill_no": "4603"
+"bill_no": "4603",
+"sheet_name": "Vegetable"
 },
 {
 "date": "2026-11-21",
@@ -8052,7 +8120,8 @@
 "bill": 690,
 "paid": 0,
 "due": 690,
-"bill_no": "3480"
+"bill_no": "3480",
+"sheet_name": "Chicken"
 },
 {
 "date": "2026-11-21",
@@ -8061,7 +8130,8 @@
 "bill": 1030,
 "paid": 540,
 "due": 490,
-"bill_no": "2940"
+"bill_no": "2940",
+"sheet_name": "Snack"
 },
 {
 "date": "2026-11-21",
@@ -8070,7 +8140,8 @@
 "bill": 1325,
 "paid": 0,
 "due": 1325,
-"bill_no": "3445"
+"bill_no": "3445",
+"sheet_name": "Kallumakkai"
 },
 {
 "date": "2026-11-21",
@@ -8079,7 +8150,8 @@
 "bill": 2570,
 "paid": 0,
 "due": 2570,
-"bill_no": "5140"
+"bill_no": "5140",
+"sheet_name": "Gas"
 },
 {
 "date": "2026-11-21",
@@ -8088,7 +8160,8 @@
 "bill": 490,
 "paid": 490,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Petrol / Fruits"
 },
 {
 "date": "2026-11-21",
@@ -8097,7 +8170,8 @@
 "bill": 100,
 "paid": 100,
 "due": 0,
-"bill_no": "-80"
+"bill_no": "-80",
+"sheet_name": "Banana / Ice cream"
 },
 {
 "date": "2026-11-21",
@@ -8106,7 +8180,8 @@
 "bill": 50,
 "paid": 50,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Auto"
 },
 {
 "date": "2026-11-21",
@@ -8115,7 +8190,8 @@
 "bill": 1080,
 "paid": 0,
 "due": 1080,
-"bill_no": "5400"
+"bill_no": "5400",
+"sheet_name": "Beef"
 },
 {
 "date": "2026-11-22",
@@ -8124,7 +8200,8 @@
 "bill": 1900,
 "paid": 1900,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Anadhi"
 },
 {
 "date": "2026-11-22",
@@ -8133,7 +8210,8 @@
 "bill": 290,
 "paid": 290,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Egg / Disposable / Handwash"
 },
 {
 "date": "2026-11-22",
@@ -8142,7 +8220,8 @@
 "bill": 300,
 "paid": 300,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Dosa mavu"
 },
 {
 "date": "2026-11-22",
@@ -8151,7 +8230,8 @@
 "bill": 300,
 "paid": 300,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Fish / Water"
 },
 {
 "date": "2026-11-22",
@@ -8160,7 +8240,8 @@
 "bill": 100,
 "paid": 100,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Room agreement / Waste"
 },
 {
 "date": "2026-11-22",
@@ -8169,7 +8250,8 @@
 "bill": 995,
 "paid": 930,
 "due": 65,
-"bill_no": "650"
+"bill_no": "650",
+"sheet_name": "Milk"
 },
 {
 "date": "2026-11-22",
@@ -8178,7 +8260,8 @@
 "bill": 962,
 "paid": 0,
 "due": 962,
-"bill_no": "4442"
+"bill_no": "4442",
+"sheet_name": "Chicken"
 },
 {
 "date": "2026-11-22",
@@ -8187,7 +8270,8 @@
 "bill": 100,
 "paid": 100,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Petrol / Fruits"
 },
 {
 "date": "2026-11-22",
@@ -8196,7 +8280,8 @@
 "bill": 100,
 "paid": 100,
 "due": 0,
-"bill_no": "-80"
+"bill_no": "-80",
+"sheet_name": "Banana / Ice cream"
 },
 {
 "date": "2026-11-22",
@@ -8205,7 +8290,8 @@
 "bill": 50,
 "paid": 50,
 "due": 0,
-"bill_no": ""
+"bill_no": "",
+"sheet_name": "Auto"
 }
 ],
 "due_payments": [
@@ -8267,8 +8353,8 @@
 "Snack": 2940,
 "Kallumakkai": 3445,
 "Gas": 5140,
-"Beef": 5400,
-"Banana / Ice cream": -80
+"Banana / Ice cream": -80,
+"Beef": 5400
 },
 "warnings": [
 "2026-11-20: Banana / Ice cream paid 80 more than owed, held as a supplier credit",

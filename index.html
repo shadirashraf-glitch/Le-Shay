@@ -81,6 +81,29 @@ section.tab[hidden] { display: none; }
 .nyr { color: var(--warn); font-weight: 600; }
 .cashcard { border-color: rgba(212,175,55,.35); }
 .duecard { border-color: rgba(255,138,115,.35); }
+.chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; } .chips::-webkit-scrollbar { display: none; }
+.chips button { flex: 0 0 auto; font: inherit; font-size: 13px; font-weight: 500; color: var(--gold); background: none; border: 1px solid var(--gold-soft); border-radius: 999px; padding: 0 14px; min-height: 38px; cursor: pointer; white-space: nowrap; }
+.chips button.on { background: var(--gold-soft); border-color: var(--gold); }
+.chips button:focus-visible, .sup summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.chiplbl { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 2px 0 -4px; }
+.sups { display: grid; }
+.sup { border-bottom: 1px solid var(--line); }
+.sup summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 2px 10px; padding: 12px 0; font-variant-numeric: tabular-nums; }
+.sup summary::-webkit-details-marker { display: none; }
+.sup summary .nm { font-size: 15px; font-weight: 600; }
+.sup summary .nm::before { content: "▸"; color: var(--gold); display: inline-block; width: 16px; transition: transform .15s; }
+.sup[open] summary .nm::before { transform: rotate(90deg); }
+.sup summary .bal { font-size: 15px; font-weight: 700; white-space: nowrap; text-align: right; }
+.sup summary small { grid-column: 1 / -1; color: var(--muted); font-size: 12px; padding-left: 16px; }
+.sup .hist { padding: 0 0 12px 16px; }
+.sup table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+.sup th { color: var(--muted); font-weight: 600; text-align: right; padding: 4px 0 4px 8px; border-bottom: 1px solid var(--line); }
+.sup td { text-align: right; padding: 5px 0 5px 8px; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+.sup th:first-child, .sup td:first-child { text-align: left; padding-left: 0; }
+.flag.bad { border-color: var(--bad); color: var(--bad); }
+#spt-kpis { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; } #spt-kpis .kpi { padding: 12px 14px; } #spt-kpis .kpi:last-child { grid-column: 1 / -1; border-color: rgba(212,175,55,.35); }
+#spt-kpis .val { font-size: clamp(20px, 6.2vw, 28px); } #spt-kpis .ctx { font-size: 12px; }
+@media (min-width: 900px) { #spt-kpis { grid-template-columns: repeat(5, minmax(0,1fr)); } #spt-kpis .kpi:last-child { grid-column: auto; } }
 .cc-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
 .cc-head .lbl { display: block; color: var(--beige); font-size: 13px; font-weight: 600; }
 .cc-head .val { display: block; font-family: var(--serif); font-weight: 700; font-size: clamp(32px, 10vw, 44px); line-height: 1.1; font-variant-numeric: tabular-nums lining-nums; white-space: nowrap; }
@@ -405,6 +428,18 @@ footer { color: var(--muted); font-size: 12px; text-align: center; letter-spacin
       <div class="cc-head"><div><span class="lbl">Supplier due from 16 Nov</span><span class="val neg" id="c-ndue-total">—</span></div><span class="pill">Grand Total Due</span></div>
       <div class="items" id="c-ndue-rows"></div>
       <p class="note">New-period dues only, carried forward day by day. Kept separate from the historical supplier outstanding to 15 Nov. When a due is paid it reduces this balance. It is not counted again as an expense.</p>
+    </div>
+    <div class="card" id="spt">
+      <h3>Supplier Payment Tracker</h3>
+      <p class="note">Purchases, payments and balances for each supplier from 16 Nov. Balances carry forward day to day. The period shows that week's activity; balances are as of its closing date. Historical supplier outstanding to 15 Nov is not included.</p>
+      <div class="chiplbl">Period</div>
+      <div class="chips" id="spt-per" role="group" aria-label="Period"></div>
+      <div class="chiplbl">Status</div>
+      <div class="chips" id="spt-stat" role="group" aria-label="Supplier status"></div>
+      <div class="kpis two" id="spt-kpis"></div>
+      <p class="count" id="spt-count"></p>
+      <div class="sups" id="spt-list"></div>
+      <div class="items" id="spt-tot"></div>
     </div>
     <div class="kpis two">
       <div class="kpi"><span class="lbl">Operational cash advances</span><span class="val" id="c-adv">—</span><span class="ctx">Handed over to run the cafe</span></div>
@@ -818,7 +853,7 @@ function cashTab() {
   const adv = D.adv, book = D.cashbook || [], NYR = 'Not yet reconcilable';
   cashStatus($('cash-status')); setVal('c-adv', adv); setVal('c-direct', D.direct);
   operatingCash($('c-oc'), $('c-oc-rows'), $('c-oc-note'), $('c-oc-pill'));
-  duesCard('c-due'); curCash();
+  duesCard('c-due'); curCash(); supplierTracker();
   stack($('c-bar'), [[adv, 'var(--kraft)'], [D.OC, 'var(--c-juice)'], [D.stockOwner, 'var(--c-stock)']], adv + D.direct);
   const cs = $('c-split'); cs.replaceChildren();
   splitRow(cs, 'var(--kraft)', 'Cash advances to manager', inr(adv), 'GKU, Ukku, Nauman');
@@ -866,6 +901,74 @@ function curCash() {
   row(rows, 'Unpaid supplier balances', owed.length + ' suppliers', inr(d3.sum(owed, e => e[1])), 'tot');
   cred.forEach(([k, v]) => row(rows, k, 'credit with supplier, paid in advance', inr(v), 'pos', { text: 'Credit' }));
   row(rows, 'Grand Total Due', cred.length ? 'unpaid balances less supplier credit, matches the sheet' : 'matches the sheet', inr(D.NEWDUE), 'sum');
+}
+
+const ST = { per: 'this', stat: 'all' };
+function supplierTracker() {
+  const card = $('spt'), cl = D.cur.closing;
+  if (!cl.length) { card.hidden = true; return; }
+  const days = cl.map(c => c.date), last = days[days.length - 1], wk = d => d3.utcFormat('%Y-%m-%d')(d3.utcMonday.floor(P(d)));
+  const weeks = [...new Set(days.map(wk))].sort(), thisW = wk(last), prevW = d3.utcFormat('%Y-%m-%d')(d3.utcDay.offset(P(thisW), -7));
+  const add = (d, n) => d3.utcFormat('%Y-%m-%d')(d3.utcDay.offset(P(d), n));
+  const PER = {
+    this: { label: 'This week', from: thisW < D.cur.from ? D.cur.from : thisW, to: last },
+    prev: { label: 'Previous week', from: prevW < D.cur.from ? D.cur.from : prevW, to: add(prevW, 6) < D.cur.from ? null : add(prevW, 6) },
+    all: { label: 'All periods', from: D.cur.from, to: last } };
+  const p = PER[ST.per], has = !!p.to && days.some(d => d >= p.from && d <= p.to);
+  const ev = [];
+  D.cur.purchases.forEach(x => ev.push({ s: x.supplier, d: x.date, bill: x.bill, paid: x.paid, note: x.sheet_name !== x.supplier ? 'written as ' + x.sheet_name : '' }));
+  D.cur.due_payments.forEach(x => ev.push({ s: x.supplier, d: x.date, bill: 0, paid: x.amount, note: 'includes payment against an earlier due' }));
+  ev.sort((a, b) => a.d < b.d ? -1 : a.d > b.d ? 1 : b.bill - a.bill);
+  const sups = d3.rollups(ev, v => v, e => e.s).map(([s, v]) => {
+    let run = 0; const hist = d3.rollups(v, g => ({ d: g[0].d, bill: d3.sum(g, e => e.bill), paid: d3.sum(g, e => e.paid), note: [...new Set(g.map(e => e.note).filter(Boolean))].join('; ') }), e => e.d)
+      .map(([, e]) => { run += e.bill - e.paid; return { ...e, bal: run }; });
+    const upto = d => d3.sum(v.filter(e => e.d <= d), e => e.bill - e.paid);
+    const inP = has ? v.filter(e => e.d >= p.from && e.d <= p.to) : [];
+    const close = has ? upto(p.to) : 0, open = has ? d3.sum(v.filter(e => e.d < p.from), e => e.bill - e.paid) : 0;
+    return { s, hist, inP, open, close, bill: d3.sum(inP, e => e.bill), paid: d3.sum(inP, e => e.paid), seen: has && v.some(e => e.d <= p.to),
+      status: close > 0 ? 'Pending' : close < 0 ? 'Overpaid' : 'Settled' };
+  }).filter(x => x.seen && (x.inP.length || x.close));
+  const unpaid = d3.sum(sups, x => Math.max(x.close, 0)), credit = -d3.sum(sups, x => Math.min(x.close, 0)), net = unpaid - credit;
+  const openNet = d3.sum(sups, x => x.open), cnt = k => sups.filter(x => x.status === k).length;
+  // period chips
+  $('spt-per').replaceChildren(...Object.entries(PER).map(([k, v]) => { const b = el('button', ST.per === k ? 'on' : '', v.label + (v.to ? ' · ' + fd(v.from) + '–' + fd(v.to < last ? v.to : last) : ''));
+    b.setAttribute('aria-pressed', ST.per === k); b.onclick = () => { ST.per = k; supplierTracker(); }; return b; }));
+  $('spt-stat').replaceChildren(...[['all', 'All', sups.length], ['Pending', 'Pending', cnt('Pending')], ['Settled', 'Settled', cnt('Settled')], ['Overpaid', 'Overpaid', cnt('Overpaid')]].map(([k, l, n]) => {
+    const b = el('button', ST.stat === k ? 'on' : '', l + ' · ' + n); b.setAttribute('aria-pressed', ST.stat === k); b.onclick = () => { ST.stat = k; supplierTracker(); }; return b; }));
+  const kp = (l, v, ctx, cls) => { const t = el('div', 'kpi sm-val'); t.append(el('span', 'lbl', l), el('span', 'val ' + (cls || ''), inr(v)), el('span', 'ctx', ctx)); return t; };
+  if (!has) {
+    $('spt-kpis').replaceChildren(); $('spt-list').replaceChildren(); $('spt-tot').replaceChildren();
+    $('spt-count').textContent = 'No supplier records in this period. The tracker starts on ' + fd(D.cur.from) + '; supplier balances before then are in Historical supplier outstanding.';
+    return;
+  }
+  const asOf = p.to < last ? p.to : last;
+  $('spt-kpis').replaceChildren(
+    kp('Total purchases', d3.sum(sups, x => x.bill), fd(p.from) + ' to ' + fd(asOf)),
+    kp('Total paid', d3.sum(sups, x => x.paid), 'incl. payments against earlier dues'),
+    kp('Unpaid supplier balances', unpaid, cnt('Pending') + ' pending · as of ' + fd(asOf), unpaid ? 'neg' : ''),
+    kp('Supplier credits', credit, cnt('Overpaid') + ' overpaid · paid in advance', credit ? 'pos' : ''),
+    kp('Net outstanding', net, (ST.per === 'all' ? 'since ' + fd(D.cur.from) : 'opening ' + inr(openNet) + ' · change ' + (net - openNet >= 0 ? '+' : '') + inr(net - openNet)), net ? 'neg' : ''));
+  const order = { Pending: 0, Overpaid: 1, Settled: 2 }, list = sups.filter(x => ST.stat === 'all' || x.status === ST.stat)
+    .sort((a, b) => order[a.status] - order[b.status] || b.close - a.close || b.bill - a.bill);
+  $('spt-count').textContent = list.length + ' of ' + sups.length + ' suppliers · tap a supplier for its daily history';
+  $('spt-list').replaceChildren(...list.map(x => {
+    const dt = el('details', 'sup'), sm = el('summary'), nm = el('span', 'nm', x.s);
+    nm.appendChild(el('span', 'flag ' + (x.status === 'Pending' ? 'bad' : 'ok'), x.status));
+    sm.append(nm, el('span', 'bal ' + (x.close > 0 ? 'neg' : x.close < 0 ? 'pos' : ''), inr(x.close)), el('small', null, 'Purchased ' + inr(x.bill) + ' · paid ' + inr(x.paid) + (ST.per !== 'all' && x.open ? ' · brought forward ' + inr(x.open) : '')));
+    const h = el('div', 'hist'), tb = el('table'), hr = el('tr');
+    ['Day', 'Purchase', 'Paid', 'Balance'].forEach(c => hr.appendChild(el('th', null, c))); tb.appendChild(el('thead')).appendChild(hr);
+    const body = tb.appendChild(el('tbody'));
+    x.hist.filter(e => e.d <= asOf).forEach(e => { const r = el('tr'); if (e.d < p.from) r.style.opacity = '.55';
+      [fd(e.d) + (e.note ? ' *' : ''), e.bill ? inr(e.bill) : '–', e.paid ? inr(e.paid) : '–', inr(e.bal)].forEach(v => r.appendChild(el('td', null, v))); if (e.note) r.title = e.note; body.appendChild(r); });
+    h.appendChild(tb);
+    const notes = [...new Set(x.hist.filter(e => e.note && e.d <= asOf).map(e => e.note))];
+    if (notes.length) h.appendChild(el('p', 'count', '* ' + notes.join('; ')));
+    if (ST.per !== 'all' && x.hist.some(e => e.d < p.from)) h.appendChild(el('p', 'count', 'Faded rows are before this period and make up the brought-forward balance.'));
+    dt.appendChild(sm); dt.appendChild(h); return dt; }));
+  const tot = $('spt-tot'); tot.replaceChildren();
+  row(tot, 'Total purchases', 'shown suppliers', inr(d3.sum(list, x => x.bill)));
+  row(tot, 'Total paid', '', inr(d3.sum(list, x => x.paid)));
+  row(tot, 'Net outstanding', 'shown suppliers, as of ' + fd(asOf), inr(d3.sum(list, x => x.close)), 'sum');
 }
 
 /* ================= RECORDS ================= */
