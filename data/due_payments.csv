@@ -3,3 +3,6 @@ date,supplier,amount,notes
 2026-11-17,Snack,935,Clears 16 Nov snack due (1500 paid: 935 old due + 565 against today's 995)
 2026-11-17,Kallumakkai,1376,Clears 16 Nov kallumakkai due (2372 paid: 1376 old due + 996 today)
 2026-11-19,Milk,780,Clears 18 Nov milk due (1125 paid: 780 old due + 345 against today 650)
+2026-11-20,Samoosa,120,Part payment of earlier samoosa due (340 paid: 220 today + 120 old due)
+2026-11-20,Kallumakkai,20,Part payment of earlier kallumakkai due (1100 paid: 1080 today + 20 old due)
+2026-11-20,Banana / Ice cream,80,Paid 80 more than the 970 bill: supplier credit

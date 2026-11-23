@@ -49,7 +49,7 @@ for c in closing:
         if got != I(c[key]): problems.append(f"{d}: {lab} {got} != sheet {c[key]}")
     for p in pl: sup_due[p["supplier"]] = sup_due.get(p["supplier"], 0) + p["due"]
     for x in paid_dues:
-        if sup_due.get(x["supplier"], 0) < x["amount"]: problems.append(f"{d}: payment to {x['supplier']} {x['amount']} exceeds its due")
+        if sup_due.get(x["supplier"], 0) < x["amount"]: warnings.append(f"{d}: {x['supplier']} paid {x['amount'] - max(sup_due.get(x['supplier'], 0), 0)} more than owed, held as a supplier credit")
         sup_due[x["supplier"]] = sup_due.get(x["supplier"], 0) - x["amount"]
     grand += I(c["due_total"])
     if c["grand_due"].strip() and I(c["grand_due"]) != grand: problems.append(f"{d}: grand due {grand} != sheet {c['grand_due']}")
@@ -58,6 +58,7 @@ for c in closing:
     calc = I(c["opening_cash"]) + I(c["owner_cash"]) + cash_in - I(c["paid_total"]) - staff_paid
     c.update(staff_paid=staff_paid, due_paid=sum(x["amount"] for x in paid_dues), grand_calc=grand, closing_calc=calc, cash_assumed=not c["cash_sales"].strip())
     if c["closing_cash"].strip() and I(c["closing_cash"]) != calc: warnings.append(f"{d}: closing cash on sheet {c['closing_cash']} vs formula {calc}")
+    if calc < 0: warnings.append(f"{d}: calculated closing cash is {calc}. Needs verification of additional funding or unrecorded cash movements. No owner advance has been assumed.")
     x = {"date": d, "sales": tot, "kitchen": k, "juice": j_, "period": "current"}
     sales.append(x)
     for p in pl:

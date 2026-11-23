@@ -48,3 +48,14 @@ date,supplier,category,bill,paid,due,bill_no
 2026-11-19,Petrol / Fruits,Produce & batter,410,0,410,410
 2026-11-19,Banana,Produce & batter,100,100,0,
 2026-11-19,Beef,"Meat, fish & eggs",1080,0,1080,3240
+2026-11-20,Samoosa,Snacks & ice cream,220,220,0,660
+2026-11-20,Anadhi,Groceries,1383,1383,0,
+2026-11-20,Egg / Disposable / Handwash,"Meat, fish & eggs",430,430,0,
+2026-11-20,Dosa mavu,Produce & batter,150,150,0,
+2026-11-20,Fish / Water,"Meat, fish & eggs",1050,1050,0,
+2026-11-20,Milk,Milk,800,650,150,455
+2026-11-20,Vegetable,Produce & batter,546,0,546,3420
+2026-11-20,Snack,Snacks & ice cream,855,0,855,2450
+2026-11-20,Kallumakkai,Snacks & ice cream,1080,1080,0,2120
+2026-11-20,Banana / Ice cream,Snacks & ice cream,970,970,0,-80
+2026-11-20,Beef,"Meat, fish & eggs",1080,0,1080,4320

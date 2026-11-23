@@ -1,5 +1,5 @@
 {
-"updated": "2026-11-23T21:53+00:00",
+"updated": "2026-11-23T21:55+00:00",
 "sales": [
 {
 "date": "2026-09-28",
@@ -257,6 +257,13 @@
 "sales": 11351,
 "kitchen": 2160,
 "juice": 1335,
+"period": "current"
+},
+{
+"date": "2026-11-20",
+"sales": 10325,
+"kitchen": 1110,
+"juice": 1620,
 "period": "current"
 }
 ],
@@ -3917,6 +3924,111 @@
 "category": "Room rent",
 "amount": 535,
 "period": "current"
+},
+{
+"date": "2026-11-20",
+"item": "Samoosa",
+"category": "Snacks & ice cream",
+"amount": 220,
+"period": "current"
+},
+{
+"date": "2026-11-20",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1383,
+"period": "current"
+},
+{
+"date": "2026-11-20",
+"item": "Egg / Disposable / Handwash",
+"category": "Meat, fish & eggs",
+"amount": 430,
+"period": "current"
+},
+{
+"date": "2026-11-20",
+"item": "Dosa mavu",
+"category": "Produce & batter",
+"amount": 150,
+"period": "current"
+},
+{
+"date": "2026-11-20",
+"item": "Fish / Water",
+"category": "Meat, fish & eggs",
+"amount": 1050,
+"period": "current"
+},
+{
+"date": "2026-11-20",
+"item": "Milk · part unpaid",
+"category": "Milk",
+"amount": 800,
+"period": "current"
+},
+{
+"date": "2026-11-20",
+"item": "Vegetable · unpaid",
+"category": "Produce & batter",
+"amount": 546,
+"period": "current"
+},
+{
+"date": "2026-11-20",
+"item": "Snack · unpaid",
+"category": "Snacks & ice cream",
+"amount": 855,
+"period": "current"
+},
+{
+"date": "2026-11-20",
+"item": "Kallumakkai",
+"category": "Snacks & ice cream",
+"amount": 1080,
+"period": "current"
+},
+{
+"date": "2026-11-20",
+"item": "Banana / Ice cream",
+"category": "Snacks & ice cream",
+"amount": 970,
+"period": "current"
+},
+{
+"date": "2026-11-20",
+"item": "Beef · unpaid",
+"category": "Meat, fish & eggs",
+"amount": 1080,
+"period": "current"
+},
+{
+"date": "2026-11-20",
+"item": "Daily staff wages",
+"category": "Staff",
+"amount": 5800,
+"period": "current"
+},
+{
+"date": "2026-11-20",
+"item": "Shop rent",
+"category": "Rent",
+"amount": 800,
+"period": "current"
+},
+{
+"date": "2026-11-20",
+"item": "GKU salary",
+"category": "GKU salary",
+"amount": 350,
+"period": "current"
+},
+{
+"date": "2026-11-20",
+"item": "Room rent",
+"category": "Room rent",
+"amount": 535,
+"period": "current"
 }
 ],
 "preopening": [
@@ -6970,6 +7082,36 @@
 "grand_calc": 16704,
 "closing_calc": 2264,
 "cash_assumed": true
+},
+{
+"date": "2026-11-20",
+"kitchen": "1110",
+"juice": "1620",
+"counter": "7595",
+"total_sales": "10325",
+"cash_sales": "",
+"digital_sales": "",
+"opening_cash": "2264",
+"owner_cash": "",
+"closing_cash": "-1049",
+"staff_count": "9",
+"staff_wages": "5800",
+"shop_rent": "800",
+"gku_salary": "350",
+"room_rent": "535",
+"electricity": "",
+"firoz_salary": "",
+"bills_total": "8564",
+"paid_total": "6153",
+"due_total": "2411",
+"grand_due": "19115",
+"checked_by_gku": "",
+"notes": "Opening corrected to 2264 (19 Nov corrected closing); sheet showed opening 2531 and closing -782. Calculated closing is negative: verify additional funding or unrecorded cash movements. No owner advance assumed. Cash sales blank.",
+"staff_paid": 7485,
+"due_paid": 220,
+"grand_calc": 19115,
+"closing_calc": -1049,
+"cash_assumed": true
 }
 ],
 "purchases": [
@@ -7413,6 +7555,105 @@
 "paid": 0,
 "due": 1080,
 "bill_no": "3240"
+},
+{
+"date": "2026-11-20",
+"supplier": "Samoosa",
+"category": "Snacks & ice cream",
+"bill": 220,
+"paid": 220,
+"due": 0,
+"bill_no": "660"
+},
+{
+"date": "2026-11-20",
+"supplier": "Anadhi",
+"category": "Groceries",
+"bill": 1383,
+"paid": 1383,
+"due": 0,
+"bill_no": ""
+},
+{
+"date": "2026-11-20",
+"supplier": "Egg / Disposable / Handwash",
+"category": "Meat, fish & eggs",
+"bill": 430,
+"paid": 430,
+"due": 0,
+"bill_no": ""
+},
+{
+"date": "2026-11-20",
+"supplier": "Dosa mavu",
+"category": "Produce & batter",
+"bill": 150,
+"paid": 150,
+"due": 0,
+"bill_no": ""
+},
+{
+"date": "2026-11-20",
+"supplier": "Fish / Water",
+"category": "Meat, fish & eggs",
+"bill": 1050,
+"paid": 1050,
+"due": 0,
+"bill_no": ""
+},
+{
+"date": "2026-11-20",
+"supplier": "Milk",
+"category": "Milk",
+"bill": 800,
+"paid": 650,
+"due": 150,
+"bill_no": "455"
+},
+{
+"date": "2026-11-20",
+"supplier": "Vegetable",
+"category": "Produce & batter",
+"bill": 546,
+"paid": 0,
+"due": 546,
+"bill_no": "3420"
+},
+{
+"date": "2026-11-20",
+"supplier": "Snack",
+"category": "Snacks & ice cream",
+"bill": 855,
+"paid": 0,
+"due": 855,
+"bill_no": "2450"
+},
+{
+"date": "2026-11-20",
+"supplier": "Kallumakkai",
+"category": "Snacks & ice cream",
+"bill": 1080,
+"paid": 1080,
+"due": 0,
+"bill_no": "2120"
+},
+{
+"date": "2026-11-20",
+"supplier": "Banana / Ice cream",
+"category": "Snacks & ice cream",
+"bill": 970,
+"paid": 970,
+"due": 0,
+"bill_no": "-80"
+},
+{
+"date": "2026-11-20",
+"supplier": "Beef",
+"category": "Meat, fish & eggs",
+"bill": 1080,
+"paid": 0,
+"due": 1080,
+"bill_no": "4320"
 }
 ],
 "due_payments": [
@@ -7439,21 +7680,43 @@
 "supplier": "Milk",
 "amount": 780,
 "notes": "Clears 18 Nov milk due (1125 paid: 780 old due + 345 against today 650)"
+},
+{
+"date": "2026-11-20",
+"supplier": "Samoosa",
+"amount": 120,
+"notes": "Part payment of earlier samoosa due (340 paid: 220 today + 120 old due)"
+},
+{
+"date": "2026-11-20",
+"supplier": "Kallumakkai",
+"amount": 20,
+"notes": "Part payment of earlier kallumakkai due (1100 paid: 1080 today + 20 old due)"
+},
+{
+"date": "2026-11-20",
+"supplier": "Banana / Ice cream",
+"amount": 80,
+"notes": "Paid 80 more than the 970 bill: supplier credit"
 }
 ],
-"grand_due": 16704,
+"grand_due": 19115,
 "supplier_due": {
-"Samoosa": 780,
-"Milk": 305,
-"Vegetable": 2874,
+"Samoosa": 660,
+"Milk": 455,
+"Vegetable": 3420,
 "Chicken": 2790,
-"Snack": 1595,
-"Kallumakkai": 2140,
+"Snack": 2450,
+"Kallumakkai": 2120,
 "Gas": 2570,
 "Petrol / Fruits": 410,
-"Beef": 3240
+"Beef": 4320,
+"Banana / Ice cream": -80
 },
-"warnings": []
+"warnings": [
+"2026-11-20: Banana / Ice cream paid 80 more than owed, held as a supplier credit",
+"2026-11-20: calculated closing cash is -1049. Needs verification of additional funding or unrecorded cash movements. No owner advance has been assumed."
+]
 },
 "period_closed": "2026-11-15"
 }

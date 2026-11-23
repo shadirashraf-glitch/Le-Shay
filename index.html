@@ -551,7 +551,9 @@ function operatingCash(valEl, rowsEl, noteEl, pillEl) {
     row(rowsEl, 'Estimate at ' + fd(D.period_closed) + ' close', 'advances + trading result' + (fromAdv ? ' − launch tasting' : ''), inr(est));
     row(rowsEl, 'Difference to explain', 'reported opening minus estimate', inr(open0 - est), Math.abs(open0 - est) > 0 ? 'neg' : '', Math.abs(open0 - est) > 0 ? { text: 'Check' } : null);
     noteEl.textContent = 'From 16 Nov this is the cash the manager reports at day end. The ' + inr(open0 - est) + ' gap between the reported opening cash and the old estimate needs a reason, for example cash added that was not recorded, sales not written down, or expenses paid from elsewhere. Confirm with a physical count.';
-    if (pillEl) pillEl.textContent = 'Manager reported';
+    if (pillEl) pillEl.textContent = v < 0 ? 'Negative · verify' : 'Manager reported';
+    if (v < 0) { row(rowsEl, 'Negative cash position', 'needs verification of extra funding or unrecorded cash movements', inr(v), 'neg', { text: 'Verify' });
+      noteEl.textContent = 'The calculated closing cash is below zero, which cannot happen physically. Either cash was added that is not on the sheet, or some payments or sales are recorded wrongly. No owner advance has been assumed. ' + noteEl.textContent; }
     return;
   }
   valEl.textContent = inr(est); valEl.classList.remove('pos', 'neg'); valEl.classList.add(est >= 0 ? 'pos' : 'neg');
@@ -857,7 +859,7 @@ function curCash() {
   const t = $('c-cur').querySelector('.note'); if (cl.some(c => c.cash_assumed)) t.textContent = t.textContent.replace(/ \* .*$/, '') + ' * Cash sales not split from UPI on the sheet, so all sales are treated as cash.';
   $('c-ndue-total').textContent = inr(-D.NEWDUE);
   const rows = $('c-ndue-rows'); rows.replaceChildren();
-  Object.entries(D.cur.supplier_due).sort((a, b) => b[1] - a[1]).forEach(([k, v]) => row(rows, k, '', inr(v)));
+  Object.entries(D.cur.supplier_due).sort((a, b) => b[1] - a[1]).forEach(([k, v]) => row(rows, k, v < 0 ? 'credit with supplier, paid in advance' : '', inr(v), v < 0 ? 'pos' : ''));
   row(rows, 'Grand Total Due', 'matches the sheet', inr(D.NEWDUE), 'sum');
 }
 
