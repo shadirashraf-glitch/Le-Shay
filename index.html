@@ -546,14 +546,14 @@ function operatingCash(valEl, rowsEl, noteEl, pillEl) {
   if (last) {
     const v = +last.closing_cash, open0 = +cl[0].opening_cash;
     valEl.textContent = inr(v); valEl.classList.remove('pos', 'neg'); valEl.classList.add(v >= 0 ? 'pos' : 'neg');
-    row(rowsEl, 'Closing cash, ' + fd(last.date), 'reported on the Daily Closing sheet' + (last.checked_by_gku ? ', checked by GKU' : ', not yet checked by GKU'), inr(v), 'sum');
+    row(rowsEl, 'Closing cash, ' + fd(last.date), (v < 0 ? 'calculated from the reconciled sheet, not verified physical cash' : 'reported on the Daily Closing sheet') + (last.checked_by_gku ? ', checked by GKU' : ', not yet checked by GKU'), inr(v), 'sum');
     row(rowsEl, 'Opening cash, ' + fd(cl[0].date), 'first day of the new template', inr(open0));
     row(rowsEl, 'Estimate at ' + fd(D.period_closed) + ' close', 'advances + trading result' + (fromAdv ? ' − launch tasting' : ''), inr(est));
     row(rowsEl, 'Difference to explain', 'reported opening minus estimate', inr(open0 - est), Math.abs(open0 - est) > 0 ? 'neg' : '', Math.abs(open0 - est) > 0 ? { text: 'Check' } : null);
     noteEl.textContent = 'From 16 Nov this is the cash the manager reports at day end. The ' + inr(open0 - est) + ' gap between the reported opening cash and the old estimate needs a reason, for example cash added that was not recorded, sales not written down, or expenses paid from elsewhere. Confirm with a physical count.';
-    if (pillEl) pillEl.textContent = v < 0 ? 'Negative · verify' : 'Manager reported';
-    if (v < 0) { row(rowsEl, 'Negative cash position', 'needs verification of extra funding or unrecorded cash movements', inr(v), 'neg', { text: 'Verify' });
-      noteEl.textContent = 'The calculated closing cash is below zero, which cannot happen physically. Either cash was added that is not on the sheet, or some payments or sales are recorded wrongly. No owner advance has been assumed. ' + noteEl.textContent; }
+    if (pillEl) pillEl.textContent = v < 0 ? 'Funding gap · estimate' : 'Manager reported';
+    if (v < 0) { const negDays = cl.filter(c => +c.closing_cash < 0).length; row(rowsEl, 'Estimated funding gap', 'negative ' + negDays + (negDays === 1 ? ' day' : ' days') + ' running · verify extra funding or unrecorded cash movements', inr(v), 'neg', { text: 'Verify' });
+      noteEl.textContent = 'This is an estimated funding gap, not verified physical cash. A till cannot go below zero, so either cash came in that is not on the sheet, or some payments or sales are recorded wrongly. No owner advance has been created without confirmation. ' + noteEl.textContent; }
     return;
   }
   valEl.textContent = inr(est); valEl.classList.remove('pos', 'neg'); valEl.classList.add(est >= 0 ? 'pos' : 'neg');

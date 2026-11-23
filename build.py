@@ -28,6 +28,7 @@ if "est_from" in cfg:
 CUR_FROM = "2026-11-16"
 if any(x["date"] >= CUR_FROM for x in sales) or any(e["date"] >= CUR_FROM for e in exp):
     sys.exit("RECONCILIATION FAILED: sales.csv / expenses.csv must stop at 15 Nov; use daily_closing.csv and purchases.csv")
+fmt = lambda d: str(int(d[8:])) + " " + datetime.date(2000, int(d[5:7]), 1).strftime("%b")
 I = lambda v: int(v) if str(v).strip() != "" else 0
 closing = [dict(r) for r in rd("daily_closing.csv")]
 purch = [dict(r, bill=I(r["bill"]), paid=I(r["paid"]), due=I(r["due"])) for r in rd("purchases.csv")]
@@ -58,7 +59,7 @@ for c in closing:
     calc = I(c["opening_cash"]) + I(c["owner_cash"]) + cash_in - I(c["paid_total"]) - staff_paid
     c.update(staff_paid=staff_paid, due_paid=sum(x["amount"] for x in paid_dues), grand_calc=grand, closing_calc=calc, cash_assumed=not c["cash_sales"].strip())
     if c["closing_cash"].strip() and I(c["closing_cash"]) != calc: warnings.append(f"{d}: closing cash on sheet {c['closing_cash']} vs formula {calc}")
-    if calc < 0: warnings.append(f"{d}: calculated closing cash is {calc}. Needs verification of additional funding or unrecorded cash movements. No owner advance has been assumed.")
+    if calc < 0: warnings.append(f"{fmt(d)}: estimated funding gap, calculated closing cash {calc:,}. Not verified physical cash. Verify additional funding or unrecorded cash movements. No owner advance created without confirmation.")
     x = {"date": d, "sales": tot, "kitchen": k, "juice": j_, "period": "current"}
     sales.append(x)
     for p in pl:
