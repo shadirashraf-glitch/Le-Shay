@@ -38,7 +38,7 @@ purch = [dict(r, supplier=canon(r["supplier"]), sheet_name=r["supplier"], bill=I
 duepay = [dict(r, supplier=canon(r["supplier"]), amount=I(r["amount"])) for r in rd("due_payments.csv")]
 STAFF = [("staff_wages", "Daily staff wages", "Staff"), ("shop_rent", "Shop rent", "Rent"), ("gku_salary", "GKU salary", "GKU salary"),
          ("room_rent", "Room rent", "Room rent"), ("electricity", "Electricity", "Utilities & misc"), ("firoz_salary", "Firoz salary", "Firoz salary")]
-problems, warnings, grand, sup_due = [], [], 0, {}
+problems, warnings, grand, sup_due, prev_close = [], [], 0, {}, None
 for c in closing:
     d = c["date"]; k, j_, ct, tot = I(c["kitchen"]), I(c["juice"]), I(c["counter"]), I(c["total_sales"])
     if k + j_ + ct != tot: problems.append(f"{d}: sections {k}+{j_}+{ct} != total {tot}")
@@ -58,8 +58,14 @@ for c in closing:
     grand += I(c["due_total"])
     if c["grand_due"].strip() and I(c["grand_due"]) != grand: problems.append(f"{d}: grand due {grand} != sheet {c['grand_due']}")
     staff_paid = sum(I(c[f]) for f, _, _ in STAFF)
+    into_till = sum(int(a["amount"]) - sum(int(x["amount"]) for x in rd("supplier_settlements.csv") if x.get("funded_from") == a["advance_id"])
+                    for a in rd("cash_advances.csv") if a.get("till_date") == d and not a["source_transaction"])
+    if prev_close is not None and I(c["opening_cash"]) != prev_close + into_till:
+        warnings.append(f"{fmt(d)}: opening cash {I(c['opening_cash']):,} differs from expected {prev_close + into_till:,} (previous closing {prev_close:,} + advance remainder {into_till:,})")
+    c["into_till"] = into_till
     cash_in = I(c["cash_sales"]) if c["cash_sales"].strip() else tot
     calc = I(c["opening_cash"]) + I(c["owner_cash"]) + cash_in - I(c["paid_total"]) - staff_paid
+    prev_close = calc
     c.update(staff_paid=staff_paid, due_paid=sum(x["amount"] for x in paid_dues), grand_calc=grand, closing_calc=calc, cash_assumed=not c["cash_sales"].strip())
     if c["closing_cash"].strip() and I(c["closing_cash"]) != calc: warnings.append(f"{d}: closing cash on sheet {c['closing_cash']} vs formula {calc}")
     if calc < 0: warnings.append(f"{fmt(d)}: estimated funding gap, calculated closing cash {calc:,}. Not verified physical cash. Verify additional funding or unrecorded cash movements. No owner advance created without confirmation.")
@@ -106,7 +112,13 @@ if len(inv) != 145: problems.append(f"expected 145 ledger rows, found {len(inv)}
 if len({r['transaction_id'] for r in inv}) != len(inv): problems.append("duplicate transaction IDs")
 if sum(r["amount_inr"] for r in inv) != 1145908: problems.append(f"ledger total {sum(r['amount_inr'] for r in inv)} != 1145908")
 if cls != EXPECT: problems.append(f"classification totals {cls} != {EXPECT}")
-if sum(a["amount"] for a in adv) != EXPECT["Operational cash advance"]: problems.append("cash advance register does not match ledger")
+if sum(a["amount"] for a in adv if a["source_transaction"]) != EXPECT["Operational cash advance"]: problems.append("ledger-linked cash advances do not match ledger")
+for a in adv:
+    a["funds_used"] = sum(x["amount"] for x in setl if x.get("funded_from") == a["advance_id"])
+    a["remainder"] = a["amount"] - a["funds_used"] if not a["source_transaction"] else None
+    if a["remainder"] is not None and a["remainder"] < 0: problems.append(f"{a['advance_id']}: settlements {a['funds_used']} exceed advance {a['amount']}")
+for x in setl:
+    if x.get("funded_from") and x["funded_from"] not in {a["advance_id"] for a in adv}: problems.append(f"{x['settlement_id']}: unknown advance {x['funded_from']}")
 dep = sum(r["amount_inr"] for r in inv if r["category"] == "Shop security deposit")
 if dep != 150000: problems.append(f"deposit {dep} != 150000")
 if problems: sys.exit("RECONCILIATION FAILED: " + "; ".join(problems))

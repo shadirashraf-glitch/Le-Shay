@@ -1,5 +1,5 @@
 {
-"updated": "2026-11-23T22:15+00:00",
+"updated": "2026-11-23T22:22+00:00",
 "sales": [
 {
 "date": "2026-09-28",
@@ -7072,7 +7072,10 @@
 "given_to": "GKU",
 "amount": 86149,
 "source_transaction": "LSI-139",
-"notes": "Operational cash for daily cafe running. Date not confirmed."
+"till_date": "",
+"notes": "Operational cash for daily cafe running. Date not confirmed.",
+"funds_used": 0,
+"remainder": null
 },
 {
 "advance_id": "ADV-002",
@@ -7080,7 +7083,10 @@
 "given_to": "Ukku",
 "amount": 10000,
 "source_transaction": "LSI-140",
-"notes": "Operational cash for daily cafe running. Date not confirmed."
+"till_date": "",
+"notes": "Operational cash for daily cafe running. Date not confirmed.",
+"funds_used": 0,
+"remainder": null
 },
 {
 "advance_id": "ADV-003",
@@ -7088,7 +7094,21 @@
 "given_to": "Nauman",
 "amount": 10000,
 "source_transaction": "LSI-141",
-"notes": "Operational cash for daily cafe running. Date not confirmed."
+"till_date": "",
+"notes": "Operational cash for daily cafe running. Date not confirmed.",
+"funds_used": 0,
+"remainder": null
+},
+{
+"advance_id": "ADV-004",
+"date": "2026-11-23",
+"given_to": "GKU",
+"amount": 32000,
+"source_transaction": "",
+"till_date": "2026-11-23",
+"notes": "Additional owner cash given after 22 Nov close to settle historical supplier dues to 15 Nov (31,799). Remaining 201 goes into the till as part of 23 Nov opening cash.",
+"funds_used": 31799,
+"remainder": 201
 }
 ],
 "cashbook": [],
@@ -7109,10 +7129,10 @@
 "item": "Chicken",
 "amount": 13925,
 "notes": "Pending roughly 15 to 20 days or longer. Confirmed genuine by operations, no duplication with daily expenses.",
-"settled": 0,
-"outstanding": 13925,
-"status": "Unpaid",
-"last_paid": ""
+"settled": 13925,
+"outstanding": 0,
+"status": "Settled",
+"last_paid": "2026-11-23"
 },
 {
 "due_id": "DUE-002",
@@ -7121,10 +7141,10 @@
 "item": "Beef",
 "amount": 2500,
 "notes": "Confirmed genuine by operations, no duplication with daily expenses.",
-"settled": 0,
-"outstanding": 2500,
-"status": "Unpaid",
-"last_paid": ""
+"settled": 2500,
+"outstanding": 0,
+"status": "Settled",
+"last_paid": "2026-11-23"
 },
 {
 "due_id": "DUE-003",
@@ -7133,10 +7153,10 @@
 "item": "Vegetable",
 "amount": 2500,
 "notes": "Confirmed genuine by operations, no duplication with daily expenses.",
-"settled": 0,
-"outstanding": 2500,
-"status": "Unpaid",
-"last_paid": ""
+"settled": 2500,
+"outstanding": 0,
+"status": "Settled",
+"last_paid": "2026-11-23"
 },
 {
 "due_id": "DUE-004",
@@ -7145,10 +7165,10 @@
 "item": "Gas",
 "amount": 5140,
 "notes": "Confirmed genuine by operations, no duplication with daily expenses.",
-"settled": 0,
-"outstanding": 5140,
-"status": "Unpaid",
-"last_paid": ""
+"settled": 5140,
+"outstanding": 0,
+"status": "Settled",
+"last_paid": "2026-11-23"
 },
 {
 "due_id": "DUE-005",
@@ -7157,10 +7177,10 @@
 "item": "Ice cream",
 "amount": 2320,
 "notes": "Confirmed genuine by operations, no duplication with daily expenses.",
-"settled": 0,
-"outstanding": 2320,
-"status": "Unpaid",
-"last_paid": ""
+"settled": 2320,
+"outstanding": 0,
+"status": "Settled",
+"last_paid": "2026-11-23"
 },
 {
 "due_id": "DUE-006",
@@ -7169,10 +7189,10 @@
 "item": "Snack",
 "amount": 1110,
 "notes": "Corrected on the note from 1090 to 1110. Confirmed genuine by operations, no duplication with daily expenses.",
-"settled": 0,
-"outstanding": 1110,
-"status": "Unpaid",
-"last_paid": ""
+"settled": 1110,
+"outstanding": 0,
+"status": "Settled",
+"last_paid": "2026-11-23"
 },
 {
 "due_id": "DUE-007",
@@ -7181,10 +7201,10 @@
 "item": "Kalimakkai",
 "amount": 1964,
 "notes": "Confirmed genuine by operations, no duplication with daily expenses.",
-"settled": 0,
-"outstanding": 1964,
-"status": "Unpaid",
-"last_paid": ""
+"settled": 1964,
+"outstanding": 0,
+"status": "Settled",
+"last_paid": "2026-11-23"
 },
 {
 "due_id": "DUE-008",
@@ -7193,10 +7213,10 @@
 "item": "Abu (supplier)",
 "amount": 1560,
 "notes": "Name partly crossed out on the note. Confirmed genuine by operations, no duplication with daily expenses.",
-"settled": 0,
-"outstanding": 1560,
-"status": "Unpaid",
-"last_paid": ""
+"settled": 1560,
+"outstanding": 0,
+"status": "Settled",
+"last_paid": "2026-11-23"
 },
 {
 "due_id": "DUE-009",
@@ -7205,13 +7225,95 @@
 "item": "Water",
 "amount": 780,
 "notes": "Added 17 Nov by owner. Confirmed genuine, no duplication with daily expenses.",
-"settled": 0,
-"outstanding": 780,
-"status": "Unpaid",
-"last_paid": ""
+"settled": 780,
+"outstanding": 0,
+"status": "Settled",
+"last_paid": "2026-11-23"
 }
 ],
-"settlements": [],
+"settlements": [
+{
+"settlement_id": "SET-001",
+"date": "2026-11-23",
+"due_id": "DUE-001",
+"amount": 13925,
+"paid_by": "GKU",
+"funded_from": "ADV-004",
+"notes": "Chicken historical balance fully settled. Confirmed by GKU."
+},
+{
+"settlement_id": "SET-002",
+"date": "2026-11-23",
+"due_id": "DUE-002",
+"amount": 2500,
+"paid_by": "GKU",
+"funded_from": "ADV-004",
+"notes": "Beef historical balance fully settled. Confirmed by GKU."
+},
+{
+"settlement_id": "SET-003",
+"date": "2026-11-23",
+"due_id": "DUE-003",
+"amount": 2500,
+"paid_by": "GKU",
+"funded_from": "ADV-004",
+"notes": "Vegetable historical balance fully settled. Confirmed by GKU."
+},
+{
+"settlement_id": "SET-004",
+"date": "2026-11-23",
+"due_id": "DUE-004",
+"amount": 5140,
+"paid_by": "GKU",
+"funded_from": "ADV-004",
+"notes": "Gas historical balance fully settled. Confirmed by GKU."
+},
+{
+"settlement_id": "SET-005",
+"date": "2026-11-23",
+"due_id": "DUE-005",
+"amount": 2320,
+"paid_by": "GKU",
+"funded_from": "ADV-004",
+"notes": "Ice cream historical balance fully settled. Confirmed by GKU."
+},
+{
+"settlement_id": "SET-006",
+"date": "2026-11-23",
+"due_id": "DUE-006",
+"amount": 1110,
+"paid_by": "GKU",
+"funded_from": "ADV-004",
+"notes": "Snack historical balance fully settled. Confirmed by GKU."
+},
+{
+"settlement_id": "SET-007",
+"date": "2026-11-23",
+"due_id": "DUE-007",
+"amount": 1964,
+"paid_by": "GKU",
+"funded_from": "ADV-004",
+"notes": "Kalimakkai historical balance fully settled. Confirmed by GKU."
+},
+{
+"settlement_id": "SET-008",
+"date": "2026-11-23",
+"due_id": "DUE-008",
+"amount": 1560,
+"paid_by": "GKU",
+"funded_from": "ADV-004",
+"notes": "Abu (supplier) historical balance fully settled. Confirmed by GKU."
+},
+{
+"settlement_id": "SET-009",
+"date": "2026-11-23",
+"due_id": "DUE-009",
+"amount": 780,
+"paid_by": "GKU",
+"funded_from": "ADV-004",
+"notes": "Water historical balance fully settled. Confirmed by GKU."
+}
+],
 "current": {
 "from": "2026-11-16",
 "closing": [
@@ -7239,6 +7341,7 @@
 "grand_due": "8116",
 "checked_by_gku": "",
 "notes": "Cash sales field left blank on the sheet. Closing cash treats all sales as cash.",
+"into_till": 0,
 "staff_paid": 5250,
 "due_paid": 0,
 "grand_calc": 8116,
@@ -7269,6 +7372,7 @@
 "grand_due": "7723",
 "checked_by_gku": "",
 "notes": "Corrected per owner reconciliation: handwritten paid 7987 / wages 6035 / closing 4395 were arithmetic errors. Cash sales blank.",
+"into_till": 0,
 "staff_paid": 6350,
 "due_paid": 3261,
 "grand_calc": 7723,
@@ -7299,6 +7403,7 @@
 "grand_due": "12684",
 "checked_by_gku": "",
 "notes": "Opening corrected to 4128 (17 Nov corrected closing); sheet showed opening 4395 and closing 5135. Room rent 535 written in the electricity box. Cash sales blank.",
+"into_till": 0,
 "staff_paid": 8285,
 "due_paid": 0,
 "grand_calc": 12684,
@@ -7329,6 +7434,7 @@
 "grand_due": "16704",
 "checked_by_gku": "",
 "notes": "Opening corrected to 4868 (18 Nov corrected closing); sheet showed opening 5135 and closing 2531. Room rent 535 in the electricity box. Cash sales blank.",
+"into_till": 0,
 "staff_paid": 7785,
 "due_paid": 780,
 "grand_calc": 16704,
@@ -7359,6 +7465,7 @@
 "grand_due": "19115",
 "checked_by_gku": "",
 "notes": "Opening corrected to 2264 (19 Nov corrected closing); sheet showed opening 2531 and closing -782. Calculated closing is negative: verify additional funding or unrecorded cash movements. No owner advance assumed. Cash sales blank.",
+"into_till": 0,
 "staff_paid": 7485,
 "due_paid": 220,
 "grand_calc": 19115,
@@ -7392,6 +7499,7 @@
 "null": [
 " not verified cash. No owner advance assumed. Cash sales blank."
 ],
+"into_till": 0,
 "staff_paid": 7785,
 "due_paid": 410,
 "grand_calc": 26393,
@@ -7425,6 +7533,7 @@
 "null": [
 " not verified physical cash. Cash sales blank."
 ],
+"into_till": 0,
 "staff_paid": 7785,
 "due_paid": 0,
 "grand_calc": 27420,

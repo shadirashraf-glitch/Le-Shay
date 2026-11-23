@@ -1,4 +1,5 @@
-advance_id,date,given_to,amount,source_transaction,notes
-ADV-001,,GKU,86149,LSI-139,Operational cash for daily cafe running. Date not confirmed.
-ADV-002,,Ukku,10000,LSI-140,Operational cash for daily cafe running. Date not confirmed.
-ADV-003,,Nauman,10000,LSI-141,Operational cash for daily cafe running. Date not confirmed.
+advance_id,date,given_to,amount,source_transaction,till_date,notes
+ADV-001,,GKU,86149,LSI-139,,Operational cash for daily cafe running. Date not confirmed.
+ADV-002,,Ukku,10000,LSI-140,,Operational cash for daily cafe running. Date not confirmed.
+ADV-003,,Nauman,10000,LSI-141,,Operational cash for daily cafe running. Date not confirmed.
+ADV-004,2026-11-23,GKU,32000,,2026-11-23,"Additional owner cash given after 22 Nov close to settle historical supplier dues to 15 Nov (31,799). Remaining 201 goes into the till as part of 23 Nov opening cash."

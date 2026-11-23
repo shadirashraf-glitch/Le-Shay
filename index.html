@@ -537,14 +537,14 @@ function model(j) {
   const cats = d3.rollups(j.expenses, v => d3.sum(v, e => e.amount), e => CAT_LABEL(e.category)).map(([c, a]) => ({ c, a, share: a / S })).sort((a, b) => b.a - a.a);
   const L = j.investment_ledger, ownerCosts = L.filter(r => OWNER_COST.includes(r.classification));
   const tasting = d3.sum(j.preopening || [], x => x.amount), OC = d3.sum(ownerCosts, r => r.amount_inr);
-  const fundTotal = d3.sum(L, r => r.amount_inr), adv = d3.sum(j.cash_advances, a => a.amount), stockOwner = j.funding_classes['Owner-funded stock'] || 0;
+  const fundTotal = d3.sum(L, r => r.amount_inr), adv = d3.sum(j.cash_advances.filter(a => a.source_transaction), a => a.amount), newAdv = j.cash_advances.filter(a => !a.source_transaction), advNew = d3.sum(newAdv, a => a.amount), stockOwner = j.funding_classes['Owner-funded stock'] || 0;
   const payables = j.payables || [], settlements = j.settlements || [], hist = payables.filter(x => /^Historical/.test(x.period));
-  const HD = d3.sum(hist, x => x.amount), SET = d3.sum(hist, x => x.settled), DUES = HD - SET;
+  const HD = d3.sum(hist, x => x.amount), SET = d3.sum(hist, x => x.settled), DUES = HD - SET, SETdirect = d3.sum(settlements.filter(x => !x.funded_from), x => x.amount), SETadv = SET - SETdirect;
   const hd = daily.filter(x => x.date <= j.period_closed), HS = d3.sum(hd, x => x.sales), HE = d3.sum(hd, x => x.spend);
   const HCUM = HS - HE - OC - tasting, H = { days: hd.length, S: HS, E: HE, T: HS - HE, CUM: HCUM, ECON: HCUM - HD };
   const cur = j.current || { closing: [], purchases: [], due_payments: [], grand_due: 0, supplier_due: {} }, NEWDUE = cur.grand_due || 0;
   const tastingFromAdv = (j.pending || []).some(p => /launch tasting/i.test(p.item) && /advance/i.test(p.funded_from || ''));
-  return { ...j, cur, NEWDUE, payables, settlements, hist, HD, SET, DUES, H, fundPaid: fundTotal + SET, tastingFromAdv, daily, weeks, cats, L, ownerCosts, tasting, S, E, T: S - E, OC, OP: S - E - OC, CUM: S - E - OC - tasting + NEWDUE, fundTotal, adv, stockOwner, direct: OC + stockOwner };
+  return { ...j, cur, NEWDUE, payables, settlements, hist, HD, SET, SETdirect, SETadv, DUES, H, newAdv, advNew, advAll: adv + advNew, fundPaid: fundTotal + advNew + SETdirect, tastingFromAdv, daily, weeks, cats, L, ownerCosts, tasting, S, E, T: S - E, OC, OP: S - E - OC, CUM: S - E - OC - tasting + NEWDUE, fundTotal, adv, stockOwner, direct: OC + stockOwner };
 }
 function win(k) { const d = D.daily, n = d.length, cur = d.slice(-k), prev = d.slice(Math.max(0, n - 2 * k), n - k); return { cur: d3.sum(cur, x => x.net), prev: d3.sum(prev, x => x.net), pn: prev.length, cn: cur.length, cs: d3.sum(cur, x => x.sales) }; }
 
@@ -563,16 +563,16 @@ function overview() {
   setVal('o-30', w30.cur, true); $('o-30d').replaceChildren(delta(w30.cur / w30.cn * 7, w30.pn ? w30.prev / w30.pn * 7 : 0, 'the ' + w30.pn + ' days before', ' a week'));
   $('o-30c').textContent = 'Sales ' + inr(w30.cs) + ' · ' + inr(w30.cs / w30.cn) + ' a day';
   mixSummary($('o-mix'), true);
-  setVal('o-fund', D.fundPaid); $('o-fund-c').textContent = D.L.length + ' transactions' + (D.SET ? ' + ' + inr(D.SET) + ' supplier settlements' : '') + ' · includes ' + inr(D.deposit) + ' refundable deposit';
+  setVal('o-fund', D.fundPaid); $('o-fund-c').textContent = D.L.length + ' transactions' + (D.advNew ? ' + ' + inr(D.advNew) + ' Nov cash advance' : '') + (D.SETdirect ? ' + ' + inr(D.SETdirect) + ' supplier settlements' : '') + ' · includes ' + inr(D.deposit) + ' refundable deposit';
   setVal('o-fund-ex', D.fundPaid - D.deposit);
   const fc = D.funding_classes, parts = [
     ['Pre-opening, excl. deposit', fc['Pre-opening investment'] - D.deposit, 'var(--gold)'], ['Refundable deposit', D.deposit, 'var(--beige)'],
-    ['Cash advances', fc['Operational cash advance'], 'var(--kraft)'], ['October costs', D.OC, 'var(--c-juice)'], ['Owner stock', D.stockOwner, 'var(--c-stock)']];
-  if (D.SET) parts.push(['Supplier settlements', D.SET, 'var(--spend)']);
+    ['Cash advances', D.advAll, 'var(--kraft)'], ['October costs', D.OC, 'var(--c-juice)'], ['Owner stock', D.stockOwner, 'var(--c-stock)']];
+  if (D.SETdirect) parts.push(['Supplier settlements', D.SETdirect, 'var(--spend)']);
   stack($('o-fund-bar'), parts.map(p => [p[1], p[2]]), D.fundPaid);
   $('o-fund-leg').replaceChildren(...parts.map(([l, v, c]) => { const s = el('span'), i = el('i'); i.style.background = c; s.append(i, l + ' ' + inr(v)); return s; }));
   recoveryStatus($('o-rec'));
-  setVal('o-adv', D.adv); setVal('o-direct', D.direct);
+  setVal('o-adv', D.advAll); setVal('o-direct', D.direct);
   cashStatus($('o-cash'));
 }
 function operatingCash(valEl, rowsEl, noteEl, pillEl) {
@@ -587,6 +587,10 @@ function operatingCash(valEl, rowsEl, noteEl, pillEl) {
     row(rowsEl, 'Difference to explain', 'reported opening minus estimate', inr(open0 - est), Math.abs(open0 - est) > 0 ? 'neg' : '', Math.abs(open0 - est) > 0 ? { text: 'Check' } : null);
     noteEl.textContent = 'From 16 Nov this is the day-end cash calculated from the reconciled sheet. It stays unverified until a physical count is confirmed. The ' + inr(open0 - est) + ' gap between the reported opening cash and the old estimate needs a reason, for example cash added that was not recorded, sales not written down, or expenses paid from elsewhere. Confirm with a physical count.';
     if (pillEl) pillEl.textContent = v < 0 ? 'Funding gap · estimate' : 'Calculated · unverified';
+    D.newAdv.filter(a => a.remainder && a.till_date).forEach(a => { const inDay = cl.find(c => c.date === a.till_date);
+      if (!inDay) { row(rowsEl, 'Advance remainder with GKU', a.advance_id + ' · goes into the till on ' + fd(a.till_date), '+' + inr(a.remainder), 'pos');
+        row(rowsEl, 'Expected opening cash, ' + fd(a.till_date), 'closing ' + fd(last.date) + ' + remainder, if no other cash movements', inr(v + a.remainder), 'tot'); }
+      else row(rowsEl, 'Advance remainder added', a.advance_id + ' · in the ' + fd(a.till_date) + ' opening cash', '+' + inr(a.remainder)); });
     const negPast = cl.filter(c => +c.closing_cash < 0);
     if (v >= 0 && negPast.length) row(rowsEl, 'Earlier funding gap', negPast.map(c => fd(c.date) + ' ' + inr(+c.closing_cash)).join(', ') + ' · how it was covered is not confirmed', 'Unexplained', 'neg', { text: 'Verify' });
     if (v < 0) { const negDays = cl.filter(c => +c.closing_cash < 0).length; row(rowsEl, 'Estimated funding gap', 'negative ' + negDays + (negDays === 1 ? ' day' : ' days') + ' running · verify extra funding or unrecorded cash movements', inr(v), 'neg', { text: 'Verify' });
@@ -633,25 +637,25 @@ function histPosition() {
   row(rows, 'Historical cash-flow shortfall', H.days + ' days to ' + fd(D.period_closed) + ', cash actually paid', inr(H.CUM), H.CUM < 0 ? 'neg' : 'pos');
   row(rows, D.SET ? 'Historical supplier liabilities' : 'Historical unpaid supplier liabilities', 'bought before 16 Nov, not paid from operations' + (D.SET ? ', full amount incurred' : ''), inr(-D.HD), 'neg');
   row(rows, 'Total historical operating shortfall', 'including unpaid liabilities', inr(H.ECON), 'sum');
-  row(rows, 'Of the liabilities: settled by owner', D.SET ? 'owner-funded settlements' : 'none yet', inr(D.SET));
-  row(rows, 'Of the liabilities: still outstanding', 'owner to settle', inr(D.DUES), D.DUES ? 'neg' : 'pos');
-  row(rows, 'Owner funding actually paid', 'to date', inr(D.fundPaid), 'tot');
-  $('o-hist-note').textContent = 'The liabilities belong to the period before 16 Nov, so they count in the total historical operating shortfall. When the owner settles them, outstanding falls and owner funding rises by the same amount. The cash-flow shortfall and the total operating shortfall do not change, so nothing is counted twice.';
+  row(rows, 'Of the liabilities: settled by owner', !D.SET ? 'none yet' : D.SETadv ? 'paid by GKU from the owner\'s ' + D.newAdv.map(a => inr(a.amount)).join(' + ') + ' advance' : 'owner-funded settlements', inr(D.SET), D.SET && !D.DUES ? 'pos' : '');
+  row(rows, 'Of the liabilities: still outstanding', D.DUES ? 'owner to settle' : 'fully settled', inr(D.DUES), D.DUES ? 'neg' : 'pos');
+  row(rows, 'Owner funding actually paid', D.advNew ? 'to date, incl. ' + inr(D.advNew) + ' Nov cash advance' : 'to date', inr(D.fundPaid), 'tot');
+  $('o-hist-note').textContent = 'The liabilities belong to the period before 16 Nov, so they count in the total historical operating shortfall. Settling them lowers the outstanding balance. The owner money used is counted once in owner funding, either as a direct payment or, as here, through the cash advance that paid them. The settlement is never counted as an expense, and the cash-flow and total operating shortfalls do not change.';
 }
 function duesCard(id) {
   const card = $(id);
   if (!D.hist.length) { card.hidden = true; return; }
   $(id + '-total').textContent = inr(-D.DUES);
   const t = $(id + '-total'); t.classList.toggle('neg', D.DUES > 0); t.classList.toggle('pos', !D.DUES);
-  $(id + '-pill').textContent = !D.SET ? 'Unpaid · owner to settle' : D.DUES ? 'Part settled' : 'Fully settled';
+  $(id + '-pill').textContent = !D.SET ? 'Unpaid · owner to settle' : D.DUES ? 'Part settled' : 'Fully settled'; $(id + '-pill').classList.toggle('ok', !D.DUES && D.SET > 0);
   const rows = $(id + '-rows'); rows.replaceChildren();
   D.hist.slice().sort((a, b) => b.amount - a.amount).forEach(x => row(rows, x.item,
     x.status === 'Settled' ? 'settled ' + fd(x.last_paid) + ' · ' + inr(x.amount) : x.status === 'Part settled' ? 'part settled ' + inr(x.settled) + ' of ' + inr(x.amount) : 'unpaid',
     inr(x.outstanding), x.outstanding ? '' : 'pos'));
   row(rows, 'Historical liability to ' + fd(D.period_closed), D.hist.length + ' supplier balances', inr(D.HD), 'tot');
-  if (D.SET) row(rows, 'Settled by owner', 'owner-funded', inr(-D.SET));
+  if (D.SET) row(rows, 'Settled', D.SETadv ? 'paid by GKU from the owner\'s cash advance' : 'owner-funded', inr(-D.SET), 'pos');
   row(rows, 'Outstanding', '', inr(D.DUES), 'sum');
-  $(id + '-note').textContent = 'Supplier bills from before 16 Nov, confirmed genuine by operations and not duplicated in the daily expenses. The owner settles them directly, so they never come out of the manager\'s operating cash. Purchases and supplier payments from 16 Nov are tracked separately.';
+  $(id + '-note').textContent = (!D.DUES && D.SET ? 'All ' + D.hist.length + ' historical balances settled on ' + fd(d3.max(D.hist, x => x.last_paid)) + ', confirmed by GKU. The breakdown stays here for reference. ' : '') + 'Supplier bills from before 16 Nov, confirmed genuine by operations and not duplicated in the daily expenses. They are paid from owner money outside the daily till, so they never come out of the day\'s operating cash. Purchases and supplier payments from 16 Nov are tracked separately.';
 }
 function recoveryStatus(box) {
   const d = D.daily, r30 = d3.sum(d.slice(-30), x => x.net), r14 = d3.sum(d.slice(-14), x => x.net);
@@ -723,7 +727,7 @@ function operations() {
   row(br, 'Launch tasting', '26–27 Sep, paid from cash advances', inr(-D.tasting));
   if (D.NEWDUE) row(br, 'Supplier bills from 16 Nov not yet paid', 'in expenses at bill value, added back for the cash view', '+' + inr(D.NEWDUE));
   row(br, 'Cumulative cash-flow ' + (D.CUM < 0 ? 'shortfall' : 'surplus'), 'since opening, cash view', inr(D.CUM), 'sum');
-  if (D.HD) row(br, 'Historical supplier liabilities to ' + fd(D.period_closed), D.DUES ? inr(D.DUES) + ' still outstanding' : 'settled by owner', inr(-D.HD), '', { text: D.DUES ? 'Unpaid' : 'Settled' });
+  if (D.HD) row(br, 'Historical supplier liabilities to ' + fd(D.period_closed), D.DUES ? inr(D.DUES) + ' still outstanding' : 'settled ' + fd(d3.max(D.hist, x => x.last_paid)) + (D.SETadv ? ' from the owner\'s cash advance' : ' by owner'), inr(-D.HD), '', { text: D.DUES ? 'Unpaid' : 'Settled' });
   if (D.NEWDUE) row(br, 'Supplier due from 16 Nov', 'Grand Total Due', inr(-D.NEWDUE), '', { text: 'Unpaid' });
   if (D.HD || D.NEWDUE) row(br, 'Total operating shortfall incl. liabilities', '', inr(D.CUM - D.HD - D.NEWDUE), 'sum');
   $('periods').replaceChildren(...[[7, 'Last 7 days'], [30, 'Last 30 days']].map(([k, lab]) => { const w = win(k), t = el('div', 'kpi sm-val');
@@ -787,9 +791,10 @@ function investment() {
   const fr = $('f-recon'); fr.replaceChildren();
   order.forEach(k => row(fr, k, sub[k], inr(D.funding_classes[k] || 0)));
   row(fr, 'Investment ledger total', L.length + ' transactions', inr(D.fundTotal), 'tot');
-  row(fr, 'Historical supplier settlements', D.SET ? 'owner-funded, against the ' + inr(D.HD) + ' liability' : 'none yet', inr(D.SET));
+  D.newAdv.forEach(a => row(fr, 'Additional operational cash advance', a.advance_id + ' · ' + a.given_to + ', ' + fd(a.date) + ' · working capital, not revenue', inr(a.amount)));
+  row(fr, 'Historical supplier settlements', !D.SET ? 'none yet' : D.SETadv ? inr(D.SETadv) + ' paid from the cash advance above, counted once' : 'owner-funded, against the ' + inr(D.HD) + ' liability', inr(D.SETdirect));
   row(fr, 'Owner funding actually paid', '', inr(tot), 'sum');
-  if (D.DUES) row(fr, 'Historical supplier outstanding', 'owner to settle; moves into funding as each payment is made', inr(D.DUES), '', { text: 'Not in total' });
+  if (D.DUES) row(fr, 'Historical supplier outstanding', 'owner to settle; moves into funding as each payment is made', inr(D.DUES), '', { text: 'Not in total' }); else if (D.SET) row(fr, 'Historical supplier outstanding', 'fully settled', inr(0), 'pos', { text: 'Settled', cls: 'ok' });
   const ok = D.fundTotal === 1145908 && L.length === 145;
   $('f-check').replaceChildren(el('span', null, 'Checked against the ledger on every update. '), el('span', 'flag ' + (ok ? 'ok' : ''), ok ? 'Reconciles · 145 rows' : 'Does not reconcile'));
   recoveryStatus($('rc-status')); setVal('rc-target', tot - dep); setVal('rc-ret', 0);
@@ -803,8 +808,8 @@ function investment() {
     e.onclick = () => { ['lg-q', 'lg-exp', 'lg-src', 'lg-stk', 'lg-per'].forEach(id => $(id).value = ''); $('lg-cat').value = c; $('lg-flag').checked = false; ledgerTable(); $('ledger-card').scrollIntoView({ behavior: 'smooth', block: 'start' }); };
     return e; }));
   const pa = $('post-adv'); pa.replaceChildren();
-  D.cash_advances.forEach(a => row(pa, a.given_to, a.source_transaction + ' · date not confirmed', inr(a.amount)));
-  row(pa, 'Total cash advances', '', inr(D.adv), 'tot');
+  D.cash_advances.forEach(a => row(pa, a.given_to, a.source_transaction ? a.source_transaction + ' · date not confirmed' : a.advance_id + ' · ' + fd(a.date) + ' · settled historical dues, ' + inr(a.remainder) + ' into the till', inr(a.amount)));
+  row(pa, 'Total cash advances', '', inr(D.advAll), 'tot');
   const po = $('post-oct'); po.replaceChildren(); const who = { 'LSI-143': 'Firoz, operations salary', 'LSI-144': 'GKU, management salary', 'LSI-145': 'Electricity, October only' };
   D.ownerCosts.forEach(r => row(po, who[r.transaction_id] || r.original_description, r.transaction_id + ' · October 2026', inr(r.amount_inr)));
   row(po, 'Total October owner-paid costs', '', inr(D.OC), 'tot');
@@ -851,22 +856,22 @@ function stockTable() {
 /* ================= CASH ================= */
 function cashTab() {
   const adv = D.adv, book = D.cashbook || [], NYR = 'Not yet reconcilable';
-  cashStatus($('cash-status')); setVal('c-adv', adv); setVal('c-direct', D.direct);
+  cashStatus($('cash-status')); setVal('c-adv', D.advAll); setVal('c-direct', D.direct);
   operatingCash($('c-oc'), $('c-oc-rows'), $('c-oc-note'), $('c-oc-pill'));
   duesCard('c-due'); curCash(); supplierTracker();
-  stack($('c-bar'), [[adv, 'var(--kraft)'], [D.OC, 'var(--c-juice)'], [D.stockOwner, 'var(--c-stock)']], adv + D.direct);
+  stack($('c-bar'), [[D.advAll, 'var(--kraft)'], [D.OC, 'var(--c-juice)'], [D.stockOwner, 'var(--c-stock)']], D.advAll + D.direct);
   const cs = $('c-split'); cs.replaceChildren();
-  splitRow(cs, 'var(--kraft)', 'Cash advances to manager', inr(adv), 'GKU, Ukku, Nauman');
+  splitRow(cs, 'var(--kraft)', 'Cash advances to manager', inr(D.advAll), 'GKU, Ukku, Nauman' + (D.advNew ? ' · incl. ' + inr(D.advNew) + ' to GKU, ' + fd(D.newAdv[0].date) : ''));
   splitRow(cs, 'var(--c-juice)', 'October costs paid by owner', inr(D.OC), 'management salaries and electricity');
   splitRow(cs, 'var(--c-stock)', 'Owner-Funded Stock', inr(D.stockOwner), 'cool drinks');
   const has = k => book.length && book.every(r => (r[k] || '').trim() !== ''), sum = k => d3.sum(book, r => +r[k] || 0);
   const opening = book.length && (book[0].opening_cash || '').trim() !== '' ? +book[0].opening_cash : null;
-  const complete = opening != null && ['cash_sales', 'cash_expenses', 'bank_deposit', 'returned_to_owner'].every(has) && D.cash_advances.every(a => a.date);
+  const complete = opening != null && ['cash_sales', 'cash_expenses', 'bank_deposit', 'returned_to_owner'].every(has) && D.cash_advances.filter(a => a.source_transaction).every(a => a.date);
   const expected = complete ? opening + adv + sum('cash_sales') - sum('cash_expenses') - sum('bank_deposit') - sum('returned_to_owner') : null;
   const box = $('cash-recon'); box.replaceChildren();
   const line = (label, sub, val, cls) => { const v = row(box, label, sub, val == null ? NYR : val, cls); if (val == null) v.className = 'nyr'; };
   line('Opening cash with manager', 'first trading day', opening == null ? null : inr(opening));
-  line('Owner cash advances', D.cash_advances.length + ' transfers, dates not confirmed', '+' + inr(adv));
+  line('Owner cash advances', D.cash_advances.filter(a => a.source_transaction).length + ' transfers before 16 Nov, dates not confirmed', '+' + inr(adv));
   line('Cash sales collected', 'cash only', has('cash_sales') ? '+' + inr(sum('cash_sales')) : null);
   line('UPI, card and digital sales', 'reference only, not cash in hand', has('digital_sales') ? inr(sum('digital_sales')) : null);
   line('Expenses paid from operational cash', 'payment method not recorded', has('cash_expenses') ? inr(-sum('cash_expenses')) : null);
@@ -878,8 +883,8 @@ function cashTab() {
   line('Cash variance', 'counted minus expected', counted != null && expected != null ? inr(counted - expected) : null);
   const fr = row(box, 'Additional funding required', 'once expected cash and upcoming bills are known', 'Cannot be determined yet', 'sum'); fr.className = 'nyr';
   const ar = $('adv-reg'); ar.replaceChildren();
-  D.cash_advances.forEach(a => row(ar, a.given_to, a.advance_id + ' · ' + (a.date ? fd(a.date) : 'date not confirmed'), inr(a.amount)));
-  row(ar, 'Total', '', inr(adv), 'tot');
+  D.cash_advances.forEach(a => row(ar, a.given_to, a.advance_id + ' · ' + (a.date ? fd(a.date) : 'date not confirmed') + (a.remainder != null ? ' · ' + inr(a.funds_used) + ' historical dues, ' + inr(a.remainder) + ' into the till' : ''), inr(a.amount)));
+  row(ar, 'Total', '', inr(D.advAll), 'tot');
   const od = $('owner-direct'); od.replaceChildren();
   const who = { 'LSI-143': 'Firoz, October management salary', 'LSI-144': 'GKU, October management salary', 'LSI-145': 'October electricity' };
   D.ownerCosts.forEach(r => row(od, who[r.transaction_id] || r.original_description, r.transaction_id, inr(r.amount_inr)));
@@ -996,6 +1001,7 @@ function records() {
     ['Current period (from 16 Nov)', 'Recorded from the Daily Closing sheet. Each supplier bill counts as an expense once, on the bill date, at full value. Unpaid amounts go into the Grand Total Due. A later payment against a due reduces the due and the cash, and is never counted as a new expense.'],
     ['Grand Total Due', 'Supplier dues from 16 Nov carried forward: previous balance plus new dues minus payments against dues. Separate from the historical supplier outstanding to 15 Nov.'],
     ['GKU salary and room rent', 'From 16 Nov GKU\'s salary is paid daily from the till and shown on its own line, separate from daily staff wages and shop rent. Room rent is also shown separately.'],
+    ['Additional operational cash advance', 'Owner cash given to the manager after opening, such as the ₹32,000 to GKU on 23 Nov. It is owner funding and working capital, never revenue. What it pays for is not counted as funding again.'],
     ['Owner-funded settlement', 'A payment by the owner against a historical supplier balance. It reduces the outstanding balance and adds to owner funding actually paid. It is not counted again as an expense.'],
     ['Owner funding actually paid', 'The 145-transaction investment ledger plus owner-funded settlements of historical supplier balances. Unpaid balances are never included.'],
   ];
@@ -1008,13 +1014,14 @@ function records() {
     'No investment ledger transaction has a confirmed date or receipt yet.',
     'October management salaries and electricity (' + inr(D.OC) + ') have no confirmed payment dates.',
     'Daily ledger stock purchases (' + inr(unv) + '): funding source not yet verified.',
-    'Historical supplier outstanding to ' + fd(D.period_closed) + ': ' + inr(D.DUES) + ' of ' + inr(D.HD) + ' unpaid, owner to settle. Confirmed genuine by operations, no duplication with daily expenses.',
+    D.DUES ? 'Historical supplier outstanding to ' + fd(D.period_closed) + ': ' + inr(D.DUES) + ' of ' + inr(D.HD) + ' unpaid, owner to settle. Confirmed genuine by operations, no duplication with daily expenses.'
+      : 'Historical supplier outstanding to ' + fd(D.period_closed) + ' (' + inr(D.HD) + ') fully settled, confirmed by GKU. Paid from the owner\'s ' + D.newAdv.map(a => inr(a.amount)).join(' + ') + ' cash advance; ' + D.newAdv.map(a => inr(a.remainder) + ' left goes into the ' + fd(a.till_date) + ' opening cash').join('; ') + '.',
     ...(D.cur.closing.some(c => c.cash_assumed) ? ['From 16 Nov: cash sales and UPI sales are not split on the Daily Closing sheet, so closing cash treats all sales as cash.'] : []),
     ...(D.cur.closing.some(c => !c.checked_by_gku) ? ['From 16 Nov: the Checked by GKU line is blank on ' + D.cur.closing.filter(c => !c.checked_by_gku).length + ' sheet(s).'] : []),
     ...(D.cur.closing.length ? ['Reported opening cash on ' + fd(D.cur.closing[0].date) + ' (' + inr(+D.cur.closing[0].opening_cash) + ') differs from the 15 Nov estimate (' + inr(D.adv + D.H.T - (D.tastingFromAdv ? D.tasting : 0)) + '). Reason to be confirmed.'] : []),
     ...(D.cur.warnings || []),
     'Period up to ' + fd(D.period_closed) + ' is closed. From ' + fd(d3.utcFormat('%Y-%m-%d')(d3.utcDay.offset(P(D.period_closed), 1))) + ' the manager uses the new daily template.',
-    'Cash advance dates are not confirmed, and payment method is not recorded for any expense.',
+    'Dates of the three cash advances before 16 Nov are not confirmed, and payment method is not recorded for any expense before 16 Nov.',
     'Sales mix: ' + m.complete.length + ' complete, ' + m.partial.length + ' partial and ' + m.est.length + ' estimated reporting days so far.',
     'Up to 15 Nov, expenses were written on the ledger one day after they happened; actual dates are not recorded.',
     '29 Oct: the manager\'s subtotal was ₹720 lower than the lines written. The dashboard uses the lines.',
@@ -1024,11 +1031,12 @@ function records() {
   D.sales.forEach(s => all.push({ when: s.date, label: fd(s.date), desc: 'Sales', cat: 'Sales', src: 'Daily ledger', amt: s.sales }));
   D.payables.forEach(x => all.push({ when: x.as_of, label: fd(x.as_of), desc: x.due_id + ' · ' + x.item, cat: 'Historical supplier liability · ' + x.status, src: 'Supplier dues', amt: -x.amount }));
   D.cur.due_payments.forEach(x => all.push({ when: x.date, label: fd(x.date), desc: 'Due paid · ' + x.supplier, cat: 'Payment against due, not an expense', src: 'Daily closing', amt: -x.amount }));
-  D.settlements.forEach(x => all.push({ when: x.date, label: fd(x.date), desc: x.settlement_id + ' · ' + x.due_id + (x.paid_by ? ' · ' + x.paid_by : ''), cat: 'Owner-funded settlement', src: 'Supplier dues', amt: x.amount }));
+  D.newAdv.forEach(a => all.push({ when: a.date, label: fd(a.date), desc: a.advance_id + ' · cash advance to ' + a.given_to, cat: 'Operational cash advance', src: 'Cash advances', amt: a.amount }));
+  D.settlements.forEach(x => all.push({ when: x.date, label: fd(x.date), desc: x.settlement_id + ' · ' + x.due_id + (x.paid_by ? ' · ' + x.paid_by : ''), cat: x.funded_from ? 'Historical settlement · paid from ' + x.funded_from : 'Owner-funded settlement', src: 'Supplier dues', amt: x.funded_from ? -x.amount : x.amount }));
   (D.preopening || []).forEach(p => all.push({ when: p.date, label: fd(p.date), desc: p.item, cat: 'Launch tasting', src: 'Launch tasting', amt: -p.amount }));
   D.L.forEach(r => all.push({ when: r.expense_period ? r.expense_period + '-99' : (r.period === 'Pre-opening' ? '0000' : '9999'), label: r.expense_period ? 'Oct 2026' : r.period, desc: r.transaction_id + ' · ' + r.original_description, cat: r.classification, src: 'Investment ledger', amt: r.amount_inr, dup: !!r.potential_duplicate }));
   all.sort((a, b) => a.when < b.when ? 1 : a.when > b.when ? -1 : 0); D.allRecords = all;
-  $('ar-src').replaceChildren(new Option('All sources', ''), ...['Daily ledger', 'Daily closing', 'Launch tasting', 'Supplier dues', 'Investment ledger'].map(x => new Option(x, x)));
+  $('ar-src').replaceChildren(new Option('All sources', ''), ...['Daily ledger', 'Daily closing', 'Launch tasting', 'Supplier dues', 'Cash advances', 'Investment ledger'].map(x => new Option(x, x)));
   let tmr; $('ar-q').oninput = () => { clearTimeout(tmr); tmr = setTimeout(allTable, 120); }; $('ar-src').oninput = allTable; allTable();
 }
 function allTable() {

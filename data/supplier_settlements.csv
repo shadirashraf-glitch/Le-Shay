@@ -1,1 +1,10 @@
-settlement_id,date,due_id,amount,paid_by,notes
+settlement_id,date,due_id,amount,paid_by,funded_from,notes
+SET-001,2026-11-23,DUE-001,13925,GKU,ADV-004,Chicken historical balance fully settled. Confirmed by GKU.
+SET-002,2026-11-23,DUE-002,2500,GKU,ADV-004,Beef historical balance fully settled. Confirmed by GKU.
+SET-003,2026-11-23,DUE-003,2500,GKU,ADV-004,Vegetable historical balance fully settled. Confirmed by GKU.
+SET-004,2026-11-23,DUE-004,5140,GKU,ADV-004,Gas historical balance fully settled. Confirmed by GKU.
+SET-005,2026-11-23,DUE-005,2320,GKU,ADV-004,Ice cream historical balance fully settled. Confirmed by GKU.
+SET-006,2026-11-23,DUE-006,1110,GKU,ADV-004,Snack historical balance fully settled. Confirmed by GKU.
+SET-007,2026-11-23,DUE-007,1964,GKU,ADV-004,Kalimakkai historical balance fully settled. Confirmed by GKU.
+SET-008,2026-11-23,DUE-008,1560,GKU,ADV-004,Abu (supplier) historical balance fully settled. Confirmed by GKU.
+SET-009,2026-11-23,DUE-009,780,GKU,ADV-004,Water historical balance fully settled. Confirmed by GKU.
