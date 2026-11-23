@@ -546,12 +546,14 @@ function operatingCash(valEl, rowsEl, noteEl, pillEl) {
   if (last) {
     const v = +last.closing_cash, open0 = +cl[0].opening_cash;
     valEl.textContent = inr(v); valEl.classList.remove('pos', 'neg'); valEl.classList.add(v >= 0 ? 'pos' : 'neg');
-    row(rowsEl, 'Closing cash, ' + fd(last.date), (v < 0 ? 'calculated from the reconciled sheet, not verified physical cash' : 'reported on the Daily Closing sheet') + (last.checked_by_gku ? ', checked by GKU' : ', not yet checked by GKU'), inr(v), 'sum');
+    row(rowsEl, 'Closing cash, ' + fd(last.date), 'calculated from the reconciled sheet, not verified physical cash' + (last.checked_by_gku ? ', checked by GKU' : ', not yet checked by GKU'), inr(v), 'sum');
     row(rowsEl, 'Opening cash, ' + fd(cl[0].date), 'first day of the new template', inr(open0));
     row(rowsEl, 'Estimate at ' + fd(D.period_closed) + ' close', 'advances + trading result' + (fromAdv ? ' − launch tasting' : ''), inr(est));
     row(rowsEl, 'Difference to explain', 'reported opening minus estimate', inr(open0 - est), Math.abs(open0 - est) > 0 ? 'neg' : '', Math.abs(open0 - est) > 0 ? { text: 'Check' } : null);
-    noteEl.textContent = 'From 16 Nov this is the cash the manager reports at day end. The ' + inr(open0 - est) + ' gap between the reported opening cash and the old estimate needs a reason, for example cash added that was not recorded, sales not written down, or expenses paid from elsewhere. Confirm with a physical count.';
-    if (pillEl) pillEl.textContent = v < 0 ? 'Funding gap · estimate' : 'Manager reported';
+    noteEl.textContent = 'From 16 Nov this is the day-end cash calculated from the reconciled sheet. It stays unverified until a physical count is confirmed. The ' + inr(open0 - est) + ' gap between the reported opening cash and the old estimate needs a reason, for example cash added that was not recorded, sales not written down, or expenses paid from elsewhere. Confirm with a physical count.';
+    if (pillEl) pillEl.textContent = v < 0 ? 'Funding gap · estimate' : 'Calculated · unverified';
+    const negPast = cl.filter(c => +c.closing_cash < 0);
+    if (v >= 0 && negPast.length) row(rowsEl, 'Earlier funding gap', negPast.map(c => fd(c.date) + ' ' + inr(+c.closing_cash)).join(', ') + ' · how it was covered is not confirmed', 'Unexplained', 'neg', { text: 'Verify' });
     if (v < 0) { const negDays = cl.filter(c => +c.closing_cash < 0).length; row(rowsEl, 'Estimated funding gap', 'negative ' + negDays + (negDays === 1 ? ' day' : ' days') + ' running · verify extra funding or unrecorded cash movements', inr(v), 'neg', { text: 'Verify' });
       noteEl.textContent = 'This is an estimated funding gap, not verified physical cash. A till cannot go below zero, so either cash came in that is not on the sheet, or some payments or sales are recorded wrongly. No owner advance has been created without confirmation. ' + noteEl.textContent; }
     return;
@@ -587,7 +589,7 @@ function curPeriod() {
   if (t.other) row(rows, 'Electricity and Firoz salary', '', inr(-t.other));
   row(rows, 'Operating result', 'sales minus all costs incurred', inr(t.result), 'sum');
   row(rows, 'Cash result', 'sales minus everything actually paid', inr(t.cash), t.cash < 0 ? 'neg' : 'pos');
-  row(rows, 'Supplier due carried forward', 'Grand Total Due, unpaid', inr(D.NEWDUE), D.NEWDUE ? 'neg' : 'pos');
+  const cr = d3.sum(Object.values(D.cur.supplier_due).filter(v => v < 0)); row(rows, 'Supplier due carried forward', 'Grand Total Due' + (cr ? ', after ' + inr(-cr) + ' supplier credit' : ''), inr(D.NEWDUE), D.NEWDUE ? 'neg' : 'pos');
   $('o-cur-note').textContent = 'Purchases count once, on the day of the bill. Paying a due later lowers the Grand Total Due and the cash, never adds a second expense. Operating result = cash result − supplier due carried forward.';
 }
 function histPosition() {
@@ -859,8 +861,11 @@ function curCash() {
   const t = $('c-cur').querySelector('.note'); if (cl.some(c => c.cash_assumed)) t.textContent = t.textContent.replace(/ \* .*$/, '') + ' * Cash sales not split from UPI on the sheet, so all sales are treated as cash.';
   $('c-ndue-total').textContent = inr(-D.NEWDUE);
   const rows = $('c-ndue-rows'); rows.replaceChildren();
-  Object.entries(D.cur.supplier_due).sort((a, b) => b[1] - a[1]).forEach(([k, v]) => row(rows, k, v < 0 ? 'credit with supplier, paid in advance' : '', inr(v), v < 0 ? 'pos' : ''));
-  row(rows, 'Grand Total Due', 'matches the sheet', inr(D.NEWDUE), 'sum');
+  const ent = Object.entries(D.cur.supplier_due).sort((a, b) => b[1] - a[1]), owed = ent.filter(e => e[1] > 0), cred = ent.filter(e => e[1] < 0);
+  owed.forEach(([k, v]) => row(rows, k, '', inr(v)));
+  row(rows, 'Unpaid supplier balances', owed.length + ' suppliers', inr(d3.sum(owed, e => e[1])), 'tot');
+  cred.forEach(([k, v]) => row(rows, k, 'credit with supplier, paid in advance', inr(v), 'pos', { text: 'Credit' }));
+  row(rows, 'Grand Total Due', cred.length ? 'unpaid balances less supplier credit, matches the sheet' : 'matches the sheet', inr(D.NEWDUE), 'sum');
 }
 
 /* ================= RECORDS ================= */

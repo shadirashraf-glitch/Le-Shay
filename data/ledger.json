@@ -1,5 +1,5 @@
 {
-"updated": "2026-11-23T22:00+00:00",
+"updated": "2026-11-23T22:03+00:00",
 "sales": [
 {
 "date": "2026-09-28",
@@ -271,6 +271,13 @@
 "sales": 12894,
 "kitchen": 4710,
 "juice": 2045,
+"period": "current"
+},
+{
+"date": "2026-11-22",
+"sales": 19212,
+"kitchen": 3950,
+"juice": 3645,
 "period": "current"
 }
 ],
@@ -4176,6 +4183,104 @@
 "category": "Room rent",
 "amount": 535,
 "period": "current"
+},
+{
+"date": "2026-11-22",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 1900,
+"period": "current"
+},
+{
+"date": "2026-11-22",
+"item": "Egg / Disposable / Handwash",
+"category": "Meat, fish & eggs",
+"amount": 290,
+"period": "current"
+},
+{
+"date": "2026-11-22",
+"item": "Dosa mavu",
+"category": "Produce & batter",
+"amount": 300,
+"period": "current"
+},
+{
+"date": "2026-11-22",
+"item": "Fish / Water",
+"category": "Meat, fish & eggs",
+"amount": 300,
+"period": "current"
+},
+{
+"date": "2026-11-22",
+"item": "Room agreement / Waste",
+"category": "Utilities & misc",
+"amount": 100,
+"period": "current"
+},
+{
+"date": "2026-11-22",
+"item": "Milk · part unpaid",
+"category": "Milk",
+"amount": 995,
+"period": "current"
+},
+{
+"date": "2026-11-22",
+"item": "Chicken · unpaid",
+"category": "Meat, fish & eggs",
+"amount": 962,
+"period": "current"
+},
+{
+"date": "2026-11-22",
+"item": "Petrol / Fruits",
+"category": "Produce & batter",
+"amount": 100,
+"period": "current"
+},
+{
+"date": "2026-11-22",
+"item": "Banana / Ice cream",
+"category": "Snacks & ice cream",
+"amount": 100,
+"period": "current"
+},
+{
+"date": "2026-11-22",
+"item": "Auto",
+"category": "Utilities & misc",
+"amount": 50,
+"period": "current"
+},
+{
+"date": "2026-11-22",
+"item": "Daily staff wages",
+"category": "Staff",
+"amount": 6100,
+"period": "current"
+},
+{
+"date": "2026-11-22",
+"item": "Shop rent",
+"category": "Rent",
+"amount": 800,
+"period": "current"
+},
+{
+"date": "2026-11-22",
+"item": "GKU salary",
+"category": "GKU salary",
+"amount": 350,
+"period": "current"
+},
+{
+"date": "2026-11-22",
+"item": "Room rent",
+"category": "Room rent",
+"amount": 535,
+"period": "current"
 }
 ],
 "preopening": [
@@ -7292,6 +7397,39 @@
 "grand_calc": 26393,
 "closing_calc": -1584,
 "cash_assumed": true
+},
+{
+"date": "2026-11-22",
+"kitchen": "3950",
+"juice": "3645",
+"counter": "11617",
+"total_sales": "19212",
+"cash_sales": "",
+"digital_sales": "",
+"opening_cash": "-1584",
+"owner_cash": "",
+"closing_cash": "5773",
+"staff_count": "10",
+"staff_wages": "6100",
+"shop_rent": "800",
+"gku_salary": "350",
+"room_rent": "535",
+"electricity": "",
+"firoz_salary": "",
+"bills_total": "5097",
+"paid_total": "4070",
+"due_total": "1027",
+"grand_due": "27420",
+"checked_by_gku": "",
+"notes": "Opening corrected to -1584 (21 Nov corrected closing); sheet showed opening -817 and closing 6540. Calculated balance",
+"null": [
+" not verified physical cash. Cash sales blank."
+],
+"staff_paid": 7785,
+"due_paid": 0,
+"grand_calc": 27420,
+"closing_calc": 5773,
+"cash_assumed": true
 }
 ],
 "purchases": [
@@ -7978,6 +8116,96 @@
 "paid": 0,
 "due": 1080,
 "bill_no": "5400"
+},
+{
+"date": "2026-11-22",
+"supplier": "Anadhi",
+"category": "Groceries",
+"bill": 1900,
+"paid": 1900,
+"due": 0,
+"bill_no": ""
+},
+{
+"date": "2026-11-22",
+"supplier": "Egg / Disposable / Handwash",
+"category": "Meat, fish & eggs",
+"bill": 290,
+"paid": 290,
+"due": 0,
+"bill_no": ""
+},
+{
+"date": "2026-11-22",
+"supplier": "Dosa mavu",
+"category": "Produce & batter",
+"bill": 300,
+"paid": 300,
+"due": 0,
+"bill_no": ""
+},
+{
+"date": "2026-11-22",
+"supplier": "Fish / Water",
+"category": "Meat, fish & eggs",
+"bill": 300,
+"paid": 300,
+"due": 0,
+"bill_no": ""
+},
+{
+"date": "2026-11-22",
+"supplier": "Room agreement / Waste",
+"category": "Utilities & misc",
+"bill": 100,
+"paid": 100,
+"due": 0,
+"bill_no": ""
+},
+{
+"date": "2026-11-22",
+"supplier": "Milk",
+"category": "Milk",
+"bill": 995,
+"paid": 930,
+"due": 65,
+"bill_no": "650"
+},
+{
+"date": "2026-11-22",
+"supplier": "Chicken",
+"category": "Meat, fish & eggs",
+"bill": 962,
+"paid": 0,
+"due": 962,
+"bill_no": "4442"
+},
+{
+"date": "2026-11-22",
+"supplier": "Petrol / Fruits",
+"category": "Produce & batter",
+"bill": 100,
+"paid": 100,
+"due": 0,
+"bill_no": ""
+},
+{
+"date": "2026-11-22",
+"supplier": "Banana / Ice cream",
+"category": "Snacks & ice cream",
+"bill": 100,
+"paid": 100,
+"due": 0,
+"bill_no": "-80"
+},
+{
+"date": "2026-11-22",
+"supplier": "Auto",
+"category": "Utilities & misc",
+"bill": 50,
+"paid": 50,
+"due": 0,
+"bill_no": ""
 }
 ],
 "due_payments": [
@@ -8030,12 +8258,12 @@
 "notes": "Clears 19 Nov petrol/fruits due (900 paid: 490 today + 410 old due)"
 }
 ],
-"grand_due": 26393,
+"grand_due": 27420,
 "supplier_due": {
 "Samoosa": 880,
-"Milk": 585,
+"Milk": 650,
 "Vegetable": 4603,
-"Chicken": 3480,
+"Chicken": 4442,
 "Snack": 2940,
 "Kallumakkai": 3445,
 "Gas": 5140,

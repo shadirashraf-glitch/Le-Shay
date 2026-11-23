@@ -75,3 +75,13 @@ date,supplier,category,bill,paid,due,bill_no
 2026-11-21,Banana / Ice cream,Snacks & ice cream,100,100,0,-80
 2026-11-21,Auto,Utilities & misc,50,50,0,
 2026-11-21,Beef,"Meat, fish & eggs",1080,0,1080,5400
+2026-11-22,Anadhi,Groceries,1900,1900,0,
+2026-11-22,Egg / Disposable / Handwash,"Meat, fish & eggs",290,290,0,
+2026-11-22,Dosa mavu,Produce & batter,300,300,0,
+2026-11-22,Fish / Water,"Meat, fish & eggs",300,300,0,
+2026-11-22,Room agreement / Waste,Utilities & misc,100,100,0,
+2026-11-22,Milk,Milk,995,930,65,650
+2026-11-22,Chicken,"Meat, fish & eggs",962,0,962,4442
+2026-11-22,Petrol / Fruits,Produce & batter,100,100,0,
+2026-11-22,Banana / Ice cream,Snacks & ice cream,100,100,0,-80
+2026-11-22,Auto,Utilities & misc,50,50,0,
