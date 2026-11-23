@@ -1,3 +1,4 @@
 date,kitchen,juice,counter,total_sales,cash_sales,digital_sales,opening_cash,owner_cash,closing_cash,staff_count,staff_wages,shop_rent,gku_salary,room_rent,electricity,firoz_salary,bills_total,paid_total,due_total,grand_due,checked_by_gku,notes
 2026-11-16,2210,830,7285,10325,,,5320,,5320,8,4100,800,350,,,,13191,5075,8116,8116,,Cash sales field left blank on the sheet. Closing cash treats all sales as cash.
 2026-11-17,2810,1200,9087,13097,,,5320,,4128,8,5200,800,350,,,,7546,7939,-393,7723,,Corrected per owner reconciliation: handwritten paid 7987 / wages 6035 / closing 4395 were arithmetic errors. Cash sales blank.
+2026-11-18,2640,1300,10275,14215,,,4128,,4868,10,6600,800,350,535,,,10151,5190,4961,12684,,Opening corrected to 4128 (17 Nov corrected closing); sheet showed opening 4395 and closing 5135. Room rent 535 written in the electricity box. Cash sales blank.
