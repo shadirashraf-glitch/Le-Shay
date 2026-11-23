@@ -24,6 +24,49 @@ if "est_from" in cfg:
                 if k not in x:
                     x[k] = round(x["sales"] * float(cfg[k + "_pct"])); x[k + "_est"] = True
 
+# Current period (new Daily Closing template from 16 Nov). History to 15 Nov stays in sales.csv / expenses.csv.
+CUR_FROM = "2026-11-16"
+if any(x["date"] >= CUR_FROM for x in sales) or any(e["date"] >= CUR_FROM for e in exp):
+    sys.exit("RECONCILIATION FAILED: sales.csv / expenses.csv must stop at 15 Nov; use daily_closing.csv and purchases.csv")
+I = lambda v: int(v) if str(v).strip() != "" else 0
+closing = [dict(r) for r in rd("daily_closing.csv")]
+purch = [dict(r, bill=I(r["bill"]), paid=I(r["paid"]), due=I(r["due"])) for r in rd("purchases.csv")]
+duepay = [dict(r, amount=I(r["amount"])) for r in rd("due_payments.csv")]
+STAFF = [("staff_wages", "Daily staff wages", "Staff"), ("shop_rent", "Shop rent", "Rent"), ("gku_salary", "GKU salary", "GKU salary"),
+         ("room_rent", "Room rent", "Room rent"), ("electricity", "Electricity", "Utilities & misc"), ("firoz_salary", "Firoz salary", "Firoz salary")]
+problems, warnings, grand, sup_due = [], [], 0, {}
+for c in closing:
+    d = c["date"]; k, j_, ct, tot = I(c["kitchen"]), I(c["juice"]), I(c["counter"]), I(c["total_sales"])
+    if k + j_ + ct != tot: problems.append(f"{d}: sections {k}+{j_}+{ct} != total {tot}")
+    pl = [p for p in purch if p["date"] == d]
+    for p in pl:
+        if p["paid"] + p["due"] != p["bill"]: problems.append(f"{d} {p['supplier']}: paid+due != bill")
+    for f, key in (("bill", "bills_total"), ("paid", "paid_total"), ("due", "due_total")):
+        if sum(p[f] for p in pl) != I(c[key]): problems.append(f"{d}: {f} lines {sum(p[f] for p in pl)} != sheet {c[key]}")
+    paid_dues = [x for x in duepay if x["date"] == d]
+    for p in pl: sup_due[p["supplier"]] = sup_due.get(p["supplier"], 0) + p["due"]
+    for x in paid_dues:
+        if sup_due.get(x["supplier"], 0) < x["amount"]: problems.append(f"{d}: payment to {x['supplier']} {x['amount']} exceeds its due")
+        sup_due[x["supplier"]] = sup_due.get(x["supplier"], 0) - x["amount"]
+    grand += I(c["due_total"]) - sum(x["amount"] for x in paid_dues)
+    if c["grand_due"].strip() and I(c["grand_due"]) != grand: problems.append(f"{d}: grand due {grand} != sheet {c['grand_due']}")
+    staff_paid = sum(I(c[f]) for f, _, _ in STAFF)
+    cash_in = I(c["cash_sales"]) if c["cash_sales"].strip() else tot
+    calc = I(c["opening_cash"]) + I(c["owner_cash"]) + cash_in - I(c["paid_total"]) - staff_paid - sum(x["amount"] for x in paid_dues)
+    c.update(staff_paid=staff_paid, due_paid=sum(x["amount"] for x in paid_dues), grand_calc=grand, closing_calc=calc, cash_assumed=not c["cash_sales"].strip())
+    if c["closing_cash"].strip() and I(c["closing_cash"]) != calc: warnings.append(f"{d}: closing cash on sheet {c['closing_cash']} vs formula {calc}")
+    x = {"date": d, "sales": tot, "kitchen": k, "juice": j_, "period": "current"}
+    sales.append(x)
+    for p in pl:
+        tag = "" if not p["due"] else (" · unpaid" if not p["paid"] else " · part unpaid")
+        exp.append({"date": d, "item": p["supplier"] + tag, "category": p["category"], "amount": p["bill"], "period": "current"})
+    for f, label, cat in STAFF:
+        if I(c[f]): exp.append({"date": d, "item": label, "category": cat, "amount": I(c[f]), "period": "current"})
+if problems: sys.exit("RECONCILIATION FAILED (daily closing): " + "; ".join(problems))
+for w in warnings: print("WARNING:", w)
+current = {"from": CUR_FROM, "closing": closing, "purchases": purch, "due_payments": duepay, "grand_due": grand,
+           "supplier_due": {k: v for k, v in sup_due.items() if v}, "warnings": warnings}
+
 # Owner funding ledger
 inv = [{k: (v.strip() if isinstance(v, str) else v) for k, v in r.items()} for r in rd("investment_ledger.csv")]
 for r in inv: r["amount_inr"] = int(r["amount_inr"])
@@ -63,6 +106,6 @@ if problems: sys.exit("RECONCILIATION FAILED: " + "; ".join(problems))
 out = {"updated": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="minutes"),
        "sales": sales, "expenses": exp, "preopening": pre, "settings": cfg,
        "investment_ledger": inv, "funding_classes": cls, "deposit": dep,
-       "cash_advances": adv, "cashbook": cash, "pending": pending, "payables": pay, "settlements": setl, "period_closed": "2026-11-15"}
+       "cash_advances": adv, "cashbook": cash, "pending": pending, "payables": pay, "settlements": setl, "current": current, "period_closed": "2026-11-15"}
 json.dump(out, open(root / "ledger.json", "w", encoding="utf-8"), ensure_ascii=False, indent=0)
 print(len(sales), "days,", len(exp), "expense lines | funding reconciled:", sum(cls.values()), cls)

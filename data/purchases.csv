@@ -1,0 +1,13 @@
+date,supplier,category,bill,paid,due,bill_no
+2026-11-16,Samoosa,Snacks & ice cream,220,0,220,220
+2026-11-16,Anadhi,Groceries,2900,2900,0,
+2026-11-16,Egg / Disposable / Handwash,"Meat, fish & eggs",495,495,0,
+2026-11-16,Dosa mavu,Produce & batter,200,200,0,
+2026-11-16,Fish,"Meat, fish & eggs",980,980,0,
+2026-11-16,Room agreement / Waste,Utilities & misc,500,500,0,
+2026-11-16,Milk,Milk,950,0,950,950
+2026-11-16,Vegetable,Produce & batter,985,0,985,985
+2026-11-16,Chicken,"Meat, fish & eggs",1080,0,1080,1080
+2026-11-16,Snack,Snacks & ice cream,935,0,935,935
+2026-11-16,Kallumakkai,Snacks & ice cream,1376,0,1376,1376
+2026-11-16,Gas,Gas,2570,0,2570,2570

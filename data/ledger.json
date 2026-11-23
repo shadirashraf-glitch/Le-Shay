@@ -1,5 +1,5 @@
 {
-"updated": "2026-11-16T22:13+00:00",
+"updated": "2026-11-23T21:29+00:00",
 "sales": [
 {
 "date": "2026-09-28",
@@ -230,6 +230,13 @@
 "sales": 20515,
 "kitchen": 7220,
 "juice": 2400
+},
+{
+"date": "2026-11-16",
+"sales": 10325,
+"kitchen": 2210,
+"juice": 830,
+"period": "current"
 }
 ],
 "expenses": [
@@ -3448,6 +3455,111 @@
 "item": "Milk",
 "category": "Milk",
 "amount": 650
+},
+{
+"date": "2026-11-16",
+"item": "Samoosa · unpaid",
+"category": "Snacks & ice cream",
+"amount": 220,
+"period": "current"
+},
+{
+"date": "2026-11-16",
+"item": "Anadhi",
+"category": "Groceries",
+"amount": 2900,
+"period": "current"
+},
+{
+"date": "2026-11-16",
+"item": "Egg / Disposable / Handwash",
+"category": "Meat, fish & eggs",
+"amount": 495,
+"period": "current"
+},
+{
+"date": "2026-11-16",
+"item": "Dosa mavu",
+"category": "Produce & batter",
+"amount": 200,
+"period": "current"
+},
+{
+"date": "2026-11-16",
+"item": "Fish",
+"category": "Meat, fish & eggs",
+"amount": 980,
+"period": "current"
+},
+{
+"date": "2026-11-16",
+"item": "Room agreement / Waste",
+"category": "Utilities & misc",
+"amount": 500,
+"period": "current"
+},
+{
+"date": "2026-11-16",
+"item": "Milk · unpaid",
+"category": "Milk",
+"amount": 950,
+"period": "current"
+},
+{
+"date": "2026-11-16",
+"item": "Vegetable · unpaid",
+"category": "Produce & batter",
+"amount": 985,
+"period": "current"
+},
+{
+"date": "2026-11-16",
+"item": "Chicken · unpaid",
+"category": "Meat, fish & eggs",
+"amount": 1080,
+"period": "current"
+},
+{
+"date": "2026-11-16",
+"item": "Snack · unpaid",
+"category": "Snacks & ice cream",
+"amount": 935,
+"period": "current"
+},
+{
+"date": "2026-11-16",
+"item": "Kallumakkai · unpaid",
+"category": "Snacks & ice cream",
+"amount": 1376,
+"period": "current"
+},
+{
+"date": "2026-11-16",
+"item": "Gas · unpaid",
+"category": "Gas",
+"amount": 2570,
+"period": "current"
+},
+{
+"date": "2026-11-16",
+"item": "Daily staff wages",
+"category": "Staff",
+"amount": 4100,
+"period": "current"
+},
+{
+"date": "2026-11-16",
+"item": "Shop rent",
+"category": "Rent",
+"amount": 800,
+"period": "current"
+},
+{
+"date": "2026-11-16",
+"item": "GKU salary",
+"category": "GKU salary",
+"amount": 350,
+"period": "current"
 }
 ],
 "preopening": [
@@ -6379,5 +6491,162 @@
 }
 ],
 "settlements": [],
+"current": {
+"from": "2026-11-16",
+"closing": [
+{
+"date": "2026-11-16",
+"kitchen": "2210",
+"juice": "830",
+"counter": "7285",
+"total_sales": "10325",
+"cash_sales": "",
+"digital_sales": "",
+"opening_cash": "5320",
+"owner_cash": "",
+"closing_cash": "5320",
+"staff_count": "8",
+"staff_wages": "4100",
+"shop_rent": "800",
+"gku_salary": "350",
+"room_rent": "",
+"electricity": "",
+"firoz_salary": "",
+"bills_total": "13191",
+"paid_total": "5075",
+"due_total": "8116",
+"grand_due": "8116",
+"checked_by_gku": "",
+"notes": "Cash sales field left blank on the sheet. Closing cash treats all sales as cash.",
+"staff_paid": 5250,
+"due_paid": 0,
+"grand_calc": 8116,
+"closing_calc": 5320,
+"cash_assumed": true
+}
+],
+"purchases": [
+{
+"date": "2026-11-16",
+"supplier": "Samoosa",
+"category": "Snacks & ice cream",
+"bill": 220,
+"paid": 0,
+"due": 220,
+"bill_no": "220"
+},
+{
+"date": "2026-11-16",
+"supplier": "Anadhi",
+"category": "Groceries",
+"bill": 2900,
+"paid": 2900,
+"due": 0,
+"bill_no": ""
+},
+{
+"date": "2026-11-16",
+"supplier": "Egg / Disposable / Handwash",
+"category": "Meat, fish & eggs",
+"bill": 495,
+"paid": 495,
+"due": 0,
+"bill_no": ""
+},
+{
+"date": "2026-11-16",
+"supplier": "Dosa mavu",
+"category": "Produce & batter",
+"bill": 200,
+"paid": 200,
+"due": 0,
+"bill_no": ""
+},
+{
+"date": "2026-11-16",
+"supplier": "Fish",
+"category": "Meat, fish & eggs",
+"bill": 980,
+"paid": 980,
+"due": 0,
+"bill_no": ""
+},
+{
+"date": "2026-11-16",
+"supplier": "Room agreement / Waste",
+"category": "Utilities & misc",
+"bill": 500,
+"paid": 500,
+"due": 0,
+"bill_no": ""
+},
+{
+"date": "2026-11-16",
+"supplier": "Milk",
+"category": "Milk",
+"bill": 950,
+"paid": 0,
+"due": 950,
+"bill_no": "950"
+},
+{
+"date": "2026-11-16",
+"supplier": "Vegetable",
+"category": "Produce & batter",
+"bill": 985,
+"paid": 0,
+"due": 985,
+"bill_no": "985"
+},
+{
+"date": "2026-11-16",
+"supplier": "Chicken",
+"category": "Meat, fish & eggs",
+"bill": 1080,
+"paid": 0,
+"due": 1080,
+"bill_no": "1080"
+},
+{
+"date": "2026-11-16",
+"supplier": "Snack",
+"category": "Snacks & ice cream",
+"bill": 935,
+"paid": 0,
+"due": 935,
+"bill_no": "935"
+},
+{
+"date": "2026-11-16",
+"supplier": "Kallumakkai",
+"category": "Snacks & ice cream",
+"bill": 1376,
+"paid": 0,
+"due": 1376,
+"bill_no": "1376"
+},
+{
+"date": "2026-11-16",
+"supplier": "Gas",
+"category": "Gas",
+"bill": 2570,
+"paid": 0,
+"due": 2570,
+"bill_no": "2570"
+}
+],
+"due_payments": [],
+"grand_due": 8116,
+"supplier_due": {
+"Samoosa": 220,
+"Milk": 950,
+"Vegetable": 985,
+"Chicken": 1080,
+"Snack": 935,
+"Kallumakkai": 1376,
+"Gas": 2570
+},
+"warnings": []
+},
 "period_closed": "2026-11-15"
 }

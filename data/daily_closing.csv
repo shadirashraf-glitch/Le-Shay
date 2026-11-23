@@ -1,0 +1,2 @@
+date,kitchen,juice,counter,total_sales,cash_sales,digital_sales,opening_cash,owner_cash,closing_cash,staff_count,staff_wages,shop_rent,gku_salary,room_rent,electricity,firoz_salary,bills_total,paid_total,due_total,grand_due,checked_by_gku,notes
+2026-11-16,2210,830,7285,10325,,,5320,,5320,8,4100,800,350,,,,13191,5075,8116,8116,,Cash sales field left blank on the sheet. Closing cash treats all sales as cash.
