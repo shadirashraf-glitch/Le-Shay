@@ -41,18 +41,21 @@ for c in closing:
     pl = [p for p in purch if p["date"] == d]
     for p in pl:
         if p["paid"] + p["due"] != p["bill"]: problems.append(f"{d} {p['supplier']}: paid+due != bill")
-    for f, key in (("bill", "bills_total"), ("paid", "paid_total"), ("due", "due_total")):
-        if sum(p[f] for p in pl) != I(c[key]): problems.append(f"{d}: {f} lines {sum(p[f] for p in pl)} != sheet {c[key]}")
     paid_dues = [x for x in duepay if x["date"] == d]
+    dp = sum(x["amount"] for x in paid_dues)
+    # paid_total = all supplier payments that day (today's bills + earlier dues); due_total = net due movement
+    for lab, got, key in (("bills", sum(p["bill"] for p in pl), "bills_total"), ("supplier payments", sum(p["paid"] for p in pl) + dp, "paid_total"),
+                          ("net due movement", sum(p["due"] for p in pl) - dp, "due_total")):
+        if got != I(c[key]): problems.append(f"{d}: {lab} {got} != sheet {c[key]}")
     for p in pl: sup_due[p["supplier"]] = sup_due.get(p["supplier"], 0) + p["due"]
     for x in paid_dues:
         if sup_due.get(x["supplier"], 0) < x["amount"]: problems.append(f"{d}: payment to {x['supplier']} {x['amount']} exceeds its due")
         sup_due[x["supplier"]] = sup_due.get(x["supplier"], 0) - x["amount"]
-    grand += I(c["due_total"]) - sum(x["amount"] for x in paid_dues)
+    grand += I(c["due_total"])
     if c["grand_due"].strip() and I(c["grand_due"]) != grand: problems.append(f"{d}: grand due {grand} != sheet {c['grand_due']}")
     staff_paid = sum(I(c[f]) for f, _, _ in STAFF)
     cash_in = I(c["cash_sales"]) if c["cash_sales"].strip() else tot
-    calc = I(c["opening_cash"]) + I(c["owner_cash"]) + cash_in - I(c["paid_total"]) - staff_paid - sum(x["amount"] for x in paid_dues)
+    calc = I(c["opening_cash"]) + I(c["owner_cash"]) + cash_in - I(c["paid_total"]) - staff_paid
     c.update(staff_paid=staff_paid, due_paid=sum(x["amount"] for x in paid_dues), grand_calc=grand, closing_calc=calc, cash_assumed=not c["cash_sales"].strip())
     if c["closing_cash"].strip() and I(c["closing_cash"]) != calc: warnings.append(f"{d}: closing cash on sheet {c['closing_cash']} vs formula {calc}")
     x = {"date": d, "sales": tot, "kitchen": k, "juice": j_, "period": "current"}

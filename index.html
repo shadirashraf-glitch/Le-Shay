@@ -853,7 +853,7 @@ function curCash() {
   const tb = $('c-cur-tbl'); tb.replaceChildren();
   const hd = el('tr'); ['Day', 'Opening', 'Sales', 'Purchases paid', 'Wages & rent', 'Dues paid', 'Closing', 'Grand due'].forEach(h => hd.appendChild(el('th', null, h))); tb.appendChild(el('thead')).appendChild(hd);
   const body = tb.appendChild(el('tbody'));
-  cl.forEach(c => { const r = el('tr'); [fd(c.date), inr(+c.opening_cash), inr(+c.total_sales) + (c.cash_assumed ? '*' : ''), inr(-c.paid_total), inr(-c.staff_paid), inr(-c.due_paid), inr(+c.closing_cash), inr(c.grand_calc)].forEach(v => r.appendChild(el('td', null, v))); body.appendChild(r); });
+  cl.forEach(c => { const r = el('tr'); [fd(c.date), inr(+c.opening_cash), inr(+c.total_sales) + (c.cash_assumed ? '*' : ''), inr(-(c.paid_total - c.due_paid)), inr(-c.staff_paid), inr(-c.due_paid), inr(+c.closing_cash), inr(c.grand_calc)].forEach(v => r.appendChild(el('td', null, v))); body.appendChild(r); });
   const t = $('c-cur').querySelector('.note'); if (cl.some(c => c.cash_assumed)) t.textContent = t.textContent.replace(/ \* .*$/, '') + ' * Cash sales not split from UPI on the sheet, so all sales are treated as cash.';
   $('c-ndue-total').textContent = inr(-D.NEWDUE);
   const rows = $('c-ndue-rows'); rows.replaceChildren();
