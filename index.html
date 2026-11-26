@@ -902,7 +902,8 @@ function curCash() {
   $('c-ndue-total').textContent = inr(-D.NEWDUE);
   const rows = $('c-ndue-rows'); rows.replaceChildren();
   const ent = Object.entries(D.cur.supplier_due).sort((a, b) => b[1] - a[1]), owed = ent.filter(e => e[1] > 0), cred = ent.filter(e => e[1] < 0);
-  owed.forEach(([k, v]) => row(rows, k, '', inr(v)));
+  const unv = new Set(D.cur.unverified || []);
+  owed.forEach(([k, v]) => row(rows, k, unv.has(k) ? 'shown unpaid, not yet verified' : '', inr(v), '', unv.has(k) ? { text: 'Unverified' } : null));
   row(rows, 'Unpaid supplier balances', owed.length + ' suppliers', inr(d3.sum(owed, e => e[1])), 'tot');
   cred.forEach(([k, v]) => row(rows, k, 'credit with supplier, paid in advance', inr(v), 'pos', { text: 'Credit' }));
   row(rows, 'Grand Total Due', cred.length ? 'unpaid balances less supplier credit, matches the sheet' : 'matches the sheet', inr(D.NEWDUE), 'sum');
@@ -921,7 +922,7 @@ function supplierTracker() {
     all: { label: 'All periods', from: D.cur.from, to: last } };
   const p = PER[ST.per], has = !!p.to && days.some(d => d >= p.from && d <= p.to);
   const ev = [];
-  D.cur.purchases.forEach(x => ev.push({ s: x.supplier, d: x.date, bill: x.bill, paid: x.paid, note: x.sheet_name !== x.supplier ? 'written as ' + x.sheet_name : '' }));
+  D.cur.purchases.forEach(x => ev.push({ s: x.supplier, d: x.date, bill: x.bill, paid: x.paid, note: [x.sheet_name !== x.supplier ? 'written as ' + x.sheet_name : '', /^UNVERIFIED/.test(x.verify || '') ? 'unpaid status not yet verified' : ''].filter(Boolean).join('; ') }));
   D.cur.due_payments.forEach(x => ev.push({ s: x.supplier, d: x.date, bill: 0, paid: x.amount, note: 'includes payment against an earlier due' }));
   ev.sort((a, b) => a.d < b.d ? -1 : a.d > b.d ? 1 : b.bill - a.bill);
   const sups = d3.rollups(ev, v => v, e => e.s).map(([s, v]) => {
@@ -959,6 +960,7 @@ function supplierTracker() {
   $('spt-list').replaceChildren(...list.map(x => {
     const dt = el('details', 'sup'), sm = el('summary'), nm = el('span', 'nm', x.s);
     nm.appendChild(el('span', 'flag ' + (x.status === 'Pending' ? 'bad' : 'ok'), x.status));
+    if ((D.cur.unverified || []).includes(x.s) && x.close) nm.appendChild(el('span', 'flag', 'Unverified'));
     sm.append(nm, el('span', 'bal ' + (x.close > 0 ? 'neg' : x.close < 0 ? 'pos' : ''), inr(x.close)), el('small', null, 'Purchased ' + inr(x.bill) + ' · paid ' + inr(x.paid) + (ST.per !== 'all' && x.open ? ' · brought forward ' + inr(x.open) : '')));
     const h = el('div', 'hist'), tb = el('table'), hr = el('tr');
     ['Day', 'Purchase', 'Paid', 'Balance'].forEach(c => hr.appendChild(el('th', null, c))); tb.appendChild(el('thead')).appendChild(hr);

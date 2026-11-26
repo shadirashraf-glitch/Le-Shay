@@ -73,13 +73,16 @@ for c in closing:
     sales.append(x)
     for p in pl:
         tag = "" if not p["due"] else (" · unpaid" if not p["paid"] else " · part unpaid")
+        if (p.get("verify") or "").startswith("UNVERIFIED"):
+            tag += " · unverified"; warnings.append(f"{fmt(d)}: {p['supplier']} {p['bill']:,} {p['verify'][len('UNVERIFIED: '):]}")
         exp.append({"date": d, "item": p["supplier"] + tag, "category": p["category"], "amount": p["bill"], "period": "current"})
     for f, label, cat in STAFF:
         if I(c[f]): exp.append({"date": d, "item": label, "category": cat, "amount": I(c[f]), "period": "current"})
 if problems: sys.exit("RECONCILIATION FAILED (daily closing): " + "; ".join(problems))
 for w in warnings: print("WARNING:", w)
 current = {"from": CUR_FROM, "closing": closing, "purchases": purch, "due_payments": duepay, "grand_due": grand,
-           "supplier_due": {k: v for k, v in sup_due.items() if v}, "warnings": warnings}
+           "supplier_due": {k: v for k, v in sup_due.items() if v}, "warnings": warnings,
+           "unverified": sorted({p["supplier"] for p in purch if (p.get("verify") or "").startswith("UNVERIFIED")})}
 
 # Owner funding ledger
 inv = [{k: (v.strip() if isinstance(v, str) else v) for k, v in r.items()} for r in rd("investment_ledger.csv")]
