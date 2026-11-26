@@ -113,5 +113,5 @@ date,supplier,category,bill,paid,due,bill_no,verify
 2026-11-24,Kallumakkai,Snacks & ice cream,1330,0,1330,3871,
 2026-11-24,Petrol / Fruits,Produce & batter,220,220,0,,
 2026-11-24,Banana / Ice cream,Snacks & ice cream,100,100,0,970,
-2026-11-24,Auto,Utilities & misc,50,0,50,50,"UNVERIFIED: shown unpaid on the sheet; owner to confirm whether GKU paid it. If paid: payments 4,930, closing cash 4,541, grand due 37,135."
+2026-11-24,Auto,Utilities & misc,50,50,0,,Owner confirmed: paid same day (Auto is a daily-payment supplier)
 2026-11-24,Beef,"Meat, fish & eggs",1080,0,1080,7560,

@@ -1,5 +1,5 @@
 {
-"updated": "2026-11-26T21:28+00:00",
+"updated": "2026-11-26T21:31+00:00",
 "sales": [
 {
 "date": "2026-09-28",
@@ -4522,7 +4522,7 @@
 },
 {
 "date": "2026-11-24",
-"item": "Auto · unpaid · unverified",
+"item": "Auto",
 "category": "Utilities & misc",
 "amount": 50,
 "period": "current"
@@ -7861,7 +7861,7 @@
 "digital_sales": "",
 "opening_cash": "1654",
 "owner_cash": "",
-"closing_cash": "4591",
+"closing_cash": "4541",
 "staff_count": "9",
 "staff_wages": "5800",
 "shop_rent": "800",
@@ -7870,16 +7870,16 @@
 "electricity": "",
 "firoz_salary": "",
 "bills_total": "7714",
-"paid_total": "4880",
-"due_total": "2834",
-"grand_due": "37185",
+"paid_total": "4930",
+"due_total": "2784",
+"grand_due": "37135",
 "checked_by_gku": "",
-"notes": "Opening corrected to 1654 (23 Nov corrected closing; sheet crossed out 1440). Handwritten closing 1757 used purchases instead of payments; corrected 4591. Auto 50 unpaid but unverified. Room rent 535 in the electricity box. Cash sales blank.",
+"notes": "Opening corrected to 1654 (23 Nov corrected closing; sheet crossed out 1440). Handwritten closing 1757 used purchases instead of payments. Auto 50 confirmed paid same day by owner; closing 4541. Room rent 535 in the electricity box. Cash sales blank.",
 "into_till": 0,
 "staff_paid": 7485,
 "due_paid": 2168,
-"grand_calc": 37185,
-"closing_calc": 4591,
+"grand_calc": 37135,
+"closing_calc": 4541,
 "cash_assumed": true
 }
 ],
@@ -9143,10 +9143,10 @@
 "supplier": "Auto",
 "category": "Utilities & misc",
 "bill": 50,
-"paid": 0,
-"due": 50,
-"bill_no": "50",
-"verify": "UNVERIFIED: shown unpaid on the sheet; owner to confirm whether GKU paid it. If paid: payments 4,930, closing cash 4,541, grand due 37,135.",
+"paid": 50,
+"due": 0,
+"bill_no": "",
+"verify": "Owner confirmed: paid same day (Auto is a daily-payment supplier)",
 "sheet_name": "Auto"
 },
 {
@@ -9241,7 +9241,7 @@
 "notes": "Part payment of earlier vegetable due (2000 paid: 417 today + 1583 old due)"
 }
 ],
-"grand_due": 37185,
+"grand_due": 37135,
 "supplier_due": {
 "Samoosa": 880,
 "Fish / Water": 520,
@@ -9252,18 +9252,14 @@
 "Kallumakkai": 3871,
 "Gas": 7710,
 "Banana / Ice cream": 970,
-"Beef": 7560,
-"Auto": 50
+"Beef": 7560
 },
 "warnings": [
 "2026-11-20: Banana / Ice cream paid 80 more than owed, held as a supplier credit",
 "20 Nov: estimated funding gap, calculated closing cash -1,049. Not verified physical cash. Verify additional funding or unrecorded cash movements. No owner advance created without confirmation.",
-"21 Nov: estimated funding gap, calculated closing cash -1,584. Not verified physical cash. Verify additional funding or unrecorded cash movements. No owner advance created without confirmation.",
-"24 Nov: Auto 50 shown unpaid on the sheet; owner to confirm whether GKU paid it. If paid: payments 4,930, closing cash 4,541, grand due 37,135."
+"21 Nov: estimated funding gap, calculated closing cash -1,584. Not verified physical cash. Verify additional funding or unrecorded cash movements. No owner advance created without confirmation."
 ],
-"unverified": [
-"Auto"
-]
+"unverified": []
 },
 "period_closed": "2026-11-15"
 }
