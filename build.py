@@ -96,6 +96,14 @@ for c in closing:
     if w_add: exp.append({"date": d, "item": "Daily staff wages · unpaid balance", "category": "Staff", "amount": w_add, "period": "current"})
     for f, label, cat in STAFF:
         if I(c[f]): exp.append({"date": d, "item": label, "category": cat, "amount": I(c[f]), "period": "current"})
+# Owner cash put into the till on the day must match a dated advance record with no till_date (counted once in funding and cash)
+for c in closing:
+    oc = I(c["owner_cash"])
+    recs = [a for a in rd("cash_advances.csv") if a["date"] == c["date"] and not a["source_transaction"] and not a.get("till_date")]
+    if oc != sum(int(a["amount"]) for a in recs): problems.append(f"{c['date']}: owner additional cash {oc} does not match advance records {sum(int(a['amount']) for a in recs)}")
+for a in rd("cash_advances.csv"):
+    if not a["source_transaction"] and not a.get("till_date") and not any(c["date"] == a["date"] for c in closing):
+        problems.append(f"{a['advance_id']}: no daily closing sheet on {a['date']} to carry its owner cash")
 if problems: sys.exit("RECONCILIATION FAILED (daily closing): " + "; ".join(problems))
 for w in warnings: print("WARNING:", w)
 open_items = [dict(r, amount=I(r["amount"])) for r in rd("open_items.csv")]

@@ -568,7 +568,7 @@ function overview() {
   setVal('o-30', w30.cur, true); $('o-30d').replaceChildren(delta(w30.cur / w30.cn * 7, w30.pn ? w30.prev / w30.pn * 7 : 0, 'the ' + w30.pn + ' days before', ' a week'));
   $('o-30c').textContent = 'Sales ' + inr(w30.cs) + ' · ' + inr(w30.cs / w30.cn) + ' a day';
   mixSummary($('o-mix'), true);
-  setVal('o-fund', D.fundPaid); $('o-fund-c').textContent = D.L.length + ' transactions' + (D.advNew ? ' + ' + inr(D.advNew) + ' Nov cash advance' : '') + (D.SETdirect ? ' + ' + inr(D.SETdirect) + ' supplier settlements' : '') + ' · includes ' + inr(D.deposit) + ' refundable deposit';
+  setVal('o-fund', D.fundPaid); $('o-fund-c').textContent = D.L.length + ' transactions' + (D.advNew ? ' + ' + inr(D.advNew) + ' Nov cash advances' : '') + (D.SETdirect ? ' + ' + inr(D.SETdirect) + ' supplier settlements' : '') + ' · includes ' + inr(D.deposit) + ' refundable deposit';
   setVal('o-fund-ex', D.fundPaid - D.deposit);
   const fc = D.funding_classes, parts = [
     ['Pre-opening, excl. deposit', fc['Pre-opening investment'] - D.deposit, 'var(--gold)'], ['Refundable deposit', D.deposit, 'var(--beige)'],
@@ -633,6 +633,7 @@ function curPeriod() {
   if (t.other) row(rows, 'Electricity and Firoz salary', '', inr(-t.other));
   row(rows, 'Operating result', 'sales minus all costs incurred', inr(t.result), 'sum');
   row(rows, 'Cash result', 'sales minus everything actually paid', inr(t.cash), t.cash < 0 ? 'neg' : 'pos');
+  if (t.owner) row(rows, 'Owner additional cash', 'cash advances put into the till, not revenue', '+' + inr(t.owner));
   const cr = d3.sum(Object.values(D.cur.supplier_due).filter(v => v < 0)); row(rows, 'Supplier due carried forward', 'Grand Total Due' + (cr ? ', after ' + inr(-cr) + ' supplier credit' : ''), inr(D.NEWDUE), D.NEWDUE ? 'neg' : 'pos');
   if (t.wDue || D.STAFFDUE) row(rows, 'Staff salary payable', 'unpaid / pending', inr(D.STAFFDUE), D.STAFFDUE ? 'neg' : 'pos');
   $('o-cur-note').textContent = 'Purchases count once, on the day of the bill. Paying a due later lowers the Grand Total Due and the cash, never adds a second expense. Operating result = cash result − supplier due carried forward' + (D.STAFFDUE ? ' − unpaid staff wages' : '') + '.';
@@ -643,9 +644,9 @@ function histPosition() {
   row(rows, 'Historical cash-flow shortfall', H.days + ' days to ' + fd(D.period_closed) + ', cash actually paid', inr(H.CUM), H.CUM < 0 ? 'neg' : 'pos');
   row(rows, D.SET ? 'Historical supplier liabilities' : 'Historical unpaid supplier liabilities', 'bought before 16 Nov, not paid from operations' + (D.SET ? ', full amount incurred' : ''), inr(-D.HD), 'neg');
   row(rows, 'Total historical operating shortfall', 'including unpaid liabilities', inr(H.ECON), 'sum');
-  row(rows, 'Of the liabilities: settled by owner', !D.SET ? 'none yet' : D.SETadv ? 'paid by GKU from the owner\'s ' + D.newAdv.map(a => inr(a.amount)).join(' + ') + ' advance' : 'owner-funded settlements', inr(D.SET), D.SET && !D.DUES ? 'pos' : '');
+  row(rows, 'Of the liabilities: settled by owner', !D.SET ? 'none yet' : D.SETadv ? 'paid by GKU from the owner\'s ' + D.newAdv.filter(a => a.funds_used).map(a => inr(a.amount)).join(' + ') + ' advance' : 'owner-funded settlements', inr(D.SET), D.SET && !D.DUES ? 'pos' : '');
   row(rows, 'Of the liabilities: still outstanding', D.DUES ? 'owner to settle' : 'fully settled', inr(D.DUES), D.DUES ? 'neg' : 'pos');
-  row(rows, 'Owner funding actually paid', D.advNew ? 'to date, incl. ' + inr(D.advNew) + ' Nov cash advance' : 'to date', inr(D.fundPaid), 'tot');
+  row(rows, 'Owner funding actually paid', D.advNew ? 'to date, incl. ' + inr(D.advNew) + ' Nov cash advances' : 'to date', inr(D.fundPaid), 'tot');
   $('o-hist-note').textContent = 'The liabilities belong to the period before 16 Nov, so they count in the total historical operating shortfall. Settling them lowers the outstanding balance. The owner money used is counted once in owner funding, either as a direct payment or, as here, through the cash advance that paid them. The settlement is never counted as an expense, and the cash-flow and total operating shortfalls do not change.';
 }
 function duesCard(id) {
@@ -816,7 +817,7 @@ function investment() {
     e.onclick = () => { ['lg-q', 'lg-exp', 'lg-src', 'lg-stk', 'lg-per'].forEach(id => $(id).value = ''); $('lg-cat').value = c; $('lg-flag').checked = false; ledgerTable(); $('ledger-card').scrollIntoView({ behavior: 'smooth', block: 'start' }); };
     return e; }));
   const pa = $('post-adv'); pa.replaceChildren();
-  D.cash_advances.forEach(a => row(pa, a.given_to, a.source_transaction ? a.source_transaction + ' · date not confirmed' : a.advance_id + ' · ' + fd(a.date) + ' · settled historical dues, ' + inr(a.remainder) + ' into the till', inr(a.amount)));
+  D.cash_advances.forEach(a => row(pa, a.given_to, a.source_transaction ? a.source_transaction + ' · date not confirmed' : a.advance_id + ' · ' + fd(a.date) + (a.funds_used ? ' · settled historical dues, ' + inr(a.remainder) + ' into the till' : ' · into daily cash as owner additional cash'), inr(a.amount)));
   row(pa, 'Total cash advances', '', inr(D.advAll), 'tot');
   const po = $('post-oct'); po.replaceChildren(); const who = { 'LSI-143': 'Firoz, operations salary', 'LSI-144': 'GKU, management salary', 'LSI-145': 'Electricity, October only' };
   D.ownerCosts.forEach(r => row(po, who[r.transaction_id] || r.original_description, r.transaction_id + ' · October 2026', inr(r.amount_inr)));
@@ -869,7 +870,7 @@ function cashTab() {
   duesCard('c-due'); curCash(); wageDues(); supplierTracker();
   stack($('c-bar'), [[D.advAll, 'var(--kraft)'], [D.OC, 'var(--c-juice)'], [D.stockOwner, 'var(--c-stock)']], D.advAll + D.direct);
   const cs = $('c-split'); cs.replaceChildren();
-  splitRow(cs, 'var(--kraft)', 'Cash advances to manager', inr(D.advAll), 'GKU, Ukku, Nauman' + (D.advNew ? ' · incl. ' + inr(D.advNew) + ' to GKU, ' + fd(D.newAdv[0].date) : ''));
+  splitRow(cs, 'var(--kraft)', 'Cash advances to manager', inr(D.advAll), 'GKU, Ukku, Nauman' + (D.advNew ? ' · incl. ' + D.newAdv.map(a => inr(a.amount) + ' to ' + a.given_to + ', ' + fd(a.date)).join(' and ') : ''));
   splitRow(cs, 'var(--c-juice)', 'October costs paid by owner', inr(D.OC), 'management salaries and electricity');
   splitRow(cs, 'var(--c-stock)', 'Owner-Funded Stock', inr(D.stockOwner), 'cool drinks');
   const has = k => book.length && book.every(r => (r[k] || '').trim() !== ''), sum = k => d3.sum(book, r => +r[k] || 0);
@@ -891,7 +892,7 @@ function cashTab() {
   line('Cash variance', 'counted minus expected', counted != null && expected != null ? inr(counted - expected) : null);
   const fr = row(box, 'Additional funding required', 'once expected cash and upcoming bills are known', 'Cannot be determined yet', 'sum'); fr.className = 'nyr';
   const ar = $('adv-reg'); ar.replaceChildren();
-  D.cash_advances.forEach(a => row(ar, a.given_to, a.advance_id + ' · ' + (a.date ? fd(a.date) : 'date not confirmed') + (a.remainder != null ? ' · ' + inr(a.funds_used) + ' historical dues, ' + inr(a.remainder) + ' into the till' : ''), inr(a.amount)));
+  D.cash_advances.forEach(a => row(ar, a.given_to, a.advance_id + ' · ' + (a.date ? fd(a.date) : 'date not confirmed') + (a.remainder != null ? (a.funds_used ? ' · ' + inr(a.funds_used) + ' historical dues, ' + inr(a.remainder) + ' into the till' : ' · owner additional cash on the daily sheet') : ''), inr(a.amount)));
   row(ar, 'Total', '', inr(D.advAll), 'tot');
   const od = $('owner-direct'); od.replaceChildren();
   const who = { 'LSI-143': 'Firoz, October management salary', 'LSI-144': 'GKU, October management salary', 'LSI-145': 'October electricity' };
@@ -905,7 +906,7 @@ function curCash() {
   const tb = $('c-cur-tbl'); tb.replaceChildren();
   const hd = el('tr'); ['Day', 'Opening', 'Sales', 'Purchases paid', 'Wages & rent', 'Dues paid', 'Closing', 'Grand due'].forEach(h => hd.appendChild(el('th', null, h))); tb.appendChild(el('thead')).appendChild(hd);
   const body = tb.appendChild(el('tbody'));
-  cl.forEach(c => { const r = el('tr'); [fd(c.date), inr(+c.opening_cash), inr(+c.total_sales) + (c.cash_assumed ? '*' : ''), inr(-(c.paid_total - c.due_paid)), inr(-c.staff_paid), inr(-c.due_paid), inr(+c.closing_cash), inr(c.grand_calc)].forEach(v => r.appendChild(el('td', null, v))); body.appendChild(r); });
+  cl.forEach(c => { const r = el('tr'); [fd(c.date), inr(+c.opening_cash) + (+c.owner_cash ? ' +' + inr(+c.owner_cash) + ' owner' : ''), inr(+c.total_sales) + (c.cash_assumed ? '*' : ''), inr(-(c.paid_total - c.due_paid)), inr(-c.staff_paid), inr(-c.due_paid), inr(+c.closing_cash), inr(c.grand_calc)].forEach(v => r.appendChild(el('td', null, v))); body.appendChild(r); });
   const t = $('c-cur').querySelector('.note'); if (cl.some(c => c.cash_assumed)) t.textContent = t.textContent.replace(/ \* .*$/, '') + ' * Cash sales not split from UPI on the sheet, so all sales are treated as cash.';
   $('c-ndue-total').textContent = inr(-D.NEWDUE);
   const rows = $('c-ndue-rows'); rows.replaceChildren();
@@ -1039,7 +1040,7 @@ function records() {
     'October management salaries and electricity (' + inr(D.OC) + ') have no confirmed payment dates.',
     'Daily ledger stock purchases (' + inr(unv) + '): funding source not yet verified.',
     D.DUES ? 'Historical supplier outstanding to ' + fd(D.period_closed) + ': ' + inr(D.DUES) + ' of ' + inr(D.HD) + ' unpaid, owner to settle. Confirmed genuine by operations, no duplication with daily expenses.'
-      : 'Historical supplier outstanding to ' + fd(D.period_closed) + ' (' + inr(D.HD) + ') fully settled, confirmed by GKU. Paid from the owner\'s ' + D.newAdv.map(a => inr(a.amount)).join(' + ') + ' cash advance; ' + D.newAdv.map(a => inr(a.remainder) + ' left goes into the ' + fd(a.till_date) + ' opening cash').join('; ') + '.',
+      : 'Historical supplier outstanding to ' + fd(D.period_closed) + ' (' + inr(D.HD) + ') fully settled, confirmed by GKU. Paid from the owner\'s ' + D.newAdv.filter(a => a.funds_used).map(a => inr(a.amount)).join(' + ') + ' cash advance; ' + D.newAdv.filter(a => a.funds_used).map(a => inr(a.remainder) + ' left goes into the ' + fd(a.till_date) + ' opening cash').join('; ') + '.',
     ...(D.cur.closing.some(c => c.cash_assumed) ? ['From 16 Nov: cash sales and UPI sales are not split on the Daily Closing sheet, so closing cash treats all sales as cash.'] : []),
     ...(D.cur.closing.some(c => !c.checked_by_gku) ? ['From 16 Nov: the Checked by GKU line is blank on ' + D.cur.closing.filter(c => !c.checked_by_gku).length + ' sheet(s).'] : []),
     ...(D.cur.closing.length ? ['Reported opening cash on ' + fd(D.cur.closing[0].date) + ' (' + inr(+D.cur.closing[0].opening_cash) + ') differs from the 15 Nov estimate (' + inr(D.adv + D.H.T - (D.tastingFromAdv ? D.tasting : 0)) + '). Reason to be confirmed.'] : []),
