@@ -429,6 +429,11 @@ footer { color: var(--muted); font-size: 12px; text-align: center; letter-spacin
       <div class="items" id="c-ndue-rows"></div>
       <p class="note">New-period dues only, carried forward day by day. Kept separate from the historical supplier outstanding to 15 Nov. When a due is paid it reduces this balance. It is not counted again as an expense.</p>
     </div>
+    <div class="card duecard" id="c-wdue">
+      <div class="cc-head"><div><span class="lbl">Unpaid staff wages</span><span class="val neg" id="c-wdue-total">—</span></div><span class="pill">Owed to staff</span></div>
+      <div class="items" id="c-wdue-rows"></div>
+      <p class="note">Wages earned but not paid because cash was short. Counted as a cost on the day it was earned. When it is paid it comes out of cash and clears this balance, never a second expense. Kept separate from supplier dues.</p>
+    </div>
     <div class="card" id="spt">
       <h3>Supplier Payment Tracker</h3>
       <p class="note">Purchases, payments and balances for each supplier from 16 Nov. Balances carry forward day to day. The period shows that week's activity; balances are as of its closing date. Historical supplier outstanding to 15 Nov is not included.</p>
@@ -542,9 +547,9 @@ function model(j) {
   const HD = d3.sum(hist, x => x.amount), SET = d3.sum(hist, x => x.settled), DUES = HD - SET, SETdirect = d3.sum(settlements.filter(x => !x.funded_from), x => x.amount), SETadv = SET - SETdirect;
   const hd = daily.filter(x => x.date <= j.period_closed), HS = d3.sum(hd, x => x.sales), HE = d3.sum(hd, x => x.spend);
   const HCUM = HS - HE - OC - tasting, H = { days: hd.length, S: HS, E: HE, T: HS - HE, CUM: HCUM, ECON: HCUM - HD };
-  const cur = j.current || { closing: [], purchases: [], due_payments: [], grand_due: 0, supplier_due: {} }, NEWDUE = cur.grand_due || 0;
+  const cur = j.current || { closing: [], purchases: [], due_payments: [], grand_due: 0, supplier_due: {} }, NEWDUE = cur.grand_due || 0, STAFFDUE = cur.staff_due || 0;
   const tastingFromAdv = (j.pending || []).some(p => /launch tasting/i.test(p.item) && /advance/i.test(p.funded_from || ''));
-  return { ...j, cur, NEWDUE, payables, settlements, hist, HD, SET, SETdirect, SETadv, DUES, H, newAdv, advNew, advAll: adv + advNew, fundPaid: fundTotal + advNew + SETdirect, tastingFromAdv, daily, weeks, cats, L, ownerCosts, tasting, S, E, T: S - E, OC, OP: S - E - OC, CUM: S - E - OC - tasting + NEWDUE, fundTotal, adv, stockOwner, direct: OC + stockOwner };
+  return { ...j, cur, NEWDUE, STAFFDUE, payables, settlements, hist, HD, SET, SETdirect, SETadv, DUES, H, newAdv, advNew, advAll: adv + advNew, fundPaid: fundTotal + advNew + SETdirect, tastingFromAdv, daily, weeks, cats, L, ownerCosts, tasting, S, E, T: S - E, OC, OP: S - E - OC, CUM: S - E - OC - tasting + NEWDUE + STAFFDUE, fundTotal, adv, stockOwner, direct: OC + stockOwner };
 }
 function win(k) { const d = D.daily, n = d.length, cur = d.slice(-k), prev = d.slice(Math.max(0, n - 2 * k), n - k); return { cur: d3.sum(cur, x => x.net), prev: d3.sum(prev, x => x.net), pn: prev.length, cn: cur.length, cs: d3.sum(cur, x => x.sales) }; }
 
@@ -609,8 +614,8 @@ function curTotals() {
   const cl = D.cur.closing, P_ = D.cur.purchases;
   const t = { days: cl.length, sales: d3.sum(cl, c => +c.total_sales), bills: d3.sum(P_, p => p.bill), paid: d3.sum(P_, p => p.paid), due: d3.sum(P_, p => p.due),
     wages: d3.sum(cl, c => +c.staff_wages || 0), rent: d3.sum(cl, c => +c.shop_rent || 0), gku: d3.sum(cl, c => +c.gku_salary || 0), room: d3.sum(cl, c => +c.room_rent || 0),
-    other: d3.sum(cl, c => (+c.electricity || 0) + (+c.firoz_salary || 0)), duePaid: d3.sum(D.cur.due_payments, x => x.amount), owner: d3.sum(cl, c => +c.owner_cash || 0) };
-  t.staff = t.wages + t.rent + t.gku + t.room + t.other; t.result = t.sales - t.bills - t.staff; t.cash = t.sales - t.paid - t.staff - t.duePaid;
+    other: d3.sum(cl, c => (+c.electricity || 0) + (+c.firoz_salary || 0)), duePaid: d3.sum(D.cur.due_payments, x => x.amount), owner: d3.sum(cl, c => +c.owner_cash || 0), wDue: d3.sum(cl, c => c.wage_due_added || 0), wPaid: d3.sum(cl, c => c.wage_due_paid || 0) };
+  t.staff = t.wages + t.wDue + t.rent + t.gku + t.room + t.other; t.result = t.sales - t.bills - t.staff; t.cash = t.sales - t.paid - (t.staff - t.wDue) - t.duePaid - t.wPaid;
   return t;
 }
 function curPeriod() {
@@ -621,7 +626,7 @@ function curPeriod() {
   const v = $('o-cur-total'); v.textContent = inr(t.result); v.classList.toggle('neg', t.result < 0); v.classList.toggle('pos', t.result >= 0);
   row(rows, 'Sales', 'kitchen, juice and counter', inr(t.sales));
   row(rows, 'Supplier purchases', 'full bill value, paid or not', inr(-t.bills));
-  row(rows, 'Daily staff wages', '', inr(-t.wages));
+  row(rows, 'Daily staff wages', t.wDue ? 'incl. ' + inr(t.wDue) + ' not yet paid' : '', inr(-(t.wages + t.wDue)));
   row(rows, 'Shop rent', '', inr(-t.rent));
   row(rows, 'GKU salary', 'paid daily from the till', inr(-t.gku));
   row(rows, 'Room rent', t.room ? '' : 'from 18 Nov', inr(-t.room));
@@ -629,7 +634,8 @@ function curPeriod() {
   row(rows, 'Operating result', 'sales minus all costs incurred', inr(t.result), 'sum');
   row(rows, 'Cash result', 'sales minus everything actually paid', inr(t.cash), t.cash < 0 ? 'neg' : 'pos');
   const cr = d3.sum(Object.values(D.cur.supplier_due).filter(v => v < 0)); row(rows, 'Supplier due carried forward', 'Grand Total Due' + (cr ? ', after ' + inr(-cr) + ' supplier credit' : ''), inr(D.NEWDUE), D.NEWDUE ? 'neg' : 'pos');
-  $('o-cur-note').textContent = 'Purchases count once, on the day of the bill. Paying a due later lowers the Grand Total Due and the cash, never adds a second expense. Operating result = cash result − supplier due carried forward.';
+  if (t.wDue || D.STAFFDUE) row(rows, 'Unpaid staff wages', 'balance owed to staff', inr(D.STAFFDUE), D.STAFFDUE ? 'neg' : 'pos');
+  $('o-cur-note').textContent = 'Purchases count once, on the day of the bill. Paying a due later lowers the Grand Total Due and the cash, never adds a second expense. Operating result = cash result − supplier due carried forward' + (D.STAFFDUE ? ' − unpaid staff wages' : '') + '.';
 }
 function histPosition() {
   const H = D.H, rows = $('o-hist-rows'); rows.replaceChildren();
@@ -726,10 +732,12 @@ function operations() {
   row(br, 'Operating result', '', inr(D.OP), 'tot ' + (D.OP >= 0 ? 'pos' : 'neg'));
   row(br, 'Launch tasting', '26–27 Sep, paid from cash advances', inr(-D.tasting));
   if (D.NEWDUE) row(br, 'Supplier bills from 16 Nov not yet paid', 'in expenses at bill value, added back for the cash view', '+' + inr(D.NEWDUE));
+  if (D.STAFFDUE) row(br, 'Staff wages not yet paid', 'in expenses, added back for the cash view', '+' + inr(D.STAFFDUE));
   row(br, 'Cumulative cash-flow ' + (D.CUM < 0 ? 'shortfall' : 'surplus'), 'since opening, cash view', inr(D.CUM), 'sum');
   if (D.HD) row(br, 'Historical supplier liabilities to ' + fd(D.period_closed), D.DUES ? inr(D.DUES) + ' still outstanding' : 'settled ' + fd(d3.max(D.hist, x => x.last_paid)) + (D.SETadv ? ' from the owner\'s cash advance' : ' by owner'), inr(-D.HD), '', { text: D.DUES ? 'Unpaid' : 'Settled' });
   if (D.NEWDUE) row(br, 'Supplier due from 16 Nov', 'Grand Total Due', inr(-D.NEWDUE), '', { text: 'Unpaid' });
-  if (D.HD || D.NEWDUE) row(br, 'Total operating shortfall incl. liabilities', '', inr(D.CUM - D.HD - D.NEWDUE), 'sum');
+  if (D.STAFFDUE) row(br, 'Unpaid staff wages', 'balance owed to staff', inr(-D.STAFFDUE), '', { text: 'Unpaid' });
+  if (D.HD || D.NEWDUE || D.STAFFDUE) row(br, 'Total operating shortfall incl. liabilities', '', inr(D.CUM - D.HD - D.NEWDUE - D.STAFFDUE), 'sum');
   $('periods').replaceChildren(...[[7, 'Last 7 days'], [30, 'Last 30 days']].map(([k, lab]) => { const w = win(k), t = el('div', 'kpi sm-val');
     t.append(el('span', 'lbl', lab + ' result'), el('span', 'val ' + (w.cur >= 0 ? 'pos' : 'neg'), inr(w.cur)), delta(w.cur / w.cn * 7, w.pn ? w.prev / w.pn * 7 : 0, k === 7 ? 'previous 7 days' : 'the ' + w.pn + ' days before', k === 7 ? '' : ' a week'), el('span', 'ctx', 'Sales ' + inr(w.cs) + ' · ' + inr(w.cs / w.cn) + ' a day')); return t; }));
   const months = d3.rollups(d, v => ({ days: v.length, sales: d3.sum(v, x => x.sales), spend: d3.sum(v, x => x.spend) }), x => x.date.slice(0, 7)).sort((a, b) => a[0] < b[0] ? -1 : 1);
@@ -858,7 +866,7 @@ function cashTab() {
   const adv = D.adv, book = D.cashbook || [], NYR = 'Not yet reconcilable';
   cashStatus($('cash-status')); setVal('c-adv', D.advAll); setVal('c-direct', D.direct);
   operatingCash($('c-oc'), $('c-oc-rows'), $('c-oc-note'), $('c-oc-pill'));
-  duesCard('c-due'); curCash(); supplierTracker();
+  duesCard('c-due'); curCash(); wageDues(); supplierTracker();
   stack($('c-bar'), [[D.advAll, 'var(--kraft)'], [D.OC, 'var(--c-juice)'], [D.stockOwner, 'var(--c-stock)']], D.advAll + D.direct);
   const cs = $('c-split'); cs.replaceChildren();
   splitRow(cs, 'var(--kraft)', 'Cash advances to manager', inr(D.advAll), 'GKU, Ukku, Nauman' + (D.advNew ? ' · incl. ' + inr(D.advNew) + ' to GKU, ' + fd(D.newAdv[0].date) : ''));
@@ -909,6 +917,14 @@ function curCash() {
   row(rows, 'Grand Total Due', cred.length ? 'unpaid balances less supplier credit, matches the sheet' : 'matches the sheet', inr(D.NEWDUE), 'sum');
 }
 
+function wageDues() {
+  const sd = D.cur.staff_dues || [], card = $('c-wdue');
+  if (!sd.length) { card.hidden = true; return; }
+  $('c-wdue-total').textContent = inr(-D.STAFFDUE);
+  const rows = $('c-wdue-rows'); rows.replaceChildren();
+  sd.forEach(x => row(rows, fd(x.date) + (x.type === 'Unpaid' ? ' · not paid' : ' · paid'), x.notes, inr(x.type === 'Unpaid' ? x.amount : -x.amount), x.type === 'Paid' ? 'pos' : ''));
+  row(rows, 'Balance owed to staff', '', inr(D.STAFFDUE), 'sum');
+}
 const ST = { per: 'this', stat: 'all' };
 function supplierTracker() {
   const card = $('spt'), cl = D.cur.closing;
@@ -1001,6 +1017,7 @@ function records() {
     ['Launch tasting', 'Sample food before opening (₹43,564), paid from the operational cash advances. Not additional owner funding.'],
     ['Historical supplier liabilities', 'Supplier balances (' + inr(D.HD) + ') for purchases made before 16 Nov and not yet paid. They belong to the historical period, so they count in the total historical operating shortfall, but not in the cash-flow shortfall, the manager\'s operating cash or owner funding.'],
     ['Current period (from 16 Nov)', 'Recorded from the Daily Closing sheet. Each supplier bill counts as an expense once, on the bill date, at full value. Unpaid amounts go into the Grand Total Due. A later payment against a due reduces the due and the cash, and is never counted as a new expense.'],
+    ['Unpaid staff wages', 'Wages earned but not yet paid because cash was short, such as the ₹3,900 balance on 25 Nov. A cost on the day it was earned and a balance owed to staff. Paying it later reduces cash and the balance, never a second expense.'],
     ['Grand Total Due', 'Supplier dues from 16 Nov carried forward: previous balance plus new dues minus payments against dues. Separate from the historical supplier outstanding to 15 Nov.'],
     ['GKU salary and room rent', 'From 16 Nov GKU\'s salary is paid daily from the till and shown on its own line, separate from daily staff wages and shop rent. Room rent is also shown separately.'],
     ['Additional operational cash advance', 'Owner cash given to the manager after opening, such as the ₹32,000 to GKU on 23 Nov. It is owner funding and working capital, never revenue. What it pays for is not counted as funding again.'],
@@ -1022,7 +1039,8 @@ function records() {
     ...(D.cur.closing.some(c => !c.checked_by_gku) ? ['From 16 Nov: the Checked by GKU line is blank on ' + D.cur.closing.filter(c => !c.checked_by_gku).length + ' sheet(s).'] : []),
     ...(D.cur.closing.length ? ['Reported opening cash on ' + fd(D.cur.closing[0].date) + ' (' + inr(+D.cur.closing[0].opening_cash) + ') differs from the 15 Nov estimate (' + inr(D.adv + D.H.T - (D.tastingFromAdv ? D.tasting : 0)) + '). Reason to be confirmed.'] : []),
     ...(D.cur.warnings || []),
-    ...(D.cur.open_items || []).map(o => fd(o.date) + ': ' + o.item + ', about ' + inr(o.amount) + '. ' + o.status + '. ' + o.notes),
+    ...(D.STAFFDUE ? ['Unpaid staff wages: ' + inr(D.STAFFDUE) + ' owed to staff (' + (D.cur.staff_dues || []).filter(x => x.type === 'Unpaid').map(x => fd(x.date) + ' ' + inr(x.amount)).join(', ') + '). Wages could not be paid in full because cash was short.'] : []),
+    ...(D.cur.open_items || []).filter(o => o.status !== 'Resolved').map(o => fd(o.date) + ': ' + o.item + ', about ' + inr(o.amount) + '. ' + o.status + '. ' + o.notes),
     'Period up to ' + fd(D.period_closed) + ' is closed. From ' + fd(d3.utcFormat('%Y-%m-%d')(d3.utcDay.offset(P(D.period_closed), 1))) + ' the manager uses the new daily template.',
     'Dates of the three cash advances before 16 Nov are not confirmed, and payment method is not recorded for any expense before 16 Nov.',
     'Sales mix: ' + m.complete.length + ' complete, ' + m.partial.length + ' partial and ' + m.est.length + ' estimated reporting days so far.',

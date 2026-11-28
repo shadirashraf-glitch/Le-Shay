@@ -36,9 +36,13 @@ SUPPLIER = {"Fish": "Fish / Water", "Banana": "Banana / Ice cream"}
 canon = lambda n: SUPPLIER.get(n.strip(), n.strip())
 purch = [dict(r, supplier=canon(r["supplier"]), sheet_name=r["supplier"], bill=I(r["bill"]), paid=I(r["paid"]), due=I(r["due"])) for r in rd("purchases.csv")]
 duepay = [dict(r, supplier=canon(r["supplier"]), amount=I(r["amount"])) for r in rd("due_payments.csv")]
+# Unpaid staff wages: "Unpaid" adds a cost and a balance owed to staff; "Paid" clears it from cash, never a second expense
+sdues = [dict(r, amount=I(r["amount"])) for r in rd("staff_dues.csv")]
+for x in sdues:
+    if x["type"] not in ("Unpaid", "Paid"): sys.exit(f"RECONCILIATION FAILED: staff_dues type {x['type']}")
 STAFF = [("staff_wages", "Daily staff wages", "Staff"), ("shop_rent", "Shop rent", "Rent"), ("gku_salary", "GKU salary", "GKU salary"),
          ("room_rent", "Room rent", "Room rent"), ("electricity", "Electricity", "Utilities & misc"), ("firoz_salary", "Firoz salary", "Firoz salary")]
-problems, warnings, grand, sup_due, prev_close = [], [], 0, {}, None
+problems, warnings, grand, sup_due, prev_close, wage_due = [], [], 0, {}, None, 0
 for c in closing:
     d = c["date"]; k, j_, ct, tot = I(c["kitchen"]), I(c["juice"]), I(c["counter"]), I(c["total_sales"])
     if k + j_ + ct != tot: problems.append(f"{d}: sections {k}+{j_}+{ct} != total {tot}")
@@ -64,7 +68,12 @@ for c in closing:
         warnings.append(f"{fmt(d)}: opening cash {I(c['opening_cash']):,} differs from expected {prev_close + into_till:,} (previous closing {prev_close:,} + advance remainder {into_till:,})")
     c["into_till"] = into_till
     cash_in = I(c["cash_sales"]) if c["cash_sales"].strip() else tot
-    calc = I(c["opening_cash"]) + I(c["owner_cash"]) + cash_in - I(c["paid_total"]) - staff_paid
+    w_add = sum(x["amount"] for x in sdues if x["date"] == d and x["type"] == "Unpaid")
+    w_paid = sum(x["amount"] for x in sdues if x["date"] == d and x["type"] == "Paid")
+    if w_paid > wage_due + w_add: problems.append(f"{d}: staff due payments {w_paid} exceed unpaid wages {wage_due + w_add}")
+    wage_due += w_add - w_paid
+    c.update(wage_due_added=w_add, wage_due_paid=w_paid, wage_due=wage_due)
+    calc = I(c["opening_cash"]) + I(c["owner_cash"]) + cash_in - I(c["paid_total"]) - staff_paid - w_paid
     prev_close = calc
     c.update(staff_paid=staff_paid, due_paid=sum(x["amount"] for x in paid_dues), grand_calc=grand, closing_calc=calc, cash_assumed=not c["cash_sales"].strip())
     if c["closing_cash"].strip() and I(c["closing_cash"]) != calc: warnings.append(f"{d}: closing cash on sheet {c['closing_cash']} vs formula {calc}")
@@ -76,12 +85,13 @@ for c in closing:
         if (p.get("verify") or "").startswith("UNVERIFIED"):
             tag += " · unverified"; warnings.append(f"{fmt(d)}: {p['supplier']} {p['bill']:,} {p['verify'][len('UNVERIFIED: '):]}")
         exp.append({"date": d, "item": p["supplier"] + tag, "category": p["category"], "amount": p["bill"], "period": "current"})
+    if w_add: exp.append({"date": d, "item": "Daily staff wages · unpaid balance", "category": "Staff", "amount": w_add, "period": "current"})
     for f, label, cat in STAFF:
         if I(c[f]): exp.append({"date": d, "item": label, "category": cat, "amount": I(c[f]), "period": "current"})
 if problems: sys.exit("RECONCILIATION FAILED (daily closing): " + "; ".join(problems))
 for w in warnings: print("WARNING:", w)
 open_items = [dict(r, amount=I(r["amount"])) for r in rd("open_items.csv")]
-current = {"open_items": open_items, "from": CUR_FROM, "closing": closing, "purchases": purch, "due_payments": duepay, "grand_due": grand,
+current = {"staff_dues": sdues, "staff_due": wage_due, "open_items": open_items, "from": CUR_FROM, "closing": closing, "purchases": purch, "due_payments": duepay, "grand_due": grand,
            "supplier_due": {k: v for k, v in sup_due.items() if v}, "warnings": warnings,
            "unverified": sorted({p["supplier"] for p in purch if (p.get("verify") or "").startswith("UNVERIFIED")})}
 

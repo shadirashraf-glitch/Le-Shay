@@ -1,5 +1,5 @@
 {
-"updated": "2026-11-28T11:50+00:00",
+"updated": "2026-11-28T11:53+00:00",
 "sales": [
 {
 "date": "2026-09-28",
@@ -4662,6 +4662,13 @@
 },
 {
 "date": "2026-11-25",
+"item": "Daily staff wages · unpaid balance",
+"category": "Staff",
+"amount": 3900,
+"period": "current"
+},
+{
+"date": "2026-11-25",
 "item": "Daily staff wages",
 "category": "Staff",
 "amount": 2000,
@@ -7721,13 +7728,22 @@
 }
 ],
 "current": {
+"staff_dues": [
+{
+"date": "2026-11-25",
+"type": "Unpaid",
+"amount": 3900,
+"notes": "Salary balance for 25 Nov: wages could not be paid in full because cash and sales were short. Owner confirmed as a balance to pay."
+}
+],
+"staff_due": 3900,
 "open_items": [
 {
 "date": "2026-11-25",
 "item": "Salary balance (handwritten note on sheet)",
 "amount": 3900,
-"status": "Needs clarification",
-"notes": "Approximate. Not recorded as a paid expense or a liability until confirmed."
+"status": "Resolved",
+"notes": "Owner confirmed: unpaid wages balance. Recorded in staff_dues.csv."
 }
 ],
 "from": "2026-11-16",
@@ -7757,6 +7773,9 @@
 "checked_by_gku": "",
 "notes": "Cash sales field left blank on the sheet. Closing cash treats all sales as cash.",
 "into_till": 0,
+"wage_due_added": 0,
+"wage_due_paid": 0,
+"wage_due": 0,
 "staff_paid": 5250,
 "due_paid": 0,
 "grand_calc": 8116,
@@ -7788,6 +7807,9 @@
 "checked_by_gku": "",
 "notes": "Corrected per owner reconciliation: handwritten paid 7987 / wages 6035 / closing 4395 were arithmetic errors. Cash sales blank.",
 "into_till": 0,
+"wage_due_added": 0,
+"wage_due_paid": 0,
+"wage_due": 0,
 "staff_paid": 6350,
 "due_paid": 3261,
 "grand_calc": 7723,
@@ -7819,6 +7841,9 @@
 "checked_by_gku": "",
 "notes": "Opening corrected to 4128 (17 Nov corrected closing); sheet showed opening 4395 and closing 5135. Room rent 535 written in the electricity box. Cash sales blank.",
 "into_till": 0,
+"wage_due_added": 0,
+"wage_due_paid": 0,
+"wage_due": 0,
 "staff_paid": 8285,
 "due_paid": 0,
 "grand_calc": 12684,
@@ -7850,6 +7875,9 @@
 "checked_by_gku": "",
 "notes": "Opening corrected to 4868 (18 Nov corrected closing); sheet showed opening 5135 and closing 2531. Room rent 535 in the electricity box. Cash sales blank.",
 "into_till": 0,
+"wage_due_added": 0,
+"wage_due_paid": 0,
+"wage_due": 0,
 "staff_paid": 7785,
 "due_paid": 780,
 "grand_calc": 16704,
@@ -7881,6 +7909,9 @@
 "checked_by_gku": "",
 "notes": "Opening corrected to 2264 (19 Nov corrected closing); sheet showed opening 2531 and closing -782. Calculated closing is negative: verify additional funding or unrecorded cash movements. No owner advance assumed. Cash sales blank.",
 "into_till": 0,
+"wage_due_added": 0,
+"wage_due_paid": 0,
+"wage_due": 0,
 "staff_paid": 7485,
 "due_paid": 220,
 "grand_calc": 19115,
@@ -7915,6 +7946,9 @@
 " not verified cash. No owner advance assumed. Cash sales blank."
 ],
 "into_till": 0,
+"wage_due_added": 0,
+"wage_due_paid": 0,
+"wage_due": 0,
 "staff_paid": 7785,
 "due_paid": 410,
 "grand_calc": 26393,
@@ -7949,6 +7983,9 @@
 " not verified physical cash. Cash sales blank."
 ],
 "into_till": 0,
+"wage_due_added": 0,
+"wage_due_paid": 0,
+"wage_due": 0,
 "staff_paid": 7785,
 "due_paid": 0,
 "grand_calc": 27420,
@@ -7980,6 +8017,9 @@
 "checked_by_gku": "",
 "notes": "Opening 5974 = 22 Nov closing 5773 + 201 ADV-004 remainder (no owner cash entry). Sheet totals overwritten; owner-verified: purchases 20716 / paid 13785 / closing 1654. Handwritten grand due 33766 missed milk 585; corrected 34351. Cool drinks line read as 3690. Cash sales blank.",
 "into_till": 201,
+"wage_due_added": 0,
+"wage_due_paid": 0,
+"wage_due": 0,
 "staff_paid": 7485,
 "due_paid": 1774,
 "grand_calc": 34351,
@@ -8011,6 +8051,9 @@
 "checked_by_gku": "",
 "notes": "Opening corrected to 1654 (23 Nov corrected closing; sheet crossed out 1440). Handwritten closing 1757 used purchases instead of payments. Auto 50 confirmed paid same day by owner; closing 4541. Room rent 535 in the electricity box. Cash sales blank.",
 "into_till": 0,
+"wage_due_added": 0,
+"wage_due_paid": 0,
+"wage_due": 0,
 "staff_paid": 7485,
 "due_paid": 2168,
 "grand_calc": 37135,
@@ -8045,6 +8088,9 @@
 " unconfirmed. Room rent 535 in the electricity box. Cash sales blank."
 ],
 "into_till": 0,
+"wage_due_added": 3900,
+"wage_due_paid": 0,
+"wage_due": 3900,
 "staff_paid": 3685,
 "due_paid": 1570,
 "grand_calc": 39607,

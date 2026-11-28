@@ -1,2 +1,2 @@
 date,item,amount,status,notes
-2026-11-25,Salary balance (handwritten note on sheet),3900,Needs clarification,Approximate. Not recorded as a paid expense or a liability until confirmed.
+2026-11-25,Salary balance (handwritten note on sheet),3900,Resolved,Owner confirmed: unpaid wages balance. Recorded in staff_dues.csv.
