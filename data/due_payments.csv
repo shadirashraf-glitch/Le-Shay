@@ -15,3 +15,5 @@ date,supplier,amount,notes
 2026-11-25,Samoosa,220,Part payment of earlier samoosa due (440 paid: 220 today + 220 old due)
 2026-11-25,Milk,780,Clears 24 Nov milk due (1125 paid: 780 old due + 345 against today 670)
 2026-11-25,Kallumakkai,570,Part payment of earlier kallumakkai due (1500 paid: 930 today + 570 old due)
+2026-11-26,Milk,325,Clears 25 Nov milk due (670 paid: 325 old due + 345 against today 650)
+2026-11-26,Snack,1139,Part payment of earlier snack due (2449 paid: 1310 today + 1139 old due)
