@@ -115,3 +115,16 @@ date,supplier,category,bill,paid,due,bill_no,verify
 2026-11-24,Banana / Ice cream,Snacks & ice cream,100,100,0,970,
 2026-11-24,Auto,Utilities & misc,50,50,0,,Owner confirmed: paid same day (Auto is a daily-payment supplier)
 2026-11-24,Beef,"Meat, fish & eggs",1080,0,1080,7560,
+2026-11-25,Samoosa,Snacks & ice cream,220,220,0,660,
+2026-11-25,Anadhi,Groceries,2035,2035,0,,
+2026-11-25,Egg / Disposable / Handwash,"Meat, fish & eggs",334,334,0,,
+2026-11-25,Dosa mavu,Produce & batter,150,150,0,,
+2026-11-25,Fish / Water,"Meat, fish & eggs",640,640,0,520,
+2026-11-25,Room agreement / Waste,Utilities & misc,100,100,0,,Written as Waste / cooldrinks
+2026-11-25,Milk,Milk,670,345,325,325,
+2026-11-25,Vegetable,Produce & batter,867,0,867,4893,
+2026-11-25,Chicken,"Meat, fish & eggs",860,0,860,6738,
+2026-11-25,Snack,Snacks & ice cream,910,0,910,5850,
+2026-11-25,Kallumakkai,Snacks & ice cream,930,930,0,3301,
+2026-11-25,Petrol / Fruits,Produce & batter,200,200,0,,
+2026-11-25,Beef,"Meat, fish & eggs",1080,0,1080,8640,
