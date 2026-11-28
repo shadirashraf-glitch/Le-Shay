@@ -1,5 +1,5 @@
 {
-"updated": "2026-11-28T11:53+00:00",
+"updated": "2026-11-28T11:58+00:00",
 "sales": [
 {
 "date": "2026-09-28",
@@ -7730,10 +7730,28 @@
 "current": {
 "staff_dues": [
 {
+"payable_id": "SAL-001",
 "date": "2026-11-25",
+"category": "Staff Salary Payable",
 "type": "Unpaid",
 "amount": 3900,
-"notes": "Salary balance for 25 Nov: wages could not be paid in full because cash and sales were short. Owner confirmed as a balance to pay."
+"reason": "Insufficient operating cash",
+"notes": "Salary balance noted at the bottom of GKU's 25 Nov closing sheet. Could not be paid because sales and operating cash were short."
+}
+],
+"staff_payables": [
+{
+"payable_id": "SAL-001",
+"date": "2026-11-25",
+"category": "Staff Salary Payable",
+"type": "Unpaid",
+"amount": 3900,
+"reason": "Insufficient operating cash",
+"notes": "Salary balance noted at the bottom of GKU's 25 Nov closing sheet. Could not be paid because sales and operating cash were short.",
+"settled": 0,
+"outstanding": 3900,
+"last_paid": "",
+"status": "Unpaid / Pending"
 }
 ],
 "staff_due": 3900,

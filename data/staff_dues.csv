@@ -1,2 +1,2 @@
-date,type,amount,notes
-2026-11-25,Unpaid,3900,Salary balance for 25 Nov: wages could not be paid in full because cash and sales were short. Owner confirmed as a balance to pay.
+payable_id,date,category,type,amount,reason,notes
+SAL-001,2026-11-25,Staff Salary Payable,Unpaid,3900,Insufficient operating cash,Salary balance noted at the bottom of GKU's 25 Nov closing sheet. Could not be paid because sales and operating cash were short.

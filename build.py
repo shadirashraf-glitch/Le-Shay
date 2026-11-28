@@ -40,6 +40,14 @@ duepay = [dict(r, supplier=canon(r["supplier"]), amount=I(r["amount"])) for r in
 sdues = [dict(r, amount=I(r["amount"])) for r in rd("staff_dues.csv")]
 for x in sdues:
     if x["type"] not in ("Unpaid", "Paid"): sys.exit(f"RECONCILIATION FAILED: staff_dues type {x['type']}")
+# one register line per payable: amount, settled, outstanding, status (Paid rows reference the payable_id)
+payables_staff = []
+for x in [x for x in sdues if x["type"] == "Unpaid"]:
+    paid = [y for y in sdues if y["type"] == "Paid" and y["payable_id"] == x["payable_id"]]
+    st_ = sum(y["amount"] for y in paid)
+    if st_ > x["amount"]: sys.exit(f"RECONCILIATION FAILED: {x['payable_id']} settled {st_} > {x['amount']}")
+    payables_staff.append(dict(x, settled=st_, outstanding=x["amount"] - st_, last_paid=max((y["date"] for y in paid), default=""),
+                               status="Settled" if st_ == x["amount"] else ("Part paid" if st_ else "Unpaid / Pending")))
 STAFF = [("staff_wages", "Daily staff wages", "Staff"), ("shop_rent", "Shop rent", "Rent"), ("gku_salary", "GKU salary", "GKU salary"),
          ("room_rent", "Room rent", "Room rent"), ("electricity", "Electricity", "Utilities & misc"), ("firoz_salary", "Firoz salary", "Firoz salary")]
 problems, warnings, grand, sup_due, prev_close, wage_due = [], [], 0, {}, None, 0
@@ -91,7 +99,7 @@ for c in closing:
 if problems: sys.exit("RECONCILIATION FAILED (daily closing): " + "; ".join(problems))
 for w in warnings: print("WARNING:", w)
 open_items = [dict(r, amount=I(r["amount"])) for r in rd("open_items.csv")]
-current = {"staff_dues": sdues, "staff_due": wage_due, "open_items": open_items, "from": CUR_FROM, "closing": closing, "purchases": purch, "due_payments": duepay, "grand_due": grand,
+current = {"staff_dues": sdues, "staff_payables": payables_staff, "staff_due": wage_due, "open_items": open_items, "from": CUR_FROM, "closing": closing, "purchases": purch, "due_payments": duepay, "grand_due": grand,
            "supplier_due": {k: v for k, v in sup_due.items() if v}, "warnings": warnings,
            "unverified": sorted({p["supplier"] for p in purch if (p.get("verify") or "").startswith("UNVERIFIED")})}
 
